@@ -1,0 +1,594 @@
+{
+  "events": [
+    {
+      "id": "bfab",
+      "userId": "ffd0",
+      "title": "Wedding",
+      "date": "2026-01-08T00:00:00.000Z",
+      "location": {
+        "name": "Lancaster Hotel",
+        "town": "Nhyiaeso",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": false,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "a986",
+      "userId": "ffd0",
+      "title": "Wedding",
+      "date": [
+        "2026-01-06T00:00:00.000Z",
+        "2026-01-10T23:59:59.999Z"
+      ],
+      "location": {
+        "name": "Georgia Hotel",
+        "town": "Ahodwo",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "ab58",
+      "userId": "c9a1",
+      "title": "Church service",
+      "date": "2026-01-11T00:00:00.000Z",
+      "location": {
+        "name": "Miklin Hotel",
+        "town": "Dakwadwom",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": true,
+        "entertainment": false,
+        "design": true,
+        "hiring": false,
+        "transport": false,
+        "event": true,
+        "foodServices": false,
+        "beautician": true
+      }
+    },
+    {
+      "id": "1c01",
+      "userId": "19b3",
+      "title": "NSMQ",
+      "date": [
+        "2026-01-22T00:00:00.000Z",
+        "2026-02-12T23:59:59.999Z"
+      ],
+      "location": {
+        "name": "Aborah Hotel",
+        "town": "Atonsu",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": true,
+        "entertainment": false,
+        "design": true,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "c2f7",
+      "userId": "19b3",
+      "title": "Church",
+      "date": "2026-01-07T00:00:00.000Z",
+      "location": {
+        "name": "Sunset Hotel",
+        "town": "Danyame",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "j8c4",
+      "userId": "19b3",
+      "title": "School",
+      "date": "2026-03-07T00:00:00.000Z",
+      "location": {
+        "name": "Sunset Hotel",
+        "town": "Danyame",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": true,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "b5y2",
+      "userId": "19b3",
+      "title": "Birthday Party",
+      "date": "2026-02-07T00:00:00.000Z",
+      "location": {
+        "name": "Sunset Hotel",
+        "town": "Danyame",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": false,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "d1e9",
+      "userId": "19b3",
+      "title": "Mosque",
+      "date": "2026-01-07T00:00:00.000Z",
+      "location": {
+        "name": "Sunset Hotel",
+        "town": "Danyame",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "c3g8",
+      "userId": "19b3",
+      "title": "Wedding",
+      "date": "2026-01-07T00:00:00.000Z",
+      "location": {
+        "name": "Sunset Hotel",
+        "town": "Danyame",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "6ab5",
+      "userId": "19b3",
+      "title": "Dan's 22nd Birthday Party",
+      "date": "2026-02-22T00:00:00.000Z",
+      "location": {
+        "name": "Lancaster Hotel",
+        "town": "Nhyiaeso",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": true,
+        "design": true,
+        "hiring": false,
+        "transport": true,
+        "event": false,
+        "foodServices": false,
+        "beautician": false
+      }
+    },
+    {
+      "id": "21e5",
+      "userId": "19b3",
+      "title": "House Party",
+      "date": [
+        "2026-01-23T00:00:00.000Z",
+        "2026-01-28T23:59:59.999Z"
+      ],
+      "location": {
+        "name": "Georgia Hotel",
+        "town": "Ahodwo",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": false,
+        "event": true,
+        "foodServices": true,
+        "beautician": true
+      }
+    },
+    {
+      "id": "709b",
+      "userId": "76a2",
+      "title": "Wedding",
+      "date": [
+        "2026-06-20T00:00:00.000Z",
+        "2026-06-21T23:59:59.999Z"
+      ],
+      "location": {
+        "name": "Pedu Hotel",
+        "town": "Pedu",
+        "city": "Cape Coast",
+        "region": "Central"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": true,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "f57f",
+      "userId": "8fed",
+      "title": "Birthday",
+      "date": [
+        "2026-06-20T00:00:00.000Z",
+        "2026-06-21T23:59:59.999Z"
+      ],
+      "location": {
+        "name": "Lancaster Hotel",
+        "town": "Nhyiaeso",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "838b",
+      "userId": "19b3",
+      "title": "Coding",
+      "date": "2026-06-25T00:00:00.000Z",
+      "location": {
+        "name": "Hwidiem Hotel",
+        "town": "Hwidiem",
+        "city": "Sunyani",
+        "region": "Brong Ahafo"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": false,
+        "event": false,
+        "foodServices": true,
+        "beautician": true
+      }
+    },
+    {
+      "id": "8c90",
+      "userId": "19b3",
+      "title": "Typing",
+      "date": "2026-06-25T00:00:00.000Z",
+      "location": {
+        "name": "Aborah Hotel",
+        "town": "Atonsu",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": true,
+        "hiring": true,
+        "transport": false,
+        "event": false,
+        "foodServices": false,
+        "beautician": false
+      }
+    },
+    {
+      "id": "9689",
+      "userId": "19b3",
+      "title": "Cooking",
+      "date": [
+        "2026-06-27T00:00:00.000Z",
+        "2026-06-28T23:59:59.999Z"
+      ],
+      "location": {
+        "name": "Berekum Hotel",
+        "town": "Berekum",
+        "city": "Sunyani",
+        "region": "Brong Ahafo"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": false,
+        "beautician": false
+      }
+    },
+    {
+      "id": "1c6e",
+      "userId": "19b3",
+      "title": "Meeting",
+      "date": "2026-06-26T00:00:00.000Z",
+      "location": {
+        "name": "Bakano Hotel",
+        "town": "Bakano",
+        "city": "Cape Coast",
+        "region": "Central"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": true,
+        "design": true,
+        "hiring": false,
+        "transport": true,
+        "event": false,
+        "foodServices": false,
+        "beautician": false
+      }
+    },
+    {
+      "id": "9264",
+      "userId": "19b3",
+      "title": "Wedding",
+      "date": "2026-06-28T00:00:00.000Z",
+      "location": {
+        "name": "Berekum Hotel",
+        "town": "Berekum",
+        "city": "Sunyani",
+        "region": "Brong Ahafo"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": false,
+        "event": true,
+        "foodServices": true,
+        "beautician": true
+      }
+    },
+    {
+      "id": "8bdf",
+      "userId": "19b3",
+      "title": "Incoming event2",
+      "date": "2026-06-30T00:00:00.000Z",
+      "location": {
+        "name": "Berekum Hotel",
+        "town": "Berekum",
+        "city": "Sunyani",
+        "region": "Brong Ahafo"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": false,
+        "event": false,
+        "foodServices": true,
+        "beautician": true
+      }
+    },
+    {
+      "id": "fa6a",
+      "userId": "19b3",
+      "title": "Incoming event1",
+      "date": "2026-06-29T00:00:00.000Z",
+      "location": {
+        "name": "Lancaster Hotel",
+        "town": "Nhyiaeso",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": true,
+        "transport": true,
+        "event": false,
+        "foodServices": false,
+        "beautician": false
+      }
+    },
+    {
+      "id": "1916",
+      "userId": "ffd0",
+      "title": "Church",
+      "date": "2026-07-02T00:00:00.000Z",
+      "location": {
+        "name": "Georgia Hotel",
+        "town": "Ahodwo",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": false,
+        "event": false,
+        "foodServices": true,
+        "beautician": true
+      }
+    },
+    {
+      "id": "bff3",
+      "userId": "19b3",
+      "title": "School",
+      "date": "2026-07-17T00:00:00.000Z",
+      "location": {
+        "name": "Kenyasi Hotel",
+        "town": "Kenyasi",
+        "city": "Sunyani",
+        "region": "Brong Ahafo"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": false,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "2b28",
+      "userId": "19b3",
+      "title": "Cooking",
+      "date": "2026-07-03T00:00:00.000Z",
+      "location": {
+        "name": "Miklin Hotel",
+        "town": "Dakwadwom",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": true,
+        "hiring": true,
+        "transport": false,
+        "event": false,
+        "foodServices": false,
+        "beautician": false
+      }
+    },
+    {
+      "id": "0dd6",
+      "userId": "ffd0",
+      "title": "Reading",
+      "date": "2026-07-09T00:00:00.000Z",
+      "location": {
+        "name": "Aborah Hotel",
+        "town": "Atonsu",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": true,
+        "hiring": true,
+        "transport": true,
+        "event": false,
+        "foodServices": false,
+        "beautician": false
+      }
+    },
+    {
+      "id": "375b",
+      "userId": "ffd0",
+      "title": "Oye's 31st birthday",
+      "date": "2026-07-04T00:00:00.000Z",
+      "location": {
+        "name": "Berekum Hotel",
+        "town": "Berekum",
+        "city": "Sunyani",
+        "region": "Brong Ahafo"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": true,
+        "transport": false,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "08ff",
+      "userId": "ffd0",
+      "title": "cooking",
+      "date": "2026-07-08T00:00:00.000Z",
+      "location": {
+        "name": "Georgia Hotel",
+        "town": "Ahodwo",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": true,
+        "beautician": false
+      }
+    }
+  ]
+}

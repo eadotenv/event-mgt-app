@@ -1,0 +1,67 @@
+{
+  "users": [
+    {
+      "id": "8fed",
+      "firstname": "eve",
+      "lastname": "sam",
+      "email": "sam@gmail.com",
+      "password": "evenSam1"
+    },
+    {
+      "id": "76a2",
+      "firstname": "Dan",
+      "lastname": "Doe",
+      "email": "dan@gmail.com",
+      "password": "passWord2"
+    },
+    {
+      "id": "269f",
+      "firstname": "Linda",
+      "lastname": "Opoku",
+      "email": "lynda@gmail.com",
+      "password": "opokuLyn1"
+    },
+    {
+      "id": "19b3",
+      "firstname": "John",
+      "lastname": "Kusi",
+      "email": "jk@gmail.com",
+      "password": "opokuWare1"
+    },
+    {
+      "id": "ffd0",
+      "firstname": "Favor",
+      "lastname": "Peters",
+      "email": "fp@gmail.com",
+      "password": "petersFav1"
+    },
+    {
+      "id": "c9a1",
+      "firstname": "Ama",
+      "lastname": "Dede",
+      "email": "ama@gmail.com",
+      "password": "dedeAma1"
+    },
+    {
+      "id": "2eee",
+      "firstname": "Evelyn",
+      "lastname": "Owusu",
+      "email": "eve@gmail.com",
+      "password": "gmail.coM1"
+    },
+    {
+      "id": "b814",
+      "firstname": "Eben",
+      "lastname": "Doe",
+      "email": "doe@gmail.com",
+      "password": "ebenDoe1"
+    },
+    {
+      "id": "6151",
+      "firstname": "sly",
+      "lastname": "tetteh",
+      "email": "sly@gmail.com",
+      "password": "tettehSly1"
+    }
+  ]
+}

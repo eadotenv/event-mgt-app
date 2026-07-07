@@ -1,0 +1,224 @@
+@import "../App.css";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  background: linear-gradient(45deg, white, pink);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  gap: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  height: 65vh;
+  background: var(--surface);
+  position: relative;
+  width: clamp(360px, 90vw, 440px);
+  /* overflow: hidden; */
+}
+
+.sign-box {
+  width: clamp(360px, 90vw, 440px);
+  height: clamp(75vh, 78vh, 80vh);
+}
+
+.first-div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-head {
+  font-size: var(--text-xl);
+  font-family: "Roboto";
+}
+
+.login-text {
+  font-size: var(--text-md);
+}
+
+.login-text-link {
+  margin-left: 5px;
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.three-lines {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.left,
+.right {
+  flex-grow: 1;
+  width: 100%;
+  height: 1px;
+  background: #ccc;
+}
+
+.or {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mail-box,
+.password-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: var(--font-body);
+}
+
+.form-label {
+  color: var(--ink);
+  font-size: var(--text-md);
+  font-weight: 400;
+}
+
+.form-control {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: var(--text-base);
+  font-family: var(--font-body);
+  font-weight: 300;
+  outline: none;
+  border: 1px solid var(--border);
+  background: var(--input-bg);
+  width: 100%;
+}
+
+.form-control:focus {
+  border: 1px solid var(--accent);
+}
+
+.name-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.name-box {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.error-message {
+  color: red;
+  font-weight: 300;
+  font-size: var(--text-xs);
+}
+
+.psward {
+  position: relative;
+}
+
+.pass-eye {
+  position: absolute;
+  /* border: 1px solid red; */
+  right: 2%;
+  bottom: 10%;
+}
+.eye {
+  color: #888;
+}
+
+.login-btn {
+  padding-block: 10px;
+  border: none;
+  border-radius: 6px;
+  color: var(--card);
+  background: var(--ink);
+  font-size: var(--text-md);
+  font-family: var(--font-body);
+}
+
+.forgot {
+  display: flex;
+  justify-content: center;
+  font-size: var(--text-base);
+  font-family: var(--font-body);
+  margin-top: -15px;
+}
+
+/* Verification css */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-radius: 8px;
+  z-index: 99;
+  padding: 10px;
+  gap: 10px;
+  position: relative;
+  width: clamp(320px, 90vw, 460px);
+}
+
+.close-btn {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  border: none;
+  background: none;
+}
+
+.open {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+}
+
+.show-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  width: 100%;
+}
+
+.sign {
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  margin-top: -10px;
+}
+
+.service {
+  font-family: var(--font-body);
+  color: var(--accent);
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+@media (min-width: 768px) {
+}
+@media (min-width: 1024px) {
+  /* .login-container {
+    width: 30%;
+    padding-block: 10px;
+    border: 2px solid red;
+    background: #fff;
+    border-radius: 12px;
+    height: 100vh;
+  } */
+}

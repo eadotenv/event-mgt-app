@@ -1,0 +1,74 @@
+.past-event-container {
+  min-height: 100vh;
+  width: 100vw;
+  background: var(--ink3);
+  padding: 10px;
+  border: 1px solid green;
+}
+
+.events-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  /* border: 1px solid red; */
+  /* justify-content: center; */
+}
+
+.old-events-container {
+  width: 200px;
+}
+
+/* .old-events,
+.cur-events {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--surface);
+  padding: 8px 12px;
+  border-radius: 6px;
+  height: 100%;
+  border: 2px solid red;
+} */
+
+.old-events,
+.cur-events {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  height: 100%;
+}
+
+.old-events {
+  background: var(--surface);
+  border: 1px solid red;
+}
+
+.cur-events {
+  background: transparent;
+}
+
+.past-head {
+  font-size: var(--text-md);
+  font-family: var(--font-mono);
+}
+
+.cal-icon-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-sm);
+  font-family: var(--font-inter);
+}
+
+.calendar-icon {
+  color: red;
+}
+
+.loc-text {
+  display: flex;
+  gap: 10px;
+  font-size: var(--text-sm);
+  font-family: var(--font-paragraph);
+}

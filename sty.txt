@@ -1,0 +1,622 @@
+
+home-page
+@import "../App.css";
+
+.home-container {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 50px 1fr 50px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "nav"
+    "main"
+    "side";
+  gap: 20px;
+  box-sizing: border-box;
+  border: 10px solid green;
+  height: 100vh;
+}
+
+.home-content {
+  width: 100vw;
+  height: 100vh;
+}
+
+.navbar {
+  grid-area: nav;
+  border-bottom: 1px solid var(--border);
+  padding-block: 15px;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  list-style-type: none;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  font-family: var(--font-display);
+}
+
+.active {
+  font-weight: 600;
+}
+
+.outlet-div {
+  grid-area: main;
+  background: var(--ink3);
+}
+
+.side-bar {
+  grid-area: side;
+  /* border: 1px solid blue; */
+}
+
+@media (min-width: 1024px) {
+  .home-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-areas: "side main";
+    gap: 20px;
+    min-height: 100vh;
+  }
+
+  .side-bar {
+    /* display: block; */
+    grid-area: side;
+    border-right: 1px solid var(--border);
+  }
+
+  .home-content {
+    grid-area: main;
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    grid-template-areas:
+      "nav"
+      "main";
+    gap: 20px;
+    height: 100vh;
+  }
+
+  .navbar {
+    grid-area: nav;
+  }
+
+  .outlet-div {
+    grid-area: main;
+    background: var(--ink3);
+  }
+}
+
+
+
+////////////////////////////////
+upcoming css
+
+.event-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.upcoming-event {
+  display: flex;
+  border: 1px solid red;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 250px;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--surface) !important;
+}
+
+.event-image {
+  width: 80px;
+}
+
+.plan-head {
+  font-family: var(--font-body);
+}
+
+.plan-text {
+  text-align: left;
+  font-family: var(--font-inter);
+  font-size: var(--text-sm);
+}
+
+.event-text {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  text-align: center;
+}
+
+.event-btn {
+  border: none;
+  padding: 8px 12px;
+  background: var(--ink);
+  color: var(--card);
+  font-family: var(--font-normal);
+  font-size: var(--text-base);
+  border-radius: 6px;
+  width: 100%;
+}
+
+.plan-container {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-content: center;
+  height: 100vh;
+}
+
+.plan-event {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.plan-event-container {
+  position: relative;
+  height: 100%;
+  /* width: 100vw; */
+  width: calc(100vw - 270px);
+  border: 10px solid red;
+}
+
+/* Event title */
+
+.title {
+  position: absolute;
+  width: 100%;
+  top: 0%;
+  height: 100vh;
+}
+
+.title-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  /* border: 1px solid green; */
+  background: var(--ink3);
+  position: relative;
+}
+.title-head {
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  text-align: center;
+}
+
+.example-text {
+  font-family: var(--font-normal);
+  font-size: var(--text-base);
+  text-align: center;
+  line-height: 1.4rem;
+  color: var(--ink);
+}
+
+.title-input {
+  border: none;
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  background: none;
+  text-align: center;
+  padding: 8px;
+  outline: none;
+}
+
+.title-btn {
+  width: 18%;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 5px;
+  background: var(--ink);
+  font-family: var(--font-normal);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--card);
+}
+
+.title-disable {
+  width: 15%;
+  padding: 6px;
+  border: none;
+  border-radius: 5px;
+  background: #bfc6c4;
+  font-family: var(--font-normal);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--card);
+}
+
+.title-close-btn {
+  padding: 4px 6px;
+  border-radius: 50%;
+  border: none;
+  background: var(--ink);
+  position: absolute;
+  top: 12%;
+  right: 5%;
+}
+
+.close-btn-icon,
+.left-btn-icon {
+  color: var(--card);
+}
+
+/* Event date */
+
+.date-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cal {
+  border-radius: 8px;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  color: var(--ink);
+  font-size: var(--text-base);
+}
+
+.cal-color {
+  color: var(--ink);
+  /* border-radius: 25%; */
+}
+
+.cal .react-calendar__tile--active {
+  background-color: var(--ink) !important;
+  color: white !important;
+}
+
+.single-date-text {
+  text-align: center;
+}
+
+.left-btn {
+  padding: 4px 6px;
+  border-radius: 50%;
+  border: none;
+  background: var(--ink);
+  position: absolute;
+  top: 12%;
+  left: 5%;
+}
+
+/* Event Location */
+
+.loc-text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.select-location {
+  padding: 8px 12px;
+  font-family: var(--font-inter);
+  font-size: var(--text-md);
+}
+
+.city-head {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  margin-bottom: 10px;
+}
+
+.select-and-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.location-list {
+  list-style-type: none;
+  padding: 10px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* FIX: Define the selected active styling state */
+.list-group-item.active-list {
+  background: var(--ink);
+  color: var(--card);
+  border: none;
+}
+
+.hotel-address {
+  display: flex;
+  flex-direction: column;
+}
+
+.hotel-name {
+  margin: 0 0 2px 0;
+  font-size: var(--text-base);
+  font-family: var(--font-body);
+}
+
+.loc-address {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-size: var(--text-xs);
+}
+
+/* Event Services */
+
+.service-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.servixes {
+  display: flex;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  padding: 4px;
+}
+
+.check-input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--ink);
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.servixes label {
+  cursor: pointer;
+  vertical-align: middle;
+  padding-left: 6px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    position: absolute;
+    width: 100%;
+  }
+
+  .title-input {
+    font-size: var(--text-xl);
+  }
+  .title-head {
+    font-size: var(--text-md);
+  }
+
+  .example-text {
+    font-size: var(--text-sm);
+  }
+
+  .title-close-btn {
+    padding: 2px 3px;
+    top: 5%;
+    right: 5%;
+  }
+
+  .title-input {
+    font-size: var(--text-md);
+  }
+
+  .cal {
+    width: 80%;
+    font-size: var(--text-sm);
+    margin: 0 auto;
+  }
+
+  .left-btn {
+    padding: 2px 3px;
+    top: 5%;
+    left: 5%;
+  }
+
+  .location-list {
+    width: 200px;
+  }
+  .hotel-name {
+    font-size: var(--text-sm);
+  }
+
+  .service-form {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid red;
+  }
+
+  .servixes {
+    gap: 5px;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+  }
+  .check-input {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+
+/////////////////////////////////////////
+sidebar css
+
+
+@import "../App.css";
+
+.side-bar {
+  height: 100vh;
+}
+.menu-container {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 20px;
+}
+
+.side-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border: 1px solid red;
+  padding: 0;
+}
+
+.side-list-nav-link {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  gap: 10px;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  text-decoration: none;
+}
+
+.menu-header {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-base);
+  padding: 10px;
+}
+
+.bottom-menu-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 35vh;
+}
+
+.provider-box {
+  width: 100%;
+  height: 130px;
+  background: var(--ink3);
+  padding: 10px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 8px;
+}
+
+.provider-head {
+  font-family: var(--font-heading);
+  line-height: 1.6rem;
+}
+
+.name-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.name-div {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.name-head {
+  padding: 5px 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  color: var(--card);
+  font-family: var(--font-body);
+}
+
+.full-name {
+  font-size: var(--text-md);
+  font-family: var(--font-paragraph);
+}
+
+.settings {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-family: var(--font-paragraph);
+  font-weight: 500;
+}
+
+.btn-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  border: 1px solid red;
+}
+
+.radio-text {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--accent1);
+  margin: 20px;
+  font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .side-bar {
+    height: auto;
+    padding: 10px;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+  }
+
+  /* Hide everything except the nav list */
+  .menu-header,
+  .bottom-menu-container,
+  .btn-box {
+    display: none;
+  }
+
+  .side-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0;
+    border: none;
+  }
+}
+
+/* Prevent main content from hiding behind the fixed bar 
+  .outlet-div {
+    padding-bottom: 70px;
+  }
+ } */

@@ -1,0 +1,24 @@
+/* ===============Event=CSS==================== */
+
+.cur-events-container {
+  border: 1px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--surface);
+  width: 250px;
+  /* transition:
+    background 0.2s ease-in-out,
+    border-color 0.2s ease-in-out,
+    color 0.2s ease-in-out; */
+  cursor: pointer;
+}
+
+/* .cur-events-container:hover {
+  background: var(--ink);
+  color: var(--card);
+  border-color: var(--ink);
+  cursor: pointer;
+} */

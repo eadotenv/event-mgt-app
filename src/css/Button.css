@@ -1,0 +1,15 @@
+@import "../App.css";
+
+.btn {
+  padding-block: 10px;
+  border-radius: 6px;
+  border: none;
+  background: var(--google-btn);
+  color: var(--card);
+  font-size: var(--text-md);
+  font-family: var(--font-body);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

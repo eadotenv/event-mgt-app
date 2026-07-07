@@ -1,0 +1,407 @@
+/* ============================== */
+
+/*    upcoming CSS */
+
+/* .plan-event-container {
+  width: 100%;
+  border: 1px solid yellow;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+} */
+
+/* background: var(--ink3); */
+/* justify-content: center; */
+
+/* align-items: center; */
+
+.plan-container {
+  display: flex;
+  justify-content: flex-start;
+  /* align-items: center; */
+  height: 100vh;
+}
+
+/* flex-direction: column; */
+
+.plan-event {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  /* border: 2px solid green; */
+}
+
+.event-image {
+  width: 80px;
+}
+
+.plan-head {
+  font-family: var(--font-body);
+}
+
+.plan-text {
+  text-align: left;
+  font-family: var(--font-inter);
+  font-size: var(--text-sm);
+}
+
+.event-container {
+  display: flex;
+  justify-content: flex-start;
+  margin: 60px 0;
+  padding: 20px;
+}
+
+.upcoming-event {
+  display: flex;
+  border: 1px solid red;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 250px;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--surface) !important;
+}
+
+.event-text {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  text-align: center;
+}
+
+.event-btn {
+  border: none;
+  padding: 8px 12px;
+  background: var(--ink);
+  color: var(--card);
+  font-family: var(--font-normal);
+  font-size: var(--text-base);
+  border-radius: 6px;
+  width: 100%;
+}
+
+/* ==============Event=Title=============== */
+
+/* Event title */
+
+/* .title {
+  position: absolute;
+  width: 100%;
+  top: 0%;
+  height: 100%;
+} */
+
+/* .title-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: var(--ink3);
+  position: relative;
+} */
+
+.title {
+  position: absolute;
+  width: 100%;
+  top: 0%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.title-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: var(--ink3);
+  position: relative;
+  pointer-events: auto;
+}
+
+.title-head {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  text-align: center;
+}
+
+.example-text {
+  font-family: var(--font-normal);
+  font-size: var(--text-sm);
+  text-align: center;
+  line-height: 1.4rem;
+  color: var(--ink);
+}
+
+.title-input {
+  border: none;
+  font-size: var(--text-md);
+  font-weight: 600;
+  background: none;
+  text-align: center;
+  padding: 8px;
+  outline: none;
+}
+
+.title-btn {
+  width: 18%;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 5px;
+  background: var(--ink);
+  font-family: var(--font-normal);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--card);
+}
+
+.title-disable {
+  width: 18%;
+  padding: 6px;
+  border: none;
+  border-radius: 5px;
+  background: #bfc6c4;
+  font-family: var(--font-normal);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--card);
+}
+
+.title-close-btn {
+  border: none;
+  background: none;
+  position: absolute;
+  top: 3%;
+  right: 2%;
+}
+
+.close-btn-icon,
+.left-btn-icon {
+  color: var(--ink);
+}
+
+/* ============Event=Date============ */
+.date-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+.cal {
+  border-radius: 8px;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  color: var(--ink);
+  font-size: var(--text-xs);
+}
+
+.cal-color {
+  color: var(--ink);
+  /* border-radius: 25%; */
+}
+
+.cal .react-calendar__tile--active {
+  background-color: var(--ink) !important;
+  color: white !important;
+}
+
+.single-date-text {
+  text-align: center;
+}
+
+.left-btn {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 3%;
+  left: 2%;
+}
+
+/* ===========Event=Location========= */
+.loc-text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.select-location {
+  padding: 8px 12px;
+  font-family: var(--font-inter);
+  font-size: var(--text-base);
+}
+
+.city-head {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  margin-bottom: 10px;
+}
+
+.select-and-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.location-list {
+  list-style-type: none;
+  padding: 10px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.list-group-item.active-list {
+  background: var(--ink);
+  color: var(--card);
+  border: none;
+}
+
+.hotel-address {
+  display: flex;
+  flex-direction: column;
+}
+
+.hotel-name {
+  margin: 0 0 2px 0;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+}
+
+.loc-address {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-size: var(--text-xs);
+}
+
+/* ======Event=Services========== */
+.service-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.servixes {
+  display: flex;
+  gap: 5px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  padding: 4px;
+}
+
+.check-input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--ink);
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.servixes label {
+  cursor: pointer;
+  vertical-align: middle;
+  padding-left: 4px;
+}
+
+@media (min-width: 992px) {
+  /* Event title */
+
+  .title-head {
+    font-size: var(--text-xl);
+  }
+
+  .example-text {
+    font-size: var(--text-md);
+  }
+
+  .title-input {
+    font-size: var(--text-2xl);
+  }
+
+  .title-close-btn {
+    /* padding: 4px 6px;
+    border-radius: 50%;
+    border: none;
+    background: var(--ink); */
+    position: absolute;
+    top: 12%;
+    right: 5%;
+  }
+
+  /* .close-btn-icon,
+  .left-btn-icon {
+    color: var(--card);
+  } */
+
+  /* Event date */
+  .left-btn {
+    /* padding: 4px 6px;
+    border-radius: 50%;
+    border: none;
+    background: var(--ink); */
+    position: absolute;
+    top: 12%;
+    left: 5%;
+  }
+  .cal {
+    font-size: var(--text-md);
+  }
+
+  /* ========Event=Location========= */
+
+  .select-location {
+    font-size: var(--text-md);
+  }
+
+  .city-head {
+    font-size: var(--text-xl);
+  }
+
+  .location-list {
+    width: 300px;
+  }
+  .hotel-name {
+    font-size: var(--text-base);
+  }
+
+  /* =======Event=Services======= */
+
+  .service-form {
+    gap: 5px;
+  }
+
+  .servixes {
+    font-size: var(--text-md);
+    padding: 4px;
+  }
+
+  .check-input {
+    width: 20px;
+    height: 20px;
+  }
+
+  .servixes label {
+    padding-left: 6px;
+  }
+}
