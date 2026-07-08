@@ -48,7 +48,6 @@
   gap: 20px;
 }
 
-/* Hidden by default on mobile, revealed inside the modal instead */
 .detail-events {
   display: none;
 }
@@ -128,9 +127,7 @@
   font-family: var(--font-normal);
 }
 
-/* ==========================================================================
-   Upgrades, Actions, & Checklist Sections
-   ========================================================================== */
+/* upgrades box and checklist */
 .upgrade-box {
   width: 100%;
   max-width: 400px;
@@ -249,23 +246,22 @@
   width: 100%;
   background: var(--ink3);
   padding: 10px 12px;
-  color: var(--ink5);
+  color: var(--accent);
   margin-top: 10px;
   margin-bottom: 0;
+  font-family: var(--font-normal);
   border-radius: 5px;
   box-sizing: border-box;
 }
 
-/* ==========================================================================
-   Mobile-Only Sheet Modal Styling
-   ========================================================================== */
+/* detail modal style */
 .detail-modal {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   max-height: 80vh;
-  background: var(--surface, #ffffff);
+  background: var(--surface);
   box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.2);
   border-radius: 20px 20px 0 0;
   z-index: 40;
@@ -274,7 +270,6 @@
   animation: slideUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Inside the mobile modal, we force the hidden events block to show up */
 .detail-modal .detail-box {
   padding: 20px;
 }
@@ -286,7 +281,7 @@
   margin-top: 15px;
 }
 
-/* Close icon container tweak inside modal */
+/* close icon  */
 .detail-modal svg[onClick] {
   cursor: pointer;
   padding: 4px;
@@ -311,7 +306,7 @@
     padding-right: 20px;
   }
 
-  /* Show default sidebar details pane on desktop */
+  /* sidebar details of the event */
   .detail-events {
     display: flex;
     flex-direction: column;
@@ -335,7 +330,7 @@
 
   .map-link {
     font-size: var(--text-base);
-    padding-inline: 0; /* Aligning closer to sidebar container layout */
+    padding-inline: 0;
   }
 
   .line-check {
@@ -348,17 +343,15 @@
     width: 320px;
   }
 
-  /* Completely strip mobile helpers away on desktop viewports */
+  /* hiding mobile modal on desktop  */
   .arrow-down,
   .detail-modal,
   .details-container.modal-overlay::before {
-    display: none !important;
+    display: none;
   }
 }
 
-/* ==========================================================================
-   Animation Timings
-   ========================================================================== */
+/*  modal animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -375,4 +368,104 @@
   to {
     transform: translateY(0);
   }
+}
+
+/* =================
+    checklist modal
+   ================= */
+.checklist-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(1px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.mod-form {
+  background: var(--surface);
+  width: clamp(320px, 95vw, 420px);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.header-close-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.check-header {
+  font-size: var(--text-md);
+  font-family: var(--font-body);
+  margin: 0;
+}
+
+.header-close-btn svg {
+  cursor: pointer;
+}
+
+.check-modal-form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.check-modal-label {
+  font-size: var(--text-md);
+  font-family: var(--font-normal);
+}
+
+.check-modal-input {
+  padding: 10px;
+  border: 1px solid transparent;
+  background: var(--input-bg);
+  border-radius: 5px;
+  font-size: var(--text-base);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border 0.4s ease;
+}
+
+.check-modal-input:focus {
+  border: 1px solid var(--accent);
+}
+
+.mod-btn {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  color: var(--card);
+  background: var(--ink);
+  font-size: var(--text-base);
+  font-family: var(--font-body);
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  transition: opacity 0.2s ease;
+}
+
+.mod-btn:hover {
+  opacity: 0.4;
+}
+
+.mod-del-btn {
+  background: transparent;
+  color: red;
+  margin-top: -5px;
+}
+
+.mod-del-btn:hover {
+  background: var(--accent);
 }

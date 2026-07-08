@@ -2,16 +2,10 @@ import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
-
-// Types
 import type { EventData } from "../entities/EventData";
 import type { User } from "../entities/User";
-
-// Components & Styles
 import NavBar from "./NavBar";
 import "../css/details.css";
-
-// Assets & Icons
 import note from "../assets/note.png";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdCalendarMonth } from "react-icons/md";
@@ -21,8 +15,8 @@ import { CiEdit } from "react-icons/ci";
 import { BsBoxArrowUp } from "react-icons/bs";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
+import CheckModal from "./CheckModal";
 
-// Helper function to handle text capitalization safely
 const capitalize = (str: string | undefined) => {
   if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -36,6 +30,8 @@ function Details() {
   const [active, setActive] = useState<number>(0);
   const [event, setEvent] = useState<EventData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showChecklistModal, setShowChecklistModal] = useState<boolean>(false);
+  const [item, setItem] = useState("new item");
 
   const detailTabs = [{ name: "Details" }, { name: "Services" }];
 
@@ -218,8 +214,27 @@ function Details() {
                     Add a list of items required or{" "}
                     <span>things to be done before the event.</span>
                   </p>
-                  <p className="check-item">Add a checklist item</p>
+                  <ul>
+                    <li>{item}</li>
+                  </ul>
+                  <p
+                    className="check-item"
+                    onClick={() => setShowChecklistModal(true)}
+                  >
+                    Add a checklist item
+                  </p>
                 </div>
+
+                {/* ===================== */}
+                {showChecklistModal && (
+                  <CheckModal
+                    item={item}
+                    setItem={setItem}
+                    setShowChecklistModal={setShowChecklistModal}
+                  />
+                )}
+
+                {/* ===================== */}
 
                 <div className="program-box">
                   <div className="program-icon">
