@@ -5,7 +5,7 @@ import type { EventData } from "../entities/EventData";
 import { useLocation } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdCalendarMonth } from "react-icons/md";
-import "../css/past-event.css";
+import "../css/event.css";
 
 function PastEvents() {
   const [userData, setUserData] = useState<EventData[]>([]);

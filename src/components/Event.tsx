@@ -1,26 +1,31 @@
 import { useEffect, useState } from "react";
-import type { EventData } from "../entities/EventData";
-import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { format, isBefore, parseISO } from "date-fns";
+
+// Types
+import type { EventData } from "../entities/EventData";
+
+// Assets & Icons
 import map from "../assets/map.jpg";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdCalendarMonth } from "react-icons/md";
-import { format, isBefore, parseISO } from "date-fns";
+
+// Style Assets
 import "../css/navbar.css";
 import "../css/event.css";
 
 function Event() {
   const [userData, setUserData] = useState<EventData[]>([]);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get<EventData[]>("http://localhost:9000/events")
       .then((res) => setUserData(res.data))
-      .catch((err) => console.log("An error occured", err));
+      .catch((err) => console.error("An error occurred fetching events:", err));
   }, []);
-
-  const location = useLocation();
-  const navigate = useNavigate();
 
   const userId = location.state?.user?.id || location.state?.userId;
 
@@ -30,19 +35,20 @@ function Event() {
     });
   }
 
-  const filteredEvent = userId
+  // Filter out events that do not belong to the logged-in user
+  const userFilteredEvents = userId
     ? userData.filter((event) => event.userId === userId)
     : [];
 
+  // Expiration boundary check
   const isEventExpired = (date: EventData["date"]) => {
     if (!date) return false;
 
     let checkDate: Date;
-
     if (typeof date === "string") {
       checkDate = parseISO(date);
     } else if (Array.isArray(date)) {
-      checkDate = date[0];
+      checkDate = new Date(date[0]);
     } else {
       return false;
     }
@@ -50,48 +56,56 @@ function Event() {
     return isBefore(checkDate, new Date());
   };
 
+  // Get active, upcoming events
+  const activeEvents = userFilteredEvents.filter(
+    (event) => !isEventExpired(event.date),
+  );
+
   return (
-    <>
-      <div className="past-event-container">
+    <div className="past-event-container">
+      {activeEvents.length === 0 ? (
+        <p className="past-text">
+          You don't have any upcoming events to your name
+        </p>
+      ) : (
         <div className="events-grid">
-          {filteredEvent.length === 0 ? (
-            // <div>
-            <p className="past-text">You don't have any event to your name</p>
-          ) : (
-            filteredEvent
-              .filter((user) => !isEventExpired(user.date))
-              .map((user: EventData, index) => (
-                <div
-                  key={index}
-                  className="cur-events-container"
-                  onClick={() => handleDetails(user)}
-                >
-                  <div className="cur-events">
-                    <h3 className="past-head">{user.title}</h3>
+          {activeEvents.map((event: EventData) => (
+            <div
+              key={event.id} /* Use event.id for stable rendering tracking */
+              className="cur-events-container"
+              onClick={() => handleDetails(event)}
+            >
+              <div className="cur-events">
+                <h3 className="past-head">{event.title}</h3>
 
-                    <div className="cal-icon-text">
-                      <MdCalendarMonth className="" size={20} />
-
-                      {typeof user.date === "string"
-                        ? format(new Date(user.date), "do MMM yyyy")
-                        : Array.isArray(user.date)
-                          ? `${format(user.date[0], "do MMM yyyy")}`
-                          : null}
-                    </div>
-
-                    <div className="loc-text">
-                      <FaLocationDot className="" />
-                      {user.location?.name}, {user.location?.town}
-                    </div>
-                  </div>
-                  <img src={map} className="map-image" />
+                <div className="cal-icon-text">
+                  <MdCalendarMonth size={20} className="event-icon" />
+                  <span>
+                    {typeof event.date === "string"
+                      ? format(parseISO(event.date), "do MMM yyyy")
+                      : Array.isArray(event.date)
+                        ? format(new Date(event.date[0]), "do MMM yyyy")
+                        : null}
+                  </span>
                 </div>
-                // </div>
-              ))
-          )}
+
+                <div className="loc-text">
+                  <FaLocationDot className="event-icon" />
+                  <span>
+                    {event.location?.name}, {event.location?.town}
+                  </span>
+                </div>
+              </div>
+              <img
+                src={map}
+                className="map-image"
+                alt="Event map location thumbnail"
+              />
+            </div>
+          ))}
         </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 }
 

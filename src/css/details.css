@@ -1,3 +1,6 @@
+/* ==========================================================================
+   Base & Layout Configurations
+   ========================================================================== */
 .full-detail {
   background: var(--card);
 }
@@ -7,6 +10,7 @@
   position: relative;
 }
 
+/* Base Mobile Layout (Stacked) */
 .details {
   padding: 10px;
   display: grid;
@@ -18,6 +22,10 @@
   gap: 20px;
 }
 
+/* ==========================================================================
+   Overlay Handling (Triggered when showModal is true)
+   ========================================================================== */
+/* Applied to details-container when modal is active to create the dark backdrop */
 .details-container.modal-overlay::before {
   content: "";
   position: fixed;
@@ -28,6 +36,9 @@
   animation: fadeIn 0.2s ease-out;
 }
 
+/* ==========================================================================
+   Event Details Block (Left Column / Top Section)
+   ========================================================================== */
 .detail-box {
   border: none;
   width: 100%;
@@ -37,6 +48,7 @@
   gap: 20px;
 }
 
+/* Hidden by default on mobile, revealed inside the modal instead */
 .detail-events {
   display: none;
 }
@@ -53,6 +65,9 @@
   font-size: 1.5rem;
 }
 
+/* ==========================================================================
+   Typography & Subcomponents 
+   ========================================================================== */
 .detail-head {
   font-size: var(--text-md);
   font-family: var(--font-body);
@@ -113,6 +128,9 @@
   font-family: var(--font-normal);
 }
 
+/* ==========================================================================
+   Upgrades, Actions, & Checklist Sections
+   ========================================================================== */
 .upgrade-box {
   width: 100%;
   max-width: 400px;
@@ -238,7 +256,9 @@
   box-sizing: border-box;
 }
 
-/* Modal Styling */
+/* ==========================================================================
+   Mobile-Only Sheet Modal Styling
+   ========================================================================== */
 .detail-modal {
   position: fixed;
   bottom: 0;
@@ -254,6 +274,7 @@
   animation: slideUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* Inside the mobile modal, we force the hidden events block to show up */
 .detail-modal .detail-box {
   padding: 20px;
 }
@@ -265,6 +286,7 @@
   margin-top: 15px;
 }
 
+/* Close icon container tweak inside modal */
 .detail-modal svg[onClick] {
   cursor: pointer;
   padding: 4px;
@@ -289,6 +311,7 @@
     padding-right: 20px;
   }
 
+  /* Show default sidebar details pane on desktop */
   .detail-events {
     display: flex;
     flex-direction: column;
@@ -312,7 +335,7 @@
 
   .map-link {
     font-size: var(--text-base);
-    padding-inline: 0;
+    padding-inline: 0; /* Aligning closer to sidebar container layout */
   }
 
   .line-check {
@@ -325,6 +348,7 @@
     width: 320px;
   }
 
+  /* Completely strip mobile helpers away on desktop viewports */
   .arrow-down,
   .detail-modal,
   .details-container.modal-overlay::before {
@@ -332,7 +356,9 @@
   }
 }
 
-/* Animation */
+/* ==========================================================================
+   Animation Timings
+   ========================================================================== */
 @keyframes fadeIn {
   from {
     opacity: 0;

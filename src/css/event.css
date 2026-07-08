@@ -6,7 +6,8 @@
   flex-direction: column;
   gap: 10px;
   border-radius: 8px;
-  padding: 10px;
+  align-items: center;
+  padding-block: 16px;
   background: var(--surface);
   width: 250px;
   /* transition:
