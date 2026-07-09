@@ -16,11 +16,7 @@ import { CiEdit } from "react-icons/ci";
 import { BsBoxArrowUp } from "react-icons/bs";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
-
-const capitalize = (str: string | undefined) => {
-  if (!str) return "";
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+import capitalize from "../hooks/capitalize";
 
 function Details() {
   const { id } = useParams<{ id: string }>();
@@ -32,9 +28,7 @@ function Details() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showChecklistModal, setShowChecklistModal] = useState<boolean>(false);
 
-  const [items, setItem] = useState([
-    { itemId: "1", item: "Book catering", isDone: false },
-  ]);
+  const [items, setItem] = useState([{ itemId: "", item: "", isDone: false }]);
 
   const detailTabs = [{ name: "Details" }, { name: "Services" }];
 
@@ -44,7 +38,7 @@ function Details() {
       .get<EventData>(`http://localhost:9000/events/${id}`)
       .then((res) => {
         setEvent(res.data);
-        // If the database item already has checklist entries, load them into state
+        // checking if data already exist and load them
         if (res.data.checklist) {
           setItem(res.data.checklist);
         }
@@ -54,15 +48,15 @@ function Details() {
       );
   }, [id]);
 
-  // FIXED: Changed from POST to PATCH to correctly update a nested property in json-server
-  const handleSaveAllDetails = async (targetEventId: string) => {
+  // patching already existing data
+  const handleSaveAllDetails = async (checkId: string) => {
     const patchPayload = {
       checklist: items,
     };
 
     try {
       const response = await axios.patch(
-        `http://localhost:9000/events/${targetEventId}`,
+        `http://localhost:9000/events/${checkId}`,
         patchPayload,
       );
       console.log("Saved successfully:", response.data);
@@ -237,7 +231,13 @@ function Details() {
                   {/* Dynamic checklist items iteration placeholder */}
                   <ul className="active-checklist">
                     {items.map((item) => (
-                      <li key={item.itemId}>{item.item}</li>
+                      <>
+                        <li key={item.itemId}>
+                          <input type="checkbox" />
+                          {item.item}
+                        </li>
+                        <button>...</button>
+                      </>
                     ))}
                   </ul>
 
