@@ -287,70 +287,6 @@
   padding: 4px;
 }
 
-@media (min-width: 992px) {
-  .details {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 290px 2fr;
-    grid-template-areas: "event check";
-    gap: 35px;
-    padding: 20px;
-  }
-
-  .detail-box {
-    width: 100%;
-    height: 100vh;
-    grid-area: event;
-    display: flex;
-    border-right: 2px solid var(--border);
-    padding-right: 20px;
-  }
-
-  /* sidebar details of the event */
-  .detail-events {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .detail-service {
-    grid-area: check;
-    width: 100%;
-    height: 100%;
-  }
-
-  .details-name-icon {
-    font-size: var(--text-md);
-  }
-
-  .edit-box,
-  .del-box {
-    font-size: var(--text-md);
-  }
-
-  .map-link {
-    font-size: var(--text-base);
-    padding-inline: 0;
-  }
-
-  .line-check {
-    flex-direction: row;
-    /* flex-wrap: wrap; */
-  }
-
-  .check-list-box,
-  .program-box {
-    width: 320px;
-  }
-
-  /* hiding mobile modal on desktop  */
-  .arrow-down,
-  .detail-modal,
-  .details-container.modal-overlay::before {
-    display: none;
-  }
-}
-
 /*  modal animation */
 @keyframes fadeIn {
   from {
@@ -468,4 +404,99 @@
 
 .mod-del-btn:hover {
   background: var(--accent);
+}
+
+.active-checklist {
+  list-style-type: none;
+  margin-block: 10px;
+}
+
+.checklist-div {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-base);
+  font-family: var(--font-normal);
+  margin-bottom: 10px;
+}
+
+.checklist-list {
+  display: flex;
+  gap: 10px;
+}
+
+.checklist-input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--ink);
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.is-done {
+  text-decoration: line-through;
+}
+
+/* media query for desktop */
+@media (min-width: 992px) {
+  .details {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 290px 2fr;
+    grid-template-areas: "event check";
+    gap: 35px;
+    padding: 20px;
+  }
+
+  .detail-box {
+    width: 100%;
+    height: 100vh;
+    grid-area: event;
+    display: flex;
+    border-right: 2px solid var(--border);
+    padding-right: 20px;
+  }
+
+  /* sidebar details of the event */
+  .detail-events {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .detail-service {
+    grid-area: check;
+    width: 100%;
+    height: 100%;
+  }
+
+  .details-name-icon {
+    font-size: var(--text-md);
+  }
+
+  .edit-box,
+  .del-box {
+    font-size: var(--text-md);
+  }
+
+  .map-link {
+    font-size: var(--text-base);
+    padding-inline: 0;
+  }
+
+  .line-check {
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+  }
+
+  .check-list-box,
+  .program-box {
+    width: 320px;
+  }
+
+  /* hiding mobile modal on desktop  */
+  .arrow-down,
+  .detail-modal,
+  .details-container.modal-overlay::before {
+    display: none;
+  }
 }

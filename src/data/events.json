@@ -601,6 +601,35 @@
         "foodServices": true,
         "beautician": false
       }
+    },
+    {
+      "id": "12e1",
+      "userId": "ffd0",
+      "title": "Washing",
+      "date": "2026-07-11T00:00:00.000Z",
+      "location": {
+        "name": "Hwidiem Hotel",
+        "town": "Hwidiem",
+        "city": "Sunyani",
+        "region": "Brong Ahafo"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": true,
+        "design": true,
+        "hiring": false,
+        "transport": true,
+        "event": false,
+        "foodServices": false,
+        "beautician": false
+      },
+      "checklist": [
+        {
+          "itemId": "1783604338997",
+          "item": "Salt",
+          "isDone": false
+        }
+      ]
     }
   ]
 }

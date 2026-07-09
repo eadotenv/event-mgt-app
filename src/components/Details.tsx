@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
-import type { EventData } from "../entities/EventData";
+import type { ChecklistItem, EventData } from "../entities/EventData";
 import type { User } from "../entities/User";
 import NavBar from "./NavBar";
 import CheckModal from "./CheckModal";
@@ -28,7 +28,7 @@ function Details() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showChecklistModal, setShowChecklistModal] = useState<boolean>(false);
 
-  const [items, setItem] = useState([{ itemId: "", item: "", isDone: false }]);
+  const [items, setItem] = useState<ChecklistItem[]>([]);
 
   const detailTabs = [{ name: "Details" }, { name: "Services" }];
 
@@ -229,17 +229,38 @@ function Details() {
                   </p>
 
                   {/* Dynamic checklist items iteration placeholder */}
-                  <ul className="active-checklist">
-                    {items.map((item) => (
-                      <>
-                        <li key={item.itemId}>
-                          <input type="checkbox" />
-                          {item.item}
-                        </li>
-                        <button>...</button>
-                      </>
-                    ))}
-                  </ul>
+                  {items && (
+                    <ul className="active-checklist">
+                      {items.map((item) => (
+                        <div className="checklist-div" key={item.itemId}>
+                          <li
+                            className={
+                              item.isDone
+                                ? "checklist-list is-done"
+                                : "checklist-list"
+                            }
+                          >
+                            <input
+                              type="checkbox"
+                              className="checklist-input"
+                              checked={item.isDone}
+                              onChange={(e) => {
+                                setItem((prevItems) =>
+                                  prevItems.map((p) =>
+                                    p.itemId === item.itemId
+                                      ? { ...p, isDone: e.target.checked }
+                                      : p,
+                                  ),
+                                );
+                              }}
+                            />
+                            {item.item}
+                          </li>
+                          <button>...</button>
+                        </div>
+                      ))}
+                    </ul>
+                  )}
 
                   <p
                     className="check-item"
