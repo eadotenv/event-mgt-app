@@ -26,10 +26,7 @@
       "id": "a986",
       "userId": "ffd0",
       "title": "Wedding",
-      "date": [
-        "2026-01-06T00:00:00.000Z",
-        "2026-01-10T23:59:59.999Z"
-      ],
+      "date": ["2026-01-06T00:00:00.000Z", "2026-01-10T23:59:59.999Z"],
       "location": {
         "name": "Georgia Hotel",
         "town": "Ahodwo",
@@ -73,10 +70,7 @@
       "id": "1c01",
       "userId": "19b3",
       "title": "NSMQ",
-      "date": [
-        "2026-01-22T00:00:00.000Z",
-        "2026-02-12T23:59:59.999Z"
-      ],
+      "date": ["2026-01-22T00:00:00.000Z", "2026-02-12T23:59:59.999Z"],
       "location": {
         "name": "Aborah Hotel",
         "town": "Atonsu",
@@ -230,10 +224,7 @@
       "id": "21e5",
       "userId": "19b3",
       "title": "House Party",
-      "date": [
-        "2026-01-23T00:00:00.000Z",
-        "2026-01-28T23:59:59.999Z"
-      ],
+      "date": ["2026-01-23T00:00:00.000Z", "2026-01-28T23:59:59.999Z"],
       "location": {
         "name": "Georgia Hotel",
         "town": "Ahodwo",
@@ -255,10 +246,7 @@
       "id": "709b",
       "userId": "76a2",
       "title": "Wedding",
-      "date": [
-        "2026-06-20T00:00:00.000Z",
-        "2026-06-21T23:59:59.999Z"
-      ],
+      "date": ["2026-06-20T00:00:00.000Z", "2026-06-21T23:59:59.999Z"],
       "location": {
         "name": "Pedu Hotel",
         "town": "Pedu",
@@ -280,10 +268,7 @@
       "id": "f57f",
       "userId": "8fed",
       "title": "Birthday",
-      "date": [
-        "2026-06-20T00:00:00.000Z",
-        "2026-06-21T23:59:59.999Z"
-      ],
+      "date": ["2026-06-20T00:00:00.000Z", "2026-06-21T23:59:59.999Z"],
       "location": {
         "name": "Lancaster Hotel",
         "town": "Nhyiaeso",
@@ -349,10 +334,7 @@
       "id": "9689",
       "userId": "19b3",
       "title": "Cooking",
-      "date": [
-        "2026-06-27T00:00:00.000Z",
-        "2026-06-28T23:59:59.999Z"
-      ],
+      "date": ["2026-06-27T00:00:00.000Z", "2026-06-28T23:59:59.999Z"],
       "location": {
         "name": "Berekum Hotel",
         "town": "Berekum",
@@ -528,7 +510,7 @@
       "id": "0dd6",
       "userId": "ffd0",
       "title": "Reading",
-      "date": "2026-07-09T00:00:00.000Z",
+      "date": "2026-07-15T00:00:00.000Z",
       "location": {
         "name": "Aborah Hotel",
         "town": "Atonsu",
@@ -544,7 +526,19 @@
         "event": false,
         "foodServices": false,
         "beautician": false
-      }
+      },
+      "checklist": [
+        {
+          "itemId": "1",
+          "item": "Book catering",
+          "isDone": false
+        },
+        {
+          "itemId": "1783557709346",
+          "item": "hello",
+          "isDone": false
+        }
+      ]
     },
     {
       "id": "375b",

@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import type { EventData } from "../entities/EventData";
 import type { User } from "../entities/User";
 import NavBar from "./NavBar";
+import CheckModal from "./CheckModal";
 import "../css/details.css";
 import note from "../assets/note.png";
 import { FaLocationDot } from "react-icons/fa6";
@@ -15,7 +16,6 @@ import { CiEdit } from "react-icons/ci";
 import { BsBoxArrowUp } from "react-icons/bs";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
-import CheckModal from "./CheckModal";
 
 const capitalize = (str: string | undefined) => {
   if (!str) return "";
@@ -31,20 +31,45 @@ function Details() {
   const [event, setEvent] = useState<EventData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showChecklistModal, setShowChecklistModal] = useState<boolean>(false);
-  const [item, setItem] = useState("new item");
+
+  const [items, setItem] = useState([
+    { itemId: "1", item: "Book catering", isDone: false },
+  ]);
 
   const detailTabs = [{ name: "Details" }, { name: "Services" }];
-
-  console.log("id", id);
-  console.log("userId", user?.id);
 
   useEffect(() => {
     if (!id) return;
     axios
       .get<EventData>(`http://localhost:9000/events/${id}`)
-      .then((res) => setEvent(res.data))
-      .catch((err) => console.error("An error occurred", err));
+      .then((res) => {
+        setEvent(res.data);
+        // If the database item already has checklist entries, load them into state
+        if (res.data.checklist) {
+          setItem(res.data.checklist);
+        }
+      })
+      .catch((err) =>
+        console.error("An error occurred fetching event details:", err),
+      );
   }, [id]);
+
+  // FIXED: Changed from POST to PATCH to correctly update a nested property in json-server
+  const handleSaveAllDetails = async (targetEventId: string) => {
+    const patchPayload = {
+      checklist: items,
+    };
+
+    try {
+      const response = await axios.patch(
+        `http://localhost:9000/events/${targetEventId}`,
+        patchPayload,
+      );
+      console.log("Saved successfully:", response.data);
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
+  };
 
   const userInitial = user?.firstname
     ? user.firstname.charAt(0).toUpperCase()
@@ -54,12 +79,16 @@ function Details() {
     ? `${user.lastname.charAt(0).toUpperCase()}.`
     : "";
 
+  // if (loading) {
+  //   return <p className="loading-state">Loading event details...</p>;
+  // }
+
   return (
     <div className="full-detail">
       <NavBar
         active={active}
         setActive={setActive}
-        header={event && active === 0 ? event.title : ""}
+        header={event && active === 0 ? event.title : "Services Panel"}
         tabs={detailTabs}
       />
 
@@ -69,9 +98,10 @@ function Details() {
         }
       >
         {active === 0 ? (
+          /* ====== details panel ====== */
           <div className="details">
             {event && (
-              <div key={event.id} className="detail-box">
+              <div className="detail-box">
                 <div className="header-arrow">
                   <h3 className="detail-head">{event.title}</h3>
                   <RiArrowDownSLine
@@ -112,8 +142,8 @@ function Details() {
                   <div className="upgrade-box">
                     <p className="upgrade-text">
                       Upgrade to a pro account to be able to print and share the
-                      program line up, create, customize and share an invitation
-                      card.
+                      program lineup, create, customize, and share invitation
+                      cards.
                     </p>
                     <button className="upgrade-btn">Upgrade now</button>
                   </div>
@@ -130,7 +160,7 @@ function Details() {
                   </div>
                 </div>
 
-                {/* Details Modal */}
+                {/* Details Backdrop Modal */}
                 {showModal && (
                   <div className="detail-modal">
                     <div className="detail-box">
@@ -173,17 +203,6 @@ function Details() {
                           </a>
                           <GoArrowUpRight />
                         </div>
-
-                        <div className="edit-del-box">
-                          <div className="edit-box">
-                            <CiEdit size={20} />
-                            <p>Edit details</p>
-                          </div>
-                          <div className="del-box">
-                            <TbCancel size={20} />
-                            <p>Cancel event</p>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -191,9 +210,9 @@ function Details() {
               </div>
             )}
 
-            {/* Services & Checklist Section */}
+            {/* Services & Checklist Side Sections */}
             <div className="detail-service">
-              <h3 className="detail-head">📅Services</h3>
+              <h3 className="detail-head">📅 Services</h3>
               <div className="book-services">
                 <img src={note} className="note-icon" alt="Note icon" />
                 <div className="book-text">
@@ -209,14 +228,19 @@ function Details() {
 
               <div className="line-check">
                 <div className="check-list-box">
-                  <h3 className="detail-head">📌 CheckList</h3>
+                  <h3 className="detail-head">📌 Checklist</h3>
                   <p className="check-list-text">
                     Add a list of items required or{" "}
                     <span>things to be done before the event.</span>
                   </p>
-                  <ul>
-                    <li>{item}</li>
+
+                  {/* Dynamic checklist items iteration placeholder */}
+                  <ul className="active-checklist">
+                    {items.map((item) => (
+                      <li key={item.itemId}>{item.item}</li>
+                    ))}
                   </ul>
+
                   <p
                     className="check-item"
                     onClick={() => setShowChecklistModal(true)}
@@ -225,16 +249,14 @@ function Details() {
                   </p>
                 </div>
 
-                {/* ===================== */}
-                {showChecklistModal && (
+                {showChecklistModal && id && (
                   <CheckModal
-                    item={item}
+                    items={items}
                     setItem={setItem}
+                    handleSaveAllDetails={() => handleSaveAllDetails(id)}
                     setShowChecklistModal={setShowChecklistModal}
                   />
                 )}
-
-                {/* ===================== */}
 
                 <div className="program-box">
                   <div className="program-icon">
@@ -242,7 +264,7 @@ function Details() {
                     <BsBoxArrowUp />
                   </div>
                   <p className="check-list-text">
-                    Add items to the schedule of event
+                    Add items to the schedule of the event
                   </p>
                   <p className="check-item">
                     Add an item to the program lineup
@@ -252,7 +274,11 @@ function Details() {
             </div>
           </div>
         ) : (
-          <p>Loading event details...</p>
+          /* ====== service panel ======*/
+          <div className="services-tab-panel">
+            <h3 className="detail-head">Booked Vendor Services</h3>
+            <p>Your active service vendor pipeline metrics will render here.</p>
+          </div>
         )}
       </div>
     </div>

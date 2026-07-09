@@ -1,15 +1,42 @@
+import { useState } from "react";
 import { IoClose } from "react-icons/io5";
+import type { ChecklistItem } from "../entities/EventData";
 
 interface Props {
-  item: string;
-  setItem: React.Dispatch<React.SetStateAction<string>>;
+  items: ChecklistItem[];
+  setItem: React.Dispatch<React.SetStateAction<ChecklistItem[]>>;
   setShowChecklistModal: (val: boolean) => void;
+  handleSaveAllDetails: () => void;
 }
 
-function CheckModal({ item, setItem, setShowChecklistModal }: Props) {
+function CheckModal({
+  setItem,
+  setShowChecklistModal,
+  handleSaveAllDetails,
+}: Props) {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputValue.trim()) return;
+
+    const newItem: ChecklistItem = {
+      itemId: Date.now().toString(),
+      item: inputValue,
+      isDone: false,
+    };
+
+    setItem((prevItems) => [...prevItems, newItem]);
+
+    setTimeout(() => {
+      handleSaveAllDetails();
+      setShowChecklistModal(false);
+    }, 50);
+  };
+
   return (
     <div className="checklist-modal">
-      <form className="mod-form">
+      <form className="mod-form" onSubmit={handleSubmit}>
         <div className="header-close-btn">
           <h3 className="check-header">Checklist</h3>
           <IoClose size={22} onClick={() => setShowChecklistModal(false)} />
@@ -21,16 +48,19 @@ function CheckModal({ item, setItem, setShowChecklistModal }: Props) {
           <input
             id="check-mod"
             type="text"
-            value={item}
-            onChange={(e) => setItem(e.target.value)}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
             className="check-modal-input"
             placeholder="enter an item"
+            autoFocus
           />
         </div>
         <button type="submit" className="mod-btn mod-save-btn">
           Save
         </button>
-        <button className="mod-btn mod-del-btn">Delete</button>
+        <button type="button" className="mod-btn mod-del-btn">
+          Delete
+        </button>
       </form>
     </div>
   );
