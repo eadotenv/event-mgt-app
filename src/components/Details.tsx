@@ -27,6 +27,7 @@ function Details() {
   const [event, setEvent] = useState<EventData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showChecklistModal, setShowChecklistModal] = useState<boolean>(false);
+  const [showBtn, setShowBtn] = useState(false);
 
   const [items, setItem] = useState<ChecklistItem[]>([]);
 
@@ -49,9 +50,12 @@ function Details() {
   }, [id]);
 
   // patching already existing data
-  const handleSaveAllDetails = async (checkId: string) => {
+  const handleSaveAllDetails = async (
+    checkId: string,
+    checklist: ChecklistItem[],
+  ) => {
     const patchPayload = {
-      checklist: items,
+      checklist,
     };
 
     try {
@@ -154,7 +158,7 @@ function Details() {
                   </div>
                 </div>
 
-                {/* Details Backdrop Modal */}
+                {/* details modal */}
                 {showModal && (
                   <div className="detail-modal">
                     <div className="detail-box">
@@ -204,7 +208,7 @@ function Details() {
               </div>
             )}
 
-            {/* Services & Checklist Side Sections */}
+            {/* services & checklist sections */}
             <div className="detail-service">
               <h3 className="detail-head">📅 Services</h3>
               <div className="book-services">
@@ -228,7 +232,6 @@ function Details() {
                     <span>things to be done before the event.</span>
                   </p>
 
-                  {/* Dynamic checklist items iteration placeholder */}
                   {items && (
                     <ul className="active-checklist">
                       {items.map((item) => (
@@ -245,18 +248,70 @@ function Details() {
                               className="checklist-input"
                               checked={item.isDone}
                               onChange={(e) => {
-                                setItem((prevItems) =>
-                                  prevItems.map((p) =>
-                                    p.itemId === item.itemId
-                                      ? { ...p, isDone: e.target.checked }
-                                      : p,
-                                  ),
+                                const updatedItems = items.map((p) =>
+                                  p.itemId === item.itemId
+                                    ? { ...p, isDone: e.target.checked }
+                                    : p,
                                 );
+                                setItem(updatedItems);
+                                if (id) {
+                                  handleSaveAllDetails(id, updatedItems);
+                                }
                               }}
                             />
-                            {item.item}
+                            {capitalize(item.item)}
                           </li>
-                          <button>...</button>
+                          <button
+                            className="dot-btn"
+                            onClick={() => setShowBtn(!showBtn)}
+                          >
+                            ...
+                          </button>
+                          {showBtn && (
+                            <div className="dot-del-btn">
+                              <form onSubmit={(e) => e.preventDefault()}>
+                                <input
+                                  type="text"
+                                  className="edit-saved-item"
+                                  value={item.item}
+                                  onChange={(e) => {
+                                    const updatedItems = items.map((p) =>
+                                      p.itemId === item.itemId
+                                        ? { ...p, item: e.target.value }
+                                        : p,
+                                    );
+                                    setItem(updatedItems);
+                                  }}
+                                />
+                              </form>
+
+                              <div className="two-btn">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    if (id) handleSaveAllDetails(id, items);
+                                    setShowBtn(false);
+                                  }}
+                                >
+                                  Save
+                                </button>
+
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const updatedItems = items.filter(
+                                      (p) => p.itemId !== item.itemId,
+                                    );
+                                    setItem(updatedItems);
+                                    if (id)
+                                      handleSaveAllDetails(id, updatedItems);
+                                  }}
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </ul>
@@ -274,7 +329,9 @@ function Details() {
                   <CheckModal
                     items={items}
                     setItem={setItem}
-                    handleSaveAllDetails={() => handleSaveAllDetails(id)}
+                    handleSaveAllDetails={(updatedItems) =>
+                      handleSaveAllDetails(id, updatedItems)
+                    }
                     setShowChecklistModal={setShowChecklistModal}
                   />
                 )}

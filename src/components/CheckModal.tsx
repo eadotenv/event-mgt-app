@@ -6,13 +6,14 @@ interface Props {
   items: ChecklistItem[];
   setItem: React.Dispatch<React.SetStateAction<ChecklistItem[]>>;
   setShowChecklistModal: (val: boolean) => void;
-  handleSaveAllDetails: () => void;
+  handleSaveAllDetails: (updatedItems: ChecklistItem[]) => void;
 }
 
 function CheckModal({
+  items,
   setItem,
   setShowChecklistModal,
-  handleSaveAllDetails,
+  handleSaveAllDetails: saveAllDetails,
 }: Props) {
   const [inputValue, setInputValue] = useState("");
 
@@ -26,10 +27,11 @@ function CheckModal({
       isDone: false,
     };
 
-    setItem((prevItems) => [...prevItems, newItem]);
+    const updatedItems = [...items, newItem];
+    setItem(updatedItems);
 
     setTimeout(() => {
-      handleSaveAllDetails();
+      saveAllDetails(updatedItems);
       setShowChecklistModal(false);
     }, 50);
   };

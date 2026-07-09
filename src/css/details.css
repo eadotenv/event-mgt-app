@@ -225,6 +225,7 @@
   padding: 15px;
   border-radius: 8px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .program-box {
@@ -436,6 +437,67 @@
   text-decoration: line-through;
 }
 
+.dot-btn {
+  width: 20px;
+  position: relative;
+  background: none;
+  border: none;
+}
+
+.dot-del-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 320px;
+  height: 150px;
+  gap: 10px;
+  background: var(--surface);
+  position: absolute;
+  top: 10%;
+  right: 0%;
+  padding: 10px;
+  border: 1px solid red;
+  border-radius: 6px;
+}
+
+.edit-saved-item {
+  padding: 10px 12px;
+  width: 100%;
+  border-radius: 6px;
+  border: none;
+  background: var(--input-bg);
+  font-size: var(--text-md);
+  font-family: var(--font-normal);
+  /* outline: none; */
+}
+
+.edit-saved-item:focus {
+  border-color: var(--accent);
+}
+
+.dot-del-btn button {
+  border: none;
+  background: var(--ink);
+  font-family: var(--font-normal);
+  font-size: var(--text-base);
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  color: var(--card);
+  flex: 1;
+}
+
+.dot-del-btn button:hover {
+  background: var(--accent);
+  color: var(--card);
+}
+
+.two-btn {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+
 /* media query for desktop */
 @media (min-width: 992px) {
   .details {
@@ -491,6 +553,7 @@
   .check-list-box,
   .program-box {
     width: 320px;
+    position: relative;
   }
 
   /* hiding mobile modal on desktop  */
