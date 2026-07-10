@@ -77,6 +77,20 @@ function Details() {
     ? `${user.lastname.charAt(0).toUpperCase()}.`
     : "";
 
+  async function handeDelete(delId: ChecklistItem) {
+    const updatedItems = items.filter((p) => p.itemId !== delId.itemId);
+    setItem(updatedItems);
+    try {
+      if (id) {
+        await handleSaveAllDetails(id, updatedItems);
+      }
+      console.log("deleted");
+    } catch (error) {
+      console.error(error);
+    }
+    setShowBtn(false);
+  }
+
   // if (loading) {
   //   return <p className="loading-state">Loading event details...</p>;
   // }
@@ -299,12 +313,7 @@ function Details() {
                                 <button
                                   type="button"
                                   onClick={() => {
-                                    const updatedItems = items.filter(
-                                      (p) => p.itemId !== item.itemId,
-                                    );
-                                    setItem(updatedItems);
-                                    if (id)
-                                      handleSaveAllDetails(id, updatedItems);
+                                    handeDelete(item);
                                   }}
                                 >
                                   Delete
@@ -364,3 +373,19 @@ function Details() {
 }
 
 export default Details;
+
+{
+  /*<button
+                                  type="button"
+                                  onClick={() => {
+                                    const updatedItems = items.filter(
+                                      (p) => p.itemId !== item.itemId,
+                                    );
+                                    setItem(updatedItems);
+                                    if (id)
+                                      handleSaveAllDetails(id, updatedItems);
+                                  }}
+                                >
+                                  Delete
+                                </button> */
+}
