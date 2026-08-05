@@ -136,8 +136,10 @@ function Upcoming({ showModal, step, onOpen, onClose, onNext, onBack }: Props) {
                   onClose={(finalData) => {
                     if (finalData) {
                       handleSaveData(finalData);
+                      handleData(finalData);
+                    } else {
+                      onClose();
                     }
-                    handleData(finalData);
                   }}
                   onSave={handleSaveData}
                 />
@@ -191,8 +193,10 @@ function Upcoming({ showModal, step, onOpen, onClose, onNext, onBack }: Props) {
                   onClose={(finalData) => {
                     if (finalData) {
                       handleSaveData(finalData);
+                      handleData(finalData);
+                    } else {
+                      onClose();
                     }
-                    handleData(finalData);
                   }}
                   onSave={handleSaveData}
                 />

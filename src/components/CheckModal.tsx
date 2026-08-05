@@ -29,11 +29,8 @@ function CheckModal({
 
     const updatedItems = [...items, newItem];
     setItem(updatedItems);
-
-    setTimeout(() => {
-      saveAllDetails(updatedItems);
-      setShowChecklistModal(false);
-    }, 50);
+    saveAllDetails(updatedItems);
+    setShowChecklistModal(false);
   };
 
   return (
@@ -59,9 +56,6 @@ function CheckModal({
         </div>
         <button type="submit" className="mod-btn mod-save-btn">
           Save
-        </button>
-        <button type="button" className="mod-btn mod-del-btn">
-          Delete
         </button>
       </form>
     </div>

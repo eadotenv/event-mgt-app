@@ -27,7 +27,7 @@ function Details() {
   const [event, setEvent] = useState<EventData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showChecklistModal, setShowChecklistModal] = useState<boolean>(false);
-  const [showBtn, setShowBtn] = useState(false);
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
 
   const [items, setItem] = useState<ChecklistItem[]>([]);
 
@@ -88,7 +88,7 @@ function Details() {
     } catch (error) {
       console.error(error);
     }
-    setShowBtn(false);
+    setOpenMenuId(null);
   }
 
   // if (loading) {
@@ -277,11 +277,17 @@ function Details() {
                           </li>
                           <button
                             className="dot-btn"
-                            onClick={() => setShowBtn(!showBtn)}
+                            onClick={() =>
+                              setOpenMenuId(
+                                openMenuId === item.itemId
+                                  ? null
+                                  : item.itemId,
+                              )
+                            }
                           >
                             ...
                           </button>
-                          {showBtn && (
+                          {openMenuId === item.itemId && (
                             <div className="dot-del-btn">
                               <form onSubmit={(e) => e.preventDefault()}>
                                 <input
@@ -304,7 +310,7 @@ function Details() {
                                   type="button"
                                   onClick={() => {
                                     if (id) handleSaveAllDetails(id, items);
-                                    setShowBtn(false);
+                                    setOpenMenuId(null);
                                   }}
                                 >
                                   Save

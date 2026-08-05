@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 function Message() {
   const location = useLocation();
-  const email = location.state.email;
+  const email = location.state?.email;
   return (
     <div className="container my-5">
       <div className="row justify-content-center">

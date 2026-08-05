@@ -42,9 +42,9 @@ function Reset() {
     resolver: zodResolver(schema),
   });
 
-  // if (!user) {
-  //   return <p className="text-center mt-5">Unauthorized access</p>;
-  // }
+  if (!user) {
+    return <p className="text-center mt-5">Unauthorized access</p>;
+  }
 
   async function onSubmit(data: ValidSchema) {
     try {
