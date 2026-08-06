@@ -46,7 +46,7 @@
 @media (min-width: 992px) {
   .side-bar {
     /* border-right: 1px solid var(--border); */
-    height: 100vh;
+    height: 100%;
     box-sizing: border-box;
   }
 

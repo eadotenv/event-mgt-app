@@ -25,7 +25,7 @@
   overflow-y: auto;
   min-height: 100vh;
   display: grid;
-  grid-template-rows: 1/2fr 1/2fr;
+  grid-template-rows: 1fr 2fr;
   grid-template-areas:
     "close"
     "plan";

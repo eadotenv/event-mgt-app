@@ -1,6 +1,6 @@
 function Services() {
   return (
-    <div style={{ background: "salmon", height: "100vh" }}>
+    <div>
       <h2>Services</h2>
     </div>
   );

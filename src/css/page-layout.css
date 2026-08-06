@@ -3,13 +3,18 @@
   grid-template-rows: 1fr;
   grid-template-areas: "page";
   min-height: 100vh;
-  gap: 20px;
   /* border: 5px solid red; */
 }
 
 .page-outlet {
   grid-area: page;
+  height: 100vh;
+  overflow-y: auto;
   /* border: 1px solid red; */
+}
+
+.page-outlet > * {
+  min-height: 100%;
 }
 
 /* .page-sidebar {
@@ -19,7 +24,7 @@
 
 @media (min-width: 992px) {
   .page-layout {
-    width: 100vw;
+    width: 100%;
     display: grid;
     grid-template-columns: 250px 1fr;
     grid-template-rows: 1fr;
