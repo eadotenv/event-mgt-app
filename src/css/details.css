@@ -215,6 +215,7 @@
   display: flex;
   gap: 10px;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .check-list-box,
@@ -455,9 +456,32 @@
   position: absolute;
   top: 10%;
   right: 0%;
-  padding: 10px;
+  padding: 30px 10px 10px;
   border: 1px solid red;
   border-radius: 6px;
+  z-index: 20;
+}
+
+.edit-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 15;
+}
+
+.dot-del-btn .edit-close-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  flex: none;
 }
 
 .edit-saved-item {
@@ -505,13 +529,33 @@
   padding: 0;
 }
 
+.program-item-div {
+  border-bottom: 1px solid var(--ink4);
+  position: relative;
+}
+
 .program-item {
   display: flex;
   align-items: flex-start;
   gap: 15px;
   padding: 10px 0;
-  border-bottom: 1px solid var(--ink4);
   font-family: var(--font-normal);
+  cursor: pointer;
+}
+
+.program-item:hover {
+  background: var(--ink3);
+}
+
+.program-edit-form .mod-del-btn {
+  background: transparent;
+  color: rgba(255, 0, 0, 0.6);
+  margin-top: -5px;
+}
+
+.program-edit-form .mod-del-btn:hover {
+  background: transparent;
+  color: red;
 }
 
 .program-time {

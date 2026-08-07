@@ -53,13 +53,13 @@ function ProgramModal({
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="check-modal-input"
-            placeholder="e.g. Opening remarks"
+            placeholder="Closing remarks"
             autoFocus
           />
         </div>
         <div className="check-modal-form-input">
           <label htmlFor="program-name" className="check-modal-label">
-            Name
+            Who is responsible for this?
           </label>
           <input
             id="program-name"
@@ -67,12 +67,12 @@ function ProgramModal({
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="check-modal-input"
-            placeholder="e.g. MC Kwame"
+            placeholder="Samuel Brefo"
           />
         </div>
         <div className="check-modal-form-input">
           <label htmlFor="program-time" className="check-modal-label">
-            Time
+            At what time will this be done?
           </label>
           <input
             id="program-time"

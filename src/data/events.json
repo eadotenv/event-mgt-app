@@ -559,16 +559,16 @@
       ],
       "program": [
         {
-          "itemId": "1786114594749",
-          "time": "10:12",
-          "title": "Closing Prayer",
-          "name": "Nana Akuffo Addo"
-        },
-        {
           "itemId": "1786115081703",
           "time": "10:30",
           "title": "Opening Prayer",
           "name": "John Mahama"
+        },
+        {
+          "itemId": "1786123596964",
+          "time": "16:30",
+          "title": "Share drinks",
+          "name": "Sister Mercy"
         }
       ]
     },

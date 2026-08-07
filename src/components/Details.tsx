@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
-import type { ChecklistItem, EventData, ProgramItem } from "../entities/EventData";
+import type {
+  ChecklistItem,
+  EventData,
+  ProgramItem,
+} from "../entities/EventData";
 import type { User } from "../entities/User";
 import NavBar from "./NavBar";
 import CheckModal from "./CheckModal";
@@ -30,9 +34,13 @@ function Details() {
   const [showChecklistModal, setShowChecklistModal] = useState<boolean>(false);
   const [showProgramModal, setShowProgramModal] = useState<boolean>(false);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [openProgramId, setOpenProgramId] = useState<string | null>(null);
 
   const [items, setItem] = useState<ChecklistItem[]>([]);
   const [program, setProgram] = useState<ProgramItem[]>([]);
+  const [editingProgram, setEditingProgram] = useState<ProgramItem | null>(
+    null,
+  );
 
   const detailTabs = [{ name: "Details" }, { name: "Services" }];
 
@@ -94,6 +102,22 @@ function Details() {
     }
   };
 
+  const handleProgramEdit = (updated: ProgramItem) => {
+    const updatedProgram = program.map((p) =>
+      p.itemId === updated.itemId ? { ...p, ...updated } : p,
+    );
+    setProgram(updatedProgram);
+    if (id) handleSaveProgram(id, updatedProgram);
+    setOpenProgramId(null);
+  };
+
+  const handleProgramDelete = (itemId: string) => {
+    const updatedProgram = program.filter((p) => p.itemId !== itemId);
+    setProgram(updatedProgram);
+    if (id) handleSaveProgram(id, updatedProgram);
+    setOpenProgramId(null);
+  };
+
   const userInitial = user?.firstname
     ? user.firstname.charAt(0).toUpperCase()
     : "";
@@ -137,6 +161,12 @@ function Details() {
         {active === 0 ? (
           /* ====== details panel ====== */
           <div className="details">
+            {openMenuId && (
+              <div
+                className="edit-backdrop"
+                onClick={() => setOpenMenuId(null)}
+              />
+            )}
             {event && (
               <div className="detail-box">
                 <div className="header-arrow">
@@ -302,18 +332,27 @@ function Details() {
                           </li>
                           <button
                             className="dot-btn"
-                            onClick={() =>
+                            onClick={() => {
+                              setShowChecklistModal(false);
+                              setShowProgramModal(false);
+                              setOpenProgramId(null);
                               setOpenMenuId(
-                                openMenuId === item.itemId
-                                  ? null
-                                  : item.itemId,
-                              )
-                            }
+                                openMenuId === item.itemId ? null : item.itemId,
+                              );
+                            }}
                           >
                             ...
                           </button>
                           {openMenuId === item.itemId && (
                             <div className="dot-del-btn">
+                              <button
+                                type="button"
+                                className="edit-close-btn"
+                                aria-label="Close"
+                                onClick={() => setOpenMenuId(null)}
+                              >
+                                <IoClose size={16} />
+                              </button>
                               <form onSubmit={(e) => e.preventDefault()}>
                                 <input
                                   type="text"
@@ -359,7 +398,10 @@ function Details() {
 
                   <p
                     className="check-item"
-                    onClick={() => setShowChecklistModal(true)}
+                    onClick={() => {
+                      setOpenMenuId(null);
+                      setShowChecklistModal(true);
+                    }}
                   >
                     Add a checklist item
                   </p>
@@ -388,22 +430,137 @@ function Details() {
                   {program.length > 0 && (
                     <ul className="program-list">
                       {program.map((item) => (
-                        <li key={item.itemId} className="program-item">
-                          <span className="program-time">{item.time}</span>
-                          <div className="program-info">
-                            <h4 className="program-title">{item.title}</h4>
-                            {item.name && (
-                              <p className="program-name">{item.name}</p>
-                            )}
-                          </div>
-                        </li>
+                        <div key={item.itemId} className="program-item-div">
+                          <li
+                            className="program-item"
+                            onClick={() => {
+                              setShowChecklistModal(false);
+                              setShowProgramModal(false);
+                              if (openProgramId === item.itemId) {
+                                setOpenProgramId(null);
+                              } else {
+                                setOpenProgramId(item.itemId);
+                                setEditingProgram({ ...item });
+                              }
+                            }}
+                          >
+                            <span className="program-time">{item.time}</span>
+                            <div className="program-info">
+                              <h4 className="program-title">{item.title}</h4>
+                              {item.name && (
+                                <p className="program-name">{item.name}</p>
+                              )}
+                            </div>
+                          </li>
+                          {openProgramId === item.itemId && editingProgram && (
+                            <div className="checklist-modal">
+                              <form
+                                className="mod-form program-edit-form"
+                                onSubmit={(e) => e.preventDefault()}
+                              >
+                                <div className="header-close-btn">
+                                  <h3 className="check-header">
+                                    Edit program item
+                                  </h3>
+                                  <IoClose
+                                    size={22}
+                                    className="edit-x-btn"
+                                    onClick={() => setOpenProgramId(null)}
+                                  />
+                                </div>
+                                <div className="check-modal-form-input">
+                                  <label
+                                    htmlFor={`prog-title-${item.itemId}`}
+                                    className="check-modal-label"
+                                  >
+                                    Title
+                                  </label>
+                                  <input
+                                    id={`prog-title-${item.itemId}`}
+                                    type="text"
+                                    className="check-modal-input"
+                                    value={editingProgram.title}
+                                    onChange={(e) =>
+                                      setEditingProgram({
+                                        ...editingProgram,
+                                        title: e.target.value,
+                                      })
+                                    }
+                                  />
+                                </div>
+                                <div className="check-modal-form-input">
+                                  <label
+                                    htmlFor={`prog-name-${item.itemId}`}
+                                    className="check-modal-label"
+                                  >
+                                    Who is responsible for this?
+                                  </label>
+                                  <input
+                                    id={`prog-name-${item.itemId}`}
+                                    type="text"
+                                    className="check-modal-input"
+                                    value={editingProgram.name}
+                                    onChange={(e) =>
+                                      setEditingProgram({
+                                        ...editingProgram,
+                                        name: e.target.value,
+                                      })
+                                    }
+                                  />
+                                </div>
+                                <div className="check-modal-form-input">
+                                  <label
+                                    htmlFor={`prog-time-${item.itemId}`}
+                                    className="check-modal-label"
+                                  >
+                                    At what time will this be done?
+                                  </label>
+                                  <input
+                                    id={`prog-time-${item.itemId}`}
+                                    type="time"
+                                    className="check-modal-input"
+                                    value={editingProgram.time}
+                                    onChange={(e) =>
+                                      setEditingProgram({
+                                        ...editingProgram,
+                                        time: e.target.value,
+                                      })
+                                    }
+                                  />
+                                </div>
+                                <button
+                                  type="button"
+                                  className="mod-btn mod-save-btn"
+                                  onClick={() =>
+                                    handleProgramEdit(editingProgram)
+                                  }
+                                >
+                                  Save
+                                </button>
+                                <button
+                                  type="button"
+                                  className="mod-btn mod-del-btn"
+                                  onClick={() =>
+                                    handleProgramDelete(item.itemId)
+                                  }
+                                >
+                                  Delete
+                                </button>
+                              </form>
+                            </div>
+                          )}
+                        </div>
                       ))}
                     </ul>
                   )}
 
                   <p
                     className="check-item"
-                    onClick={() => setShowProgramModal(true)}
+                    onClick={() => {
+                      setOpenMenuId(null);
+                      setOpenProgramId(null);
+                      setShowProgramModal(true);
+                    }}
                   >
                     Add an item to the program lineup
                   </p>
