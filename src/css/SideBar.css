@@ -204,3 +204,25 @@
     color: var(--accent);
   }
 }
+
+.side-bar.collapsed .menu-header {
+  display: none;
+}
+
+.side-bar.collapsed .menu-label,
+.side-bar.collapsed .full-name,
+.side-bar.collapsed .settings,
+.side-bar.collapsed .provider-box {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .side-bar.collapsed .side-list-nav-link {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .side-bar.collapsed .name-div {
+    justify-content: center;
+  }
+}

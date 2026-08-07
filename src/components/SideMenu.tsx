@@ -33,7 +33,7 @@ function SideMenu({ menu, active, setActive, user }: Props) {
                 className="side-list-nav-link"
               >
                 <item.icon size={18} className="service-icon" />
-                {item.label}
+                <span className="menu-label">{item.label}</span>
               </Link>
             </li>
           ))}
@@ -59,8 +59,7 @@ function SideMenu({ menu, active, setActive, user }: Props) {
           <div className="settings">
             <IoSettingsOutline size={22} />
             <span className="settings-text">Settings</span>
-          </div>
-        </div>
+          </div>        </div>
       </div>
     </aside>
   );

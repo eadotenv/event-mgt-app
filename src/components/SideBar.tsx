@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { BsCalendarEventFill } from "react-icons/bs";
 import { GrServices } from "react-icons/gr";
 import { IoMdNotifications } from "react-icons/io";
@@ -29,7 +29,8 @@ function SideBar({ showModal, step, user }: Props) {
     { label: "Notifications", path: "notifications", icon: IoMdNotifications },
   ];
 
-  // const location = useLocation();
+  const location = useLocation();
+  const isCollapsed = location.pathname.includes("/details/");
 
   // const navigate = useNavigate();
   // const user = location.state?.user;
@@ -66,7 +67,9 @@ function SideBar({ showModal, step, user }: Props) {
           </ul>
         </nav>
       ) : (
-        <div className="side-bar">
+        <div
+          className={isCollapsed ? "side-bar collapsed" : "side-bar"}
+        >
           <Link
             to="/page-layout"
             className="home-link"

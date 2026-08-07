@@ -40,4 +40,8 @@
   .page-outlet {
     grid-area: main;
   }
+
+  .page-layout.collapsed {
+    grid-template-columns: 80px 1fr;
+  }
 }

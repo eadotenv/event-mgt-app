@@ -8,12 +8,13 @@ function PageLayout() {
   const [step, setStep] = useState<number>(1);
 
   const location = useLocation();
+  const isCollapsed = location.pathname.includes("/details/");
 
   // const navigate = useNavigate();
   const user = location.state?.user;
 
   return (
-    <div className="page-layout">
+    <div className={isCollapsed ? "page-layout collapsed" : "page-layout"}>
       <div className="page-sidebar">
         <SideBar showModal={showModal} step={step} user={user} />
       </div>
