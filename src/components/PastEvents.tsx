@@ -2,10 +2,11 @@ import axios from "axios";
 import { parseISO, isBefore, format } from "date-fns";
 import { useState, useEffect } from "react";
 import type { EventData } from "../entities/EventData";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdCalendarMonth } from "react-icons/md";
 import "../css/event.css";
+import "../css/past-event.css";
 
 function PastEvents() {
   const [userData, setUserData] = useState<EventData[]>([]);
@@ -18,6 +19,7 @@ function PastEvents() {
   }, []);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const userId = location.state?.user.id;
   console.log(userId);
 
@@ -42,6 +44,12 @@ function PastEvents() {
     return isBefore(checkDate, new Date());
   };
 
+  const handleReplan = (eventId: number | undefined) => {
+    navigate(`/page-layout/replan/${eventId}`, {
+      state: { user: location.state?.user },
+    });
+  };
+
   return (
     <>
       <div className="past-event-container">
@@ -54,7 +62,11 @@ function PastEvents() {
             filteredEvent
               .filter((user) => isEventExpired(user.date))
               .map((user: EventData, index) => (
-                <div key={index} className="old-events-container">
+                <div
+                  key={index}
+                  className="old-events-container"
+                  onClick={() => handleReplan(user.id)}
+                >
                   <div className="old-events">
                     <h3 className="past-head">{user.title}</h3>
 

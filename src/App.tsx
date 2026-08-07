@@ -9,6 +9,7 @@ import Event from "./components/Event";
 import Notifications from "./components/Notifications";
 import PageLayout from "./components/PageLayout";
 import Details from "./components/Details";
+import Replan from "./components/Replan";
 
 function App() {
   const routes = createBrowserRouter([
@@ -36,6 +37,7 @@ function App() {
         { index: true, element: <HomeContent /> }, //default page
         { path: "event", element: <Event /> },
         { path: "details/:id", element: <Details /> },
+        { path: "replan/:id", element: <Replan /> },
         { path: "services", element: <Services /> },
         { path: "notifications", element: <Notifications /> },
       ],

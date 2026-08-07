@@ -527,33 +527,33 @@
     {
       "id": "0dd6",
       "userId": "ffd0",
-      "title": "Reading",
-      "date": "2026-07-15T00:00:00.000Z",
+      "title": "Read coding books",
+      "date": "2026-08-15T00:00:00.000Z",
       "location": {
-        "name": "Aborah Hotel",
-        "town": "Atonsu",
-        "city": "Kumasi",
-        "region": "Ashanti"
+        "name": "Cape Hotel",
+        "town": "Cape Coast",
+        "city": "Cape Coast",
+        "region": "Central"
       },
       "services": {
         "photo": false,
         "entertainment": false,
-        "design": true,
-        "hiring": true,
+        "design": false,
+        "hiring": false,
         "transport": true,
         "event": false,
-        "foodServices": false,
+        "foodServices": true,
         "beautician": false
       },
       "checklist": [
         {
-          "itemId": "1",
-          "item": "Book catering",
+          "itemId": "1786101728286",
+          "item": "cook",
           "isDone": false
         },
         {
-          "itemId": "1783557709346",
-          "item": "hello",
+          "itemId": "1786101745800",
+          "item": "washing",
           "isDone": false
         }
       ]
@@ -630,6 +630,50 @@
           "isDone": false
         }
       ]
+    },
+    {
+      "id": "6a90",
+      "userId": "ffd0",
+      "title": "Wedding",
+      "date": "2026-08-20T00:00:00.000Z",
+      "location": {
+        "name": "Sunset Hotel",
+        "town": "Danyame",
+        "city": "Kumasi",
+        "region": "Ashanti"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": true,
+        "hiring": true,
+        "transport": true,
+        "event": false,
+        "foodServices": false,
+        "beautician": false
+      }
+    },
+    {
+      "id": "022e",
+      "userId": "ffd0",
+      "title": "Church",
+      "date": "2026-08-18T00:00:00.000Z",
+      "location": {
+        "name": "Kenyasi Hotel",
+        "town": "Kenyasi",
+        "city": "Sunyani",
+        "region": "Brong Ahafo"
+      },
+      "services": {
+        "photo": false,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": false,
+        "event": false,
+        "foodServices": true,
+        "beautician": true
+      }
     }
   ]
 }

@@ -53,6 +53,11 @@
   margin: 0px auto;
 }
 
+.past-event-container {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+}
+
 .hero-details {
   display: flex;
   flex-direction: column;

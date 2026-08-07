@@ -21,7 +21,8 @@ interface OutletContext {
 }
 
 function HomeContent() {
-  const [active, setActive] = useState<number>(0);
+  const location = useLocation();
+  const [active, setActive] = useState<number>(location.state?.active ?? 0);
   const tabs = [{ name: "Upcoming events" }, { name: "Past events" }];
   const [userData, setUserData] = useState<EventData[]>([]);
   const { step, showModal, setStep, setShowModal } =
@@ -34,11 +35,9 @@ function HomeContent() {
       .catch((err) => console.log("An error occured", err));
   }, []);
 
-  const location = useLocation();
   const navigate = useNavigate();
   const user = location.state?.user as User;
   const userId = user?.id;
-
   const filteredEvent = userId
     ? userData.filter((event) => event.userId === userId)
     : [];

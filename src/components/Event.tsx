@@ -14,6 +14,7 @@ import { MdCalendarMonth } from "react-icons/md";
 // Style Assets
 import "../css/navbar.css";
 import "../css/event.css";
+import "../css/past-event.css";
 
 function Event() {
   const [userData, setUserData] = useState<EventData[]>([]);
