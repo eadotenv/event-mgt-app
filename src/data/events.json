@@ -674,6 +674,28 @@
         "foodServices": true,
         "beautician": true
       }
+    },
+    {
+      "id": "127a",
+      "userId": "ffd0",
+      "title": "Painting",
+      "date": "2026-08-27T00:00:00.000Z",
+      "location": {
+        "name": "Trede Hotel",
+        "town": "Kumasi",
+        "city": "Takoradi",
+        "region": "Western"
+      },
+      "services": {
+        "photo": true,
+        "entertainment": false,
+        "design": true,
+        "hiring": false,
+        "transport": false,
+        "event": false,
+        "foodServices": false,
+        "beautician": false
+      }
     }
   ]
 }
