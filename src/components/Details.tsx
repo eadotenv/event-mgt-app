@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
-import type { ChecklistItem, EventData } from "../entities/EventData";
+import type { ChecklistItem, EventData, ProgramItem } from "../entities/EventData";
 import type { User } from "../entities/User";
 import NavBar from "./NavBar";
 import CheckModal from "./CheckModal";
+import ProgramModal from "./ProgramModal";
 import "../css/details.css";
 import note from "../assets/note.png";
 import { FaLocationDot } from "react-icons/fa6";
@@ -27,9 +28,11 @@ function Details() {
   const [event, setEvent] = useState<EventData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showChecklistModal, setShowChecklistModal] = useState<boolean>(false);
+  const [showProgramModal, setShowProgramModal] = useState<boolean>(false);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
 
   const [items, setItem] = useState<ChecklistItem[]>([]);
+  const [program, setProgram] = useState<ProgramItem[]>([]);
 
   const detailTabs = [{ name: "Details" }, { name: "Services" }];
 
@@ -42,6 +45,9 @@ function Details() {
         // checking if data already exist and load them
         if (res.data.checklist) {
           setItem(res.data.checklist);
+        }
+        if (res.data.program) {
+          setProgram(res.data.program);
         }
       })
       .catch((err) =>
@@ -66,6 +72,25 @@ function Details() {
       console.log("Saved successfully:", response.data);
     } catch (error) {
       console.error("Error saving data:", error);
+    }
+  };
+
+  const handleSaveProgram = async (
+    progId: string,
+    programItems: ProgramItem[],
+  ) => {
+    const patchPayload = {
+      program: programItems,
+    };
+
+    try {
+      const response = await axios.patch(
+        `http://localhost:9000/events/${progId}`,
+        patchPayload,
+      );
+      console.log("Program saved successfully:", response.data);
+    } catch (error) {
+      console.error("Error saving program:", error);
     }
   };
 
@@ -359,10 +384,41 @@ function Details() {
                   <p className="check-list-text">
                     Add items to the schedule of the event
                   </p>
-                  <p className="check-item">
+
+                  {program.length > 0 && (
+                    <ul className="program-list">
+                      {program.map((item) => (
+                        <li key={item.itemId} className="program-item">
+                          <span className="program-time">{item.time}</span>
+                          <div className="program-info">
+                            <h4 className="program-title">{item.title}</h4>
+                            {item.name && (
+                              <p className="program-name">{item.name}</p>
+                            )}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  <p
+                    className="check-item"
+                    onClick={() => setShowProgramModal(true)}
+                  >
                     Add an item to the program lineup
                   </p>
                 </div>
+
+                {showProgramModal && id && (
+                  <ProgramModal
+                    program={program}
+                    setProgram={setProgram}
+                    handleSaveProgram={(updatedProgram) =>
+                      handleSaveProgram(id, updatedProgram)
+                    }
+                    setShowProgramModal={setShowProgramModal}
+                  />
+                )}
               </div>
             </div>
           </div>

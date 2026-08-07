@@ -14,6 +14,13 @@ export interface Items {
   isDone: boolean;
 }
 
+export interface ProgramItem {
+  itemId: string;
+  time: string;
+  title: string;
+  name: string;
+}
+
 export interface EventData {
   id?: number;
   userId: number;
@@ -22,4 +29,5 @@ export interface EventData {
   location: AreaData | null;
   services: ServiceData | null;
   checklist?: ChecklistItem[];
+  program?: ProgramItem[];
 }
