@@ -1,7 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { BsCalendarEventFill } from "react-icons/bs";
-import { GrServices } from "react-icons/gr";
-import { IoMdNotifications } from "react-icons/io";
+import { MdEvent, MdMiscellaneousServices, MdNotificationsActive } from "react-icons/md";
 import { useEffect, useState } from "react";
 
 import "../css/SideBar.css";
@@ -24,9 +22,13 @@ interface Props {
 function SideBar({ showModal, step, user }: Props) {
   const [active, setActive] = useState(-1);
   const menu = [
-    { label: "Events", path: "event", icon: BsCalendarEventFill },
-    { label: "Services", path: "services", icon: GrServices },
-    { label: "Notifications", path: "notifications", icon: IoMdNotifications },
+    { label: "Events", path: "event", icon: MdEvent },
+    { label: "Services", path: "services", icon: MdMiscellaneousServices },
+    {
+      label: "Notifications",
+      path: "notifications",
+      icon: MdNotificationsActive,
+    },
   ];
 
   const location = useLocation();

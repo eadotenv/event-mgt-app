@@ -1,5 +1,6 @@
-// import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "../css/navbar.css";
+import { FaHouse } from "react-icons/fa6";
 
 interface Tab {
   name: string;
@@ -13,25 +14,35 @@ interface Props {
 }
 
 function NavBar({ tabs, active, setActive, header }: Props) {
+  const location = useLocation();
+  const user = location.state?.user;
+
   return (
-    <>
-      <nav className="navbar">
-        <h3 className="nav-header">{header}</h3>
-        <ul className="nav-list">
-          {tabs.map((tab, index) => (
-            <li key={index} className="nav-item">
-              <button
-                className={active === index ? "nav-link active" : "nav-link"}
-                onClick={() => setActive(index)}
-                aria-current="page"
-              >
-                {tab.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </>
+    <nav className="navbar">
+      <Link
+        to="/page-layout"
+        state={{ user }}
+        className="navbar-home"
+        aria-label="Go to homepage"
+        title="Home"
+      >
+        <FaHouse size={16} />
+      </Link>
+      <h3 className="nav-header">{header}</h3>
+      <ul className="nav-list">
+        {tabs.map((tab, index) => (
+          <li key={index} className="nav-item">
+            <button
+              className={active === index ? "nav-link active" : "nav-link"}
+              onClick={() => setActive(index)}
+              aria-current="page"
+            >
+              {tab.name}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }
 

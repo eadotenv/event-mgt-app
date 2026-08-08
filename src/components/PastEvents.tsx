@@ -44,6 +44,13 @@ function PastEvents() {
     return isBefore(checkDate, new Date());
   };
 
+  // Comparable start time for sorting (string date or date range)
+  const eventStartTime = (date: EventData["date"]): number => {
+    if (typeof date === "string") return parseISO(date).getTime();
+    if (Array.isArray(date)) return new Date(date[0]).getTime();
+    return 0;
+  };
+
   const handleReplan = (eventId: number | undefined) => {
     navigate(`/page-layout/replan/${eventId}`, {
       state: { user: location.state?.user },
@@ -61,6 +68,7 @@ function PastEvents() {
             // </div>
             filteredEvent
               .filter((user) => isEventExpired(user.date))
+              .sort((a, b) => eventStartTime(b.date) - eventStartTime(a.date))
               .map((user: EventData, index) => (
                 <div
                   key={index}

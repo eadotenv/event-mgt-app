@@ -18,9 +18,12 @@
   /* border: 1px solid red; */
   padding: 0;
   position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
   z-index: 10;
   background: var(--surface);
+  border-top: 1px solid var(--border);
 }
 
 .side-list-nav-link {

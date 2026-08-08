@@ -57,10 +57,17 @@ function Event() {
     return isBefore(checkDate, new Date());
   };
 
-  // Get active, upcoming events
-  const activeEvents = userFilteredEvents.filter(
-    (event) => !isEventExpired(event.date),
-  );
+  // Comparable start time for sorting (string date or date range)
+  const eventStartTime = (date: EventData["date"]): number => {
+    if (typeof date === "string") return parseISO(date).getTime();
+    if (Array.isArray(date)) return new Date(date[0]).getTime();
+    return 0;
+  };
+
+  // Get active, upcoming events (sorted by date, soonest first)
+  const activeEvents = userFilteredEvents
+    .filter((event) => !isEventExpired(event.date))
+    .sort((a, b) => eventStartTime(a.date) - eventStartTime(b.date));
 
   return (
     <div className="past-event-container">

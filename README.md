@@ -1,73 +1,301 @@
-# React + TypeScript + Vite
+# Planlite — Event Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web application for planning and managing personal events. Users create an
+account, plan events through a guided wizard (title → date → location →
+services), track upcoming/past events, and manage event details with a
+checklist and a program lineup.
 
-Currently, two official plugins are available:
+Built with **React 19 + TypeScript + Vite**, backed by a lightweight
+[json-server](https://github.com/typicode/json-server) mock API for
+development. There is no production backend yet — all data lives in local JSON
+files served by json-server.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **User authentication**
+  - Sign up with first name, last name, email, and password
+  - Log in with email + password (validated against the local users API)
+  - "Continue with Google" button (UI only — not wired to an OAuth provider)
+  - Password reset flow (email verification → reset screen)
+- **Event planning wizard** (4 steps, progress indicator in the sidebar)
+  1. Event title
+  2. Event date (single day or multi-day range via calendar)
+  3. Event location (pick a region, then a hotel/venue)
+  4. Event services (8 categories: photography, entertainment, design,
+     hiring, transport, planner, catering, beauty/grooming)
+- **Dashboard**
+  - Sidebar navigation: Events, Services, Notifications
+  - **Upcoming events** tab with a hero card for the nearest upcoming event
+  - **Past events** tab with the ability to replan an expired event
+- **Event details**
+  - View event info (date, location, planned by)
+  - Manage a **checklist** of to-do items (add, toggle done, rename, delete)
+  - Manage a **program lineup** (time + title + responsible person; add,
+    edit, delete)
+- **Replan**: re-open the planning wizard for a past event and update it
 
-## Expanding the ESLint configuration
+> `Services` and `Notifications` pages are placeholder stubs at the moment.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Area          | Technology                                             |
+| ------------- | ------------------------------------------------------ |
+| Framework     | [React](https://react.dev) 19 + TypeScript 5.9          |
+| Build tool    | [Vite](https://vite.dev) 7                              |
+| Routing       | [react-router-dom](https://reactrouter.com) 7           |
+| Forms         | [react-hook-form](https://react-hook-form.com)          |
+| Validation    | [Zod](https://zod.dev) + `@hookform/resolvers`          |
+| HTTP client   | [Axios](https://axios-http.com)                         |
+| Date handling | [date-fns](https://date-fns.org) + [react-calendar](https://github.com/wojtekmaj/react-calendar) |
+| Icons         | [react-icons](https://react-icons.github.io/react-icons) |
+| Mock API      | [json-server](https://github.com/typicode/json-server)   |
+| Linting       | ESLint + typescript-eslint + react-hooks + react-refresh |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js** 18+ (Vite 7 requires Node 20.19+ / 22.12+)
+- **npm** (comes with Node)
+
+### 1. Install dependencies
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Start the mock backend (json-server)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The app talks to two json-server instances:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Port | Data file               | Resources         | Used by                          |
+| ---- | ----------------------- | ----------------- | -------------------------------- |
+| 8000 | `src/data/data.json`    | `users`           | Sign up, login, password reset   |
+| 9000 | `src/data/events.json`  | `events`          | Event creation, list, details    |
+
+Run each in a separate terminal:
+
+```bash
+npx json-server src/data/data.json --port 8000
+npx json-server src/data/events.json --port 9000
 ```
+
+> These ports are hard-coded throughout the app (e.g. `axios.get("http://localhost:9000/events")`).
+> Keep them free, or update the URLs in the source if you change them.
+
+### 3. Start the dev server
+
+```bash
+npm run dev
+```
+
+Open http://localhost:5173 in your browser.
+
+### Demo account
+
+Use any user seeded in `src/data/data.json`, for example:
+
+```
+email:    sam@gmail.com
+password: evenSam1
+```
+
+---
+
+## Project Structure
+
+```
+event-app/
+├── index.html                  # Vite entry HTML
+├── package.json                # Scripts + dependencies
+├── vite.config.ts              # Vite configuration
+├── tsconfig*.json              # TypeScript project configs
+├── eslint.config.js            # ESLint flat config
+├── public/                     # Static assets (favicon)
+└── src/
+    ├── main.tsx                # React root (StrictMode + App)
+    ├── App.tsx                 # Route definitions (react-router)
+    ├── assets/                 # Images (map, schedule, calendar, note)
+    ├── css/                    # Plain-CSS stylesheets, one per feature
+    ├── data/
+    │   ├── data.json           # json-server seed: users
+    │   └── events.json         # json-server seed: events
+    ├── entities/               # TypeScript interfaces (data models)
+    ├── hooks/                  # Utilities (capitalize, location catalog)
+    └── components/             # React components (pages + UI parts)
+        ├── Login.tsx           #   /         – login page
+        ├── SignUp.tsx          #   /signup   – sign-up page
+        ├── Message.tsx         #   /message  – password-reset sent notice
+        ├── LastStep.tsx        #   /last-step – post-signup notice
+        ├── PageLayout.tsx      #   /page-layout – dashboard shell (sidebar + outlet)
+        ├── HomeContent.tsx     #   default tab – upcoming/past toggle
+        ├── Upcoming.tsx        #   upcoming events list + wizard host
+        ├── PastEvents.tsx      #   past (expired) events list
+        ├── Event.tsx           #   active events grid
+        ├── Details.tsx         #   /details/:id – checklist + program lineup
+        ├── Replan.tsx          #   /replan/:id – edit a past event
+        ├── Services.tsx        #   placeholder
+        ├── Notifications.tsx   #   placeholder
+        ├── NavBar.tsx          #   page header with tabs
+        ├── SideBar.tsx         #   dashboard sidebar (responsive)
+        ├── SideMenu.tsx        #   sidebar navigation menu
+        ├── SideCircle.tsx      #   wizard step progress indicator
+        ├── EventTitle.tsx      #   wizard step 1
+        ├── EventDate.tsx       #   wizard step 2 (calendar)
+        ├── EventLocation.tsx   #   wizard step 3 (region → venue)
+        ├── EventServices.tsx   #   wizard step 4 (service checkboxes)
+        ├── CheckModal.tsx      #   add checklist item modal
+        ├── ProgramModal.tsx    #   add program-lineup item modal
+        ├── Button.tsx          #   "Continue with Google" button
+        ├── Verification.tsx    #   forgot-password email modal
+        └── Reset.tsx           #   reset-password form
+```
+
+---
+
+## Routing Map
+
+| Route                          | Component          | Description                          |
+| ------------------------------ | ------------------ | ------------------------------------ |
+| `/`                            | `Login`            | Login page                           |
+| `/signup`                      | `SignUp`           | Create an account                    |
+| `/message`                     | `Message`          | "Check your inbox" (password reset)  |
+| `/last-step`                   | `LastStep`         | "One last step" (post sign-up)       |
+| `/page-layout`                 | `PageLayout`       | Authenticated dashboard shell        |
+| `/page-layout` (index)         | `HomeContent`      | Upcoming / Past events               |
+| `/page-layout/event`           | `Event`            | Upcoming events grid                 |
+| `/page-layout/details/:id`     | `Details`          | Event details + checklist + program  |
+| `/page-layout/replan/:id`      | `Replan`           | Replan a past event                  |
+| `/page-layout/services`        | `Services`         | Placeholder                          |
+| `/page-layout/notifications`   | `Notifications`    | Placeholder                          |
+
+The dashboard routes live as children of `PageLayout`, which renders the
+sidebar and provides shared state (`step`, `showModal`, `setStep`,
+`setShowModal`) to its outlet via `useOutletContext()`.
+
+---
+
+## Key Flows
+
+### Event planning wizard
+
+1. From the dashboard, click **Start planning** / **Plan a new event**.
+2. `Upcoming` hosts a 4-step modal, stepping through `EventTitle` →
+   `EventDate` → `EventLocation` → `EventServices`.
+3. Each step saves partial data into shared state via `onSave`.
+4. On submit, `handleData` POSTs the combined payload to
+   `POST /events` and closes the modal.
+
+### Event details (checklist & program)
+
+- `Details` loads the event from `GET /events/:id`.
+- Checklist items and program items are edited locally and persisted with
+  `PATCH /events/:id` (payload `{ checklist }` or `{ program }`).
+- `CheckModal` and `ProgramModal` handle adding new items.
+
+### Replan a past event
+
+- `PastEvents` lists events whose date is before today.
+- Clicking one navigates to `/page-layout/replan/:id`.
+- `Replan` pre-fills the wizard from `GET /events/:id` and saves changes with
+  `PATCH /events/:id`, then returns to the Past events tab.
+
+---
+
+## Data Models
+
+All interfaces live in `src/entities/`.
+
+```ts
+interface User {
+  id?: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+}
+
+interface EventData {
+  id?: number;
+  userId: number;
+  title: string;
+  date: Date | [Date, Date] | null;   // single day or range
+  location: AreaData | null;
+  services: ServiceData | null;
+  checklist?: ChecklistItem[];
+  program?: ProgramItem[];
+}
+
+interface AreaData {
+  name: string;    // venue/hotel name
+  town: string;
+  city: string;
+  region: string;
+}
+
+interface ServiceData {
+  photo: boolean;
+  entertainment: boolean;
+  design: boolean;
+  hiring: boolean;
+  transport: boolean;
+  event: boolean;
+  foodServices: boolean;
+  beautician: boolean;
+}
+
+interface ChecklistItem { itemId: string; item: string; isDone: boolean; }
+interface ProgramItem    { itemId: string; time: string; title: string; name: string; }
+```
+
+### json-server resources
+
+| Endpoint            | Method | Purpose                                |
+| ------------------- | ------ | -------------------------------------- |
+| `/users`            | GET    | Fetch users (login verification)       |
+| `/users`            | POST   | Create a user (sign up)                |
+| `/users/:id`        | PUT    | Update a user (password reset)         |
+| `/events`           | GET    | List all events                        |
+| `/events`           | POST   | Create an event                        |
+| `/events/:id`       | GET    | Fetch a single event                   |
+| `/events/:id`       | PATCH  | Update checklist / program / replan    |
+
+---
+
+## Available Scripts
+
+| Command           | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start the Vite dev server            |
+| `npm run build`   | Type-check (`tsc -b`) then build     |
+| `npm run preview` | Preview the production build         |
+| `npm run lint`    | Run ESLint over the project          |
+
+### Build for production
+
+```bash
+npm run build      # outputs to dist/
+npm run preview    # serve the built app locally
+```
+
+---
+
+## Notes & Current Limitations
+
+- **No auth security**: login compares plain-text passwords against the
+  json-server `users` file. This is a demo/mock setup, not production-ready.
+- **API URLs are hard-coded** to `localhost:8000` and `localhost:9000`.
+  Consider centralizing them in an env/config module.
+- **Google sign-in is UI-only** (see `Button.tsx`) and is not connected to any
+  provider.
+- **Services and Notifications** pages are placeholders.
+- `Reset.tsx` exists but is not registered in the router; it is reached from
+  the verification flow and redirects to `/` after a successful reset.
+- The location catalog (`src/hooks/locations.ts`) uses sample hotel data and
+  includes some duplicate placeholder entries across regions.

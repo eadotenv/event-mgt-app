@@ -17,6 +17,13 @@
   min-height: 100%;
 }
 
+/* Mobile: let the main content scroll behind the fixed bottom nav */
+@media (max-width: 991px) {
+  .page-outlet {
+    padding-bottom: 64px;
+  }
+}
+
 /* .page-sidebar {
   grid-area: footer;
   border: 1px solid red;
