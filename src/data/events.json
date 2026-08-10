@@ -25,7 +25,7 @@
     {
       "id": "a986",
       "userId": "ffd0",
-      "title": "Wedding",
+      "title": "John's Wedding",
       "date": [
         "2026-01-06T00:00:00.000Z",
         "2026-01-10T23:59:59.999Z"
@@ -571,23 +571,26 @@
     {
       "id": "12e1",
       "userId": "ffd0",
-      "title": "Washing",
-      "date": "2026-07-11T00:00:00.000Z",
+      "title": "Washing clothes",
+      "date": [
+        "2026-07-11T00:00:00.000Z",
+        "2026-07-23T23:59:59.999Z"
+      ],
       "location": {
-        "name": "Hwidiem Hotel",
-        "town": "Hwidiem",
+        "name": "Wenchi Hotel",
+        "town": "Wenchi",
         "city": "Sunyani",
         "region": "Brong Ahafo"
       },
       "services": {
-        "photo": false,
+        "photo": true,
         "entertainment": false,
-        "design": false,
+        "design": true,
         "hiring": false,
-        "transport": false,
+        "transport": true,
         "event": false,
-        "foodServices": true,
-        "beautician": true
+        "foodServices": false,
+        "beautician": false
       },
       "checklist": [
         {
@@ -639,7 +642,22 @@
         "event": false,
         "foodServices": true,
         "beautician": true
-      }
+      },
+      "checklist": [
+        {
+          "itemId": "1786361651220",
+          "item": "Walk away",
+          "isDone": false
+        }
+      ],
+      "program": [
+        {
+          "itemId": "1786361921351",
+          "time": "10:30",
+          "title": "Sharing grace",
+          "name": "Daniel Osei"
+        }
+      ]
     },
     {
       "id": "127a",

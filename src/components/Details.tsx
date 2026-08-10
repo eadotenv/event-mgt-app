@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  useLocation,
-  useNavigate,
-  useOutletContext,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom"; //useOutletContext,
 import axios from "axios";
 import { format } from "date-fns";
 import type {
@@ -28,19 +23,19 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import capitalize from "../hooks/capitalize";
 
-interface OutletContext {
-  collapsed: boolean;
-  setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
-  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+// interface OutletContext {
+//   collapsed: boolean;
+//   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+//   setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+// }
 
 function Details() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
   const user = location.state?.user as User;
-  const { collapsed, setCollapsed, setDrawerOpen } =
-    useOutletContext<OutletContext>();
+  // const { collapsed, setCollapsed, setDrawerOpen } =
+  // useOutletContext<OutletContext>();
 
   const [active, setActive] = useState<number>(0);
   const [event, setEvent] = useState<EventData | null>(null);
@@ -137,13 +132,13 @@ function Details() {
     navigate(`/page-layout/replan/${id}`, { state: { user, from: "details" } });
   };
 
-  const handleToggleSidebar = () => {
-    if (window.innerWidth <= 991) {
-      setDrawerOpen(true);
-    } else {
-      setCollapsed(!collapsed);
-    }
-  };
+  // const handleToggleSidebar = () => {
+  //   if (window.innerWidth <= 991) {
+  //     setDrawerOpen(true);
+  //   } else {
+  //     setCollapsed(!collapsed);
+  //   }
+  // };
 
   async function handleCancelEvent() {
     if (!id) return;
@@ -189,7 +184,7 @@ function Details() {
         setActive={setActive}
         header={event && active === 0 ? event.title : "Services Panel"}
         tabs={detailTabs}
-        onToggleSidebar={handleToggleSidebar}
+        // onToggleSidebar={handleToggleSidebar}
       />
 
       <div
@@ -335,8 +330,8 @@ function Details() {
                     />
                   </div>
                   <p className="check-list-text">
-                    Are you sure you want to cancel{" "}
-                    <b>"{event?.title}"</b>? This action cannot be undone.
+                    Are you sure you want to cancel <b>"{event?.title}"</b>?
+                    This action cannot be undone.
                   </p>
                   <button
                     type="button"
