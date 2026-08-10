@@ -14,9 +14,10 @@ interface Props {
   active: number;
   setActive: (num: number) => void;
   user: User;
+  onNavigate?: () => void;
 }
 
-function SideMenu({ menu, active, setActive, user }: Props) {
+function SideMenu({ menu, active, setActive, user, onNavigate }: Props) {
   return (
     <aside className="side-menu">
       <nav className="side-nav">
@@ -31,6 +32,7 @@ function SideMenu({ menu, active, setActive, user }: Props) {
                 to={`${item.path}`}
                 state={{ user }}
                 className="side-list-nav-link"
+                onClick={onNavigate}
               >
                 <item.icon size={18} className="service-icon" />
                 <span className="menu-label">{item.label}</span>

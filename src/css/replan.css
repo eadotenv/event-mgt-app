@@ -33,3 +33,101 @@
   position: relative;
   min-height: calc(100vh - 61px);
 }
+
+.replan-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.replan-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.replan-step-counter {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink7);
+}
+
+.replan-label {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  color: var(--ink);
+}
+
+.replan-hint {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-size: var(--text-xs);
+  color: var(--ink7);
+}
+
+.replan-input {
+  padding: 10px 12px;
+  font-family: var(--font-inter);
+  font-size: var(--text-base);
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.replan-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.replan-btn {
+  padding: 10px 20px;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--card);
+  background: var(--ink);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.replan-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.replan-btn-secondary {
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--border);
+}
+
+@media (min-width: 992px) {
+  .replan-form {
+    max-width: 640px;
+    padding: 32px;
+  }
+
+  .replan-label {
+    font-size: var(--text-md);
+  }
+
+  .replan-hint {
+    font-size: var(--text-sm);
+  }
+
+  .replan-input {
+    font-size: var(--text-md);
+  }
+
+  .replan-btn {
+    font-size: var(--text-md);
+  }
+}

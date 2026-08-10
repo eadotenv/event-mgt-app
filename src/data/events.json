@@ -525,54 +525,6 @@
       }
     },
     {
-      "id": "0dd6",
-      "userId": "ffd0",
-      "title": "Read coding books",
-      "date": "2026-08-15T00:00:00.000Z",
-      "location": {
-        "name": "Cape Hotel",
-        "town": "Cape Coast",
-        "city": "Cape Coast",
-        "region": "Central"
-      },
-      "services": {
-        "photo": false,
-        "entertainment": false,
-        "design": false,
-        "hiring": false,
-        "transport": true,
-        "event": false,
-        "foodServices": true,
-        "beautician": false
-      },
-      "checklist": [
-        {
-          "itemId": "1786101728286",
-          "item": "cook",
-          "isDone": false
-        },
-        {
-          "itemId": "1786101745800",
-          "item": "washing",
-          "isDone": false
-        }
-      ],
-      "program": [
-        {
-          "itemId": "1786115081703",
-          "time": "10:30",
-          "title": "Opening Prayer",
-          "name": "John Mahama"
-        },
-        {
-          "itemId": "1786123596964",
-          "time": "16:30",
-          "title": "Share drinks",
-          "name": "Sister Mercy"
-        }
-      ]
-    },
-    {
       "id": "375b",
       "userId": "ffd0",
       "title": "Oye's 31st birthday",
@@ -629,13 +581,13 @@
       },
       "services": {
         "photo": false,
-        "entertainment": true,
-        "design": true,
+        "entertainment": false,
+        "design": false,
         "hiring": false,
-        "transport": true,
+        "transport": false,
         "event": false,
-        "foodServices": false,
-        "beautician": false
+        "foodServices": true,
+        "beautician": true
       },
       "checklist": [
         {
@@ -692,7 +644,7 @@
     {
       "id": "127a",
       "userId": "ffd0",
-      "title": "Painting",
+      "title": "Painting My new room",
       "date": "2026-08-27T00:00:00.000Z",
       "location": {
         "name": "Trede Hotel",
@@ -707,7 +659,7 @@
         "hiring": false,
         "transport": false,
         "event": false,
-        "foodServices": false,
+        "foodServices": true,
         "beautician": false
       }
     }

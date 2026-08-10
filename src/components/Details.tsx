@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useOutletContext,
+  useParams,
+} from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
 import type {
@@ -23,14 +28,24 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import capitalize from "../hooks/capitalize";
 
+interface OutletContext {
+  collapsed: boolean;
+  setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 function Details() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
+  const navigate = useNavigate();
   const user = location.state?.user as User;
+  const { collapsed, setCollapsed, setDrawerOpen } =
+    useOutletContext<OutletContext>();
 
   const [active, setActive] = useState<number>(0);
   const [event, setEvent] = useState<EventData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showCancelModal, setShowCancelModal] = useState<boolean>(false);
   const [showChecklistModal, setShowChecklistModal] = useState<boolean>(false);
   const [showProgramModal, setShowProgramModal] = useState<boolean>(false);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
@@ -118,6 +133,29 @@ function Details() {
     setOpenProgramId(null);
   };
 
+  const handleEditDetails = () => {
+    navigate(`/page-layout/replan/${id}`, { state: { user, from: "details" } });
+  };
+
+  const handleToggleSidebar = () => {
+    if (window.innerWidth <= 991) {
+      setDrawerOpen(true);
+    } else {
+      setCollapsed(!collapsed);
+    }
+  };
+
+  async function handleCancelEvent() {
+    if (!id) return;
+    try {
+      await axios.delete(`http://localhost:9000/events/${id}`);
+      setShowCancelModal(false);
+      navigate("/page-layout", { state: { user } });
+    } catch (error) {
+      console.error("Failed to cancel event:", error);
+    }
+  }
+
   const userInitial = user?.firstname
     ? user.firstname.charAt(0).toUpperCase()
     : "";
@@ -151,6 +189,7 @@ function Details() {
         setActive={setActive}
         header={event && active === 0 ? event.title : "Services Panel"}
         tabs={detailTabs}
+        onToggleSidebar={handleToggleSidebar}
       />
 
       <div
@@ -216,11 +255,19 @@ function Details() {
                   </div>
 
                   <div className="edit-del-box">
-                    <div className="edit-box">
+                    <div
+                      className="edit-box"
+                      onClick={handleEditDetails}
+                      role="button"
+                    >
                       <CiEdit size={20} />
                       <p>Edit details</p>
                     </div>
-                    <div className="del-box">
+                    <div
+                      className="del-box"
+                      onClick={() => setShowCancelModal(true)}
+                      role="button"
+                    >
                       <TbCancel size={20} />
                       <p>Cancel event</p>
                     </div>
@@ -274,6 +321,38 @@ function Details() {
                     </div>
                   </div>
                 )}
+              </div>
+            )}
+
+            {showCancelModal && (
+              <div className="checklist-modal">
+                <div className="mod-form">
+                  <div className="header-close-btn">
+                    <h3 className="check-header">Cancel event</h3>
+                    <IoClose
+                      size={22}
+                      onClick={() => setShowCancelModal(false)}
+                    />
+                  </div>
+                  <p className="check-list-text">
+                    Are you sure you want to cancel{" "}
+                    <b>"{event?.title}"</b>? This action cannot be undone.
+                  </p>
+                  <button
+                    type="button"
+                    className="mod-btn mod-save-btn"
+                    onClick={handleCancelEvent}
+                  >
+                    Yes, cancel event
+                  </button>
+                  <button
+                    type="button"
+                    className="mod-btn mod-del-btn"
+                    onClick={() => setShowCancelModal(false)}
+                  >
+                    Keep event
+                  </button>
+                </div>
               </div>
             )}
 

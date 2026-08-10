@@ -1,5 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
-import { MdEvent, MdMiscellaneousServices, MdNotificationsActive } from "react-icons/md";
+import {
+  MdEvent,
+  MdMiscellaneousServices,
+  MdNotificationsActive,
+} from "react-icons/md";
 import { useEffect, useState } from "react";
 
 import "../css/SideBar.css";
@@ -11,15 +15,19 @@ interface Props {
   showModal: boolean;
   step: number;
   user: User;
-  // setShowModal: (val: boolean) => void;
-  // setStep: (num: number) => void;
-  // onOpen: () => void;
-  // onClose: () => void;
-  // onNext: () => void;
-  // onBack: () => void;
+  collapsed: boolean;
+  drawerOpen: boolean;
+  onCloseDrawer: () => void;
 }
 
-function SideBar({ showModal, step, user }: Props) {
+function SideBar({
+  showModal,
+  step,
+  user,
+  collapsed,
+  drawerOpen,
+  onCloseDrawer,
+}: Props) {
   const [active, setActive] = useState(-1);
   const menu = [
     { label: "Events", path: "event", icon: MdEvent },
@@ -32,10 +40,7 @@ function SideBar({ showModal, step, user }: Props) {
   ];
 
   const location = useLocation();
-  const isCollapsed = location.pathname.includes("/details/");
-
-  // const navigate = useNavigate();
-  // const user = location.state?.user;
+  const isDetails = location.pathname.includes("/details/");
 
   const [mobileScreen, setMobileScreen] = useState(window.innerWidth <= 991);
 
@@ -45,9 +50,19 @@ function SideBar({ showModal, step, user }: Props) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return (
-    <>
-      {showModal && mobileScreen ? (
+  const renderSideMenu = () => (
+    <SideMenu
+      menu={menu}
+      user={user}
+      active={active}
+      setActive={setActive}
+      onNavigate={onCloseDrawer}
+    />
+  );
+
+  if (mobileScreen) {
+    if (showModal) {
+      return (
         <nav className="side-nav">
           <ul className="side-list">
             {menu.map((item, index) => (
@@ -68,32 +83,78 @@ function SideBar({ showModal, step, user }: Props) {
             ))}
           </ul>
         </nav>
-      ) : (
-        <div
-          className={isCollapsed ? "side-bar collapsed" : "side-bar"}
-        >
-          <Link
-            to="/page-layout"
-            className="home-link"
-            state={{ user }}
-            onClick={() => setActive(-1)}
+      );
+    }
+    if (isDetails) {
+      return (
+        <>
+          <div
+            className={drawerOpen ? "side-drawer open" : "side-drawer"}
+            aria-hidden={!drawerOpen}
           >
-            <h3 className="menu-header">Planlite</h3>
-          </Link>
-          {showModal ? (
-            <SideCircle step={step} />
-          ) : (
-            <SideMenu
-              menu={menu}
-              user={user}
-              active={active}
-              setActive={setActive}
+            <div className="side-bar drawer-bar">
+              <Link
+                to="/page-layout"
+                className="home-link"
+                state={{ user }}
+                onClick={() => setActive(-1)}
+              >
+                <h3 className="menu-header">Planlite</h3>
+              </Link>
+              {renderSideMenu()}
+            </div>
+          </div>
+          {drawerOpen && (
+            <div
+              className="drawer-backdrop"
+              onClick={onCloseDrawer}
+              aria-hidden="true"
             />
           )}
-        </div>
-      )}
-    </>
+        </>
+      );
+    }
+    // non-details mobile pages keep the bottom nav
+    return (
+      <div className="side-bar">
+        <Link
+          to="/page-layout"
+          className="home-link"
+          state={{ user }}
+          onClick={() => setActive(-1)}
+        >
+          <h3 className="menu-header">Planlite</h3>
+        </Link>
+        {showModal ? <SideCircle step={step} /> : renderSideMenu()}
+      </div>
+    );
+  }
+
+  return (
+    <div className={collapsed ? "side-bar collapsed" : "side-bar"}>
+      <Link
+        to="/page-layout"
+        className="home-link"
+        state={{ user }}
+        onClick={() => setActive(-1)}
+      >
+        <h3 className="menu-header">Planlite</h3>
+      </Link>
+      {showModal ? <SideCircle step={step} /> : renderSideMenu()}
+    </div>
   );
 }
 
 export default SideBar;
+
+//familiyhero_
+//ivydesire
+//hybridcritic
+//50plusmilf
+//lucchewife
+//latinavideox
+//liveBiggnipples
+// Ssnasty69
+// Nyxorin_01
+// 18lustlive
+// bestlesbiatv

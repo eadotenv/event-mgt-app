@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import "../css/navbar.css";
 import { FaHouse } from "react-icons/fa6";
+import { IoMenuOutline } from "react-icons/io5";
 
 interface Tab {
   name: string;
@@ -11,9 +12,10 @@ interface Props {
   active: number;
   setActive: (value: number) => void;
   header: string;
+  onToggleSidebar?: () => void;
 }
 
-function NavBar({ tabs, active, setActive, header }: Props) {
+function NavBar({ tabs, active, setActive, header, onToggleSidebar }: Props) {
   const location = useLocation();
   const user = location.state?.user;
 
@@ -42,6 +44,17 @@ function NavBar({ tabs, active, setActive, header }: Props) {
           </li>
         ))}
       </ul>
+      {onToggleSidebar && (
+        <button
+          type="button"
+          className="navbar-toggle"
+          aria-label="Toggle sidebar"
+          title="Toggle sidebar"
+          onClick={onToggleSidebar}
+        >
+          <IoMenuOutline size={22} />
+        </button>
+      )}
     </nav>
   );
 }
