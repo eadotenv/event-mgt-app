@@ -313,6 +313,25 @@ function Details() {
                           </a>
                           <GoArrowUpRight />
                         </div>
+
+                        <div className="edit-del-box">
+                          <div
+                            className="edit-box"
+                            onClick={handleEditDetails}
+                            role="button"
+                          >
+                            <CiEdit size={20} />
+                            <p>Edit details</p>
+                          </div>
+                          <div
+                            className="del-box"
+                            onClick={() => setShowCancelModal(true)}
+                            role="button"
+                          >
+                            <TbCancel size={20} />
+                            <p>Cancel event</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
