@@ -9,23 +9,31 @@ import { IoClose, IoChevronDown } from "react-icons/io5";
 import "../css/services.css";
 
 const PRICE_RANGES = [
-  { label: "All Prices", min: 0, max: Infinity },
+  { label: "Prices", min: 0, max: Infinity },
   { label: "Under GHS 1,500", min: 0, max: 1500 },
   { label: "GHS 1,500 – 3,000", min: 1500, max: 3000 },
   { label: "GHS 3,000 – 5,000", min: 3000, max: 5000 },
   { label: "Above GHS 5,000", min: 5000, max: Infinity },
 ];
 
-const LOCATIONS = ["All Locations", "Accra", "Kumasi", "Takoradi", "Tema", "Cape Coast", "Tamale"];
+const LOCATIONS = [
+  "Locations",
+  "Accra",
+  "Kumasi",
+  "Takoradi",
+  "Tema",
+  "Cape Coast",
+  "Tamale",
+];
 
 const RATING_OPTIONS = [
-  { label: "Any Rating", min: 0 },
+  { label: "Rating", min: 0 },
   { label: "4.5 & up", min: 4.5 },
   { label: "4.0 & up", min: 4.0 },
   { label: "3.5 & up", min: 3.5 },
 ];
 
-type FilterKey = "price" | "location" | "category" | "rating";
+type FilterKey = "price" | "location" | "rating";
 
 interface Props {
   user: User;
@@ -37,7 +45,6 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [openFilter, setOpenFilter] = useState<FilterKey | null>(null);
   const [priceFilter, setPriceFilter] = useState(PRICE_RANGES[0]);
   const [locationFilter, setLocationFilter] = useState(LOCATIONS[0]);
@@ -49,11 +56,6 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
 
   const toggleFilter = (key: FilterKey) => {
     setOpenFilter(openFilter === key ? null : key);
-  };
-
-  const handleCategoryClick = (key: string) => {
-    setActiveCategory(activeCategory === key ? null : key);
-    setOpenFilter(null);
   };
 
   const filteredVendors = useMemo(() => {
@@ -69,17 +71,13 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
       );
     }
 
-    if (activeCategory) {
-      result = result.filter((v) => v.category === activeCategory);
-    }
-
     if (priceFilter.min > 0 || priceFilter.max < Infinity) {
       result = result.filter(
         (v) => v.rate >= priceFilter.min && v.rate <= priceFilter.max,
       );
     }
 
-    if (locationFilter !== "All Locations") {
+    if (locationFilter !== "Locations") {
       result = result.filter((v) => v.location === locationFilter);
     }
 
@@ -88,25 +86,14 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
     }
 
     return result;
-  }, [searchTerm, activeCategory, priceFilter, locationFilter, ratingFilter]);
-
-  const groupedVendors = useMemo(() => {
-    const groups: Record<string, Vendor[]> = {};
-    for (const v of filteredVendors) {
-      if (!groups[v.category]) groups[v.category] = [];
-      groups[v.category].push(v);
-    }
-    return groups;
-  }, [filteredVendors]);
+  }, [searchTerm, priceFilter, locationFilter, ratingFilter]);
 
   const hasActiveFilters =
-    activeCategory !== null ||
     priceFilter.label !== "Prices" ||
     locationFilter !== "Locations" ||
     ratingFilter.label !== "Rating";
 
   const clearFilters = () => {
-    setActiveCategory(null);
     setPriceFilter(PRICE_RANGES[0]);
     setLocationFilter(LOCATIONS[0]);
     setRatingFilter(RATING_OPTIONS[0]);
@@ -159,7 +146,6 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
             location: vendor.location,
             rating: vendor.rating,
             image: vendor.image,
-            status: "pending" as const,
           },
         ],
       });
@@ -190,15 +176,11 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           onError={(e) => {
             (e.target as HTMLImageElement).style.display = "none";
             (
-              (e.target as HTMLImageElement)
-                .nextElementSibling as HTMLElement
+              (e.target as HTMLImageElement).nextElementSibling as HTMLElement
             ).style.display = "flex";
           }}
         />
-        <div
-          className="vendor-image-placeholder"
-          style={{ display: "none" }}
-        >
+        <div className="vendor-image-placeholder" style={{ display: "none" }}>
           {vendor.name.charAt(0)}
         </div>
         <div className="vendor-body">
@@ -207,12 +189,11 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           <p className="vendor-location">
             {vendor.location} &middot; {categoryLabel}
           </p>
-          <p className="vendor-rating">{"⭐".repeat(Math.floor(vendor.rating))} {vendor.rating}</p>
+          <p className="vendor-rating">
+            {"⭐".repeat(Math.floor(vendor.rating))} {vendor.rating}
+          </p>
           <p className="vendor-desc">{vendor.description}</p>
-          <button
-            className="book-btn"
-            onClick={() => handleBookClick(vendor)}
-          >
+          <button className="book-btn" onClick={() => handleBookClick(vendor)}>
             Book Service
           </button>
         </div>
@@ -240,7 +221,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
       <div className="filter-row">
         <div className="filter-group">
           <button
-            className={`filter-btn ${priceFilter.label !== "All Prices" ? "active" : ""}`}
+            className={`filter-btn ${priceFilter.label !== "Prices" ? "active" : ""}`}
             onClick={() => toggleFilter("price")}
           >
             {priceFilter.label} <IoChevronDown size={14} />
@@ -250,7 +231,9 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
               {PRICE_RANGES.map((pr) => (
                 <button
                   key={pr.label}
-                  className={priceFilter.label === pr.label ? "active-option" : ""}
+                  className={
+                    priceFilter.label === pr.label ? "active-option" : ""
+                  }
                   onClick={() => {
                     setPriceFilter(pr);
                     setOpenFilter(null);
@@ -265,7 +248,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
 
         <div className="filter-group">
           <button
-            className={`filter-btn ${locationFilter !== "All Locations" ? "active" : ""}`}
+            className={`filter-btn ${locationFilter !== "Locations" ? "active" : ""}`}
             onClick={() => toggleFilter("location")}
           >
             {locationFilter} <IoChevronDown size={14} />
@@ -290,32 +273,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
 
         <div className="filter-group">
           <button
-            className={`filter-btn ${activeCategory ? "active" : ""}`}
-            onClick={() => toggleFilter("category")}
-          >
-            {activeCategory
-              ? categories.find((c) => c.key === activeCategory)?.label
-              : "Categories"}{" "}
-            <IoChevronDown size={14} />
-          </button>
-          {openFilter === "category" && (
-            <div className="filter-dropdown">
-              {categories.map((cat) => (
-                <button
-                  key={cat.key}
-                  className={activeCategory === cat.key ? "active-option" : ""}
-                  onClick={() => handleCategoryClick(cat.key)}
-                >
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="filter-group">
-          <button
-            className={`filter-btn ${ratingFilter.label !== "Any Rating" ? "active" : ""}`}
+            className={`filter-btn ${ratingFilter.label !== "Rating" ? "active" : ""}`}
             onClick={() => toggleFilter("rating")}
           >
             {ratingFilter.label} <IoChevronDown size={14} />
@@ -325,7 +283,9 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
               {RATING_OPTIONS.map((ro) => (
                 <button
                   key={ro.label}
-                  className={ratingFilter.label === ro.label ? "active-option" : ""}
+                  className={
+                    ratingFilter.label === ro.label ? "active-option" : ""
+                  }
                   onClick={() => {
                     setRatingFilter(ro);
                     setOpenFilter(null);
@@ -351,33 +311,9 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           <p>Try adjusting your search or filters.</p>
         </div>
       ) : (
-        Object.keys(groupedVendors).map((catKey) => {
-          const catVendors = groupedVendors[catKey];
-          const catLabel =
-            categories.find((c) => c.key === catKey)?.label || catKey;
-          const displayedVendors = activeCategory
-            ? catVendors
-            : catVendors.slice(0, 4);
-
-          return (
-            <div className="category-section" key={catKey}>
-              <div className="category-header">
-                <h2 className="category-title">{catLabel}</h2>
-                {!activeCategory && catVendors.length > 4 && (
-                  <button
-                    className="view-more-btn"
-                    onClick={() => setActiveCategory(catKey)}
-                  >
-                    View More ({catVendors.length})
-                  </button>
-                )}
-              </div>
-              <div className="vendor-grid">
-                {displayedVendors.map(renderVendorCard)}
-              </div>
-            </div>
-          );
-        })
+        <div className="vendor-grid">
+          {filteredVendors.map(renderVendorCard)}
+        </div>
       )}
 
       {bookModal && (

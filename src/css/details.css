@@ -265,30 +265,6 @@
   margin: 0 0 4px;
 }
 
-.booked-vendor-status {
-  font-size: var(--text-xs);
-  font-family: var(--font-body);
-  margin: 0;
-  padding: 2px 8px;
-  border-radius: 10px;
-  display: inline-block;
-}
-
-.booked-vendor-status[data-status="pending"] {
-  background: #fff3cd;
-  color: #856404;
-}
-
-.booked-vendor-status[data-status="confirmed"] {
-  background: #d4edda;
-  color: #155724;
-}
-
-.booked-vendor-status[data-status="cancelled"] {
-  background: #f8d7da;
-  color: #721c24;
-}
-
 /* Checklists */
 .line-check {
   display: flex;

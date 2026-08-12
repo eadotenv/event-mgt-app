@@ -620,7 +620,57 @@
         "event": false,
         "foodServices": false,
         "beautician": false
-      }
+      },
+      "bookedVendors": [
+        {
+          "vendorId": "v6",
+          "name": "MicDrop MCs",
+          "category": "entertainment",
+          "rate": 1500,
+          "location": "Kumasi",
+          "rating": 4.4,
+          "image": "https://picsum.photos/seed/ent2/400/300",
+          "status": "pending"
+        },
+        {
+          "vendorId": "v14",
+          "name": "PartyRent Hub",
+          "category": "hiring",
+          "rate": 1500,
+          "location": "Kumasi",
+          "rating": 4.1,
+          "image": "https://picsum.photos/seed/hire3/400/300",
+          "status": "pending"
+        },
+        {
+          "vendorId": "v24",
+          "name": "Braid & Glow",
+          "category": "beautician",
+          "rate": 800,
+          "location": "Kumasi",
+          "rating": 4.4,
+          "image": "https://picsum.photos/seed/beauty2/400/300",
+          "status": "pending"
+        },
+        {
+          "vendorId": "v2",
+          "name": "LensCraft Media",
+          "category": "photography",
+          "rate": 1800,
+          "location": "Kumasi",
+          "rating": 4.5,
+          "image": "https://picsum.photos/seed/photo2/400/300"
+        },
+        {
+          "vendorId": "v11",
+          "name": "Balloon Bliss",
+          "category": "design",
+          "rate": 1200,
+          "location": "Kumasi",
+          "rating": 4.2,
+          "image": "https://picsum.photos/seed/des3/400/300"
+        }
+      ]
     },
     {
       "id": "022e",

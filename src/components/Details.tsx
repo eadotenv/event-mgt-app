@@ -399,9 +399,8 @@ function Details() {
                       </div>
                       <div className="booked-vendor-body">
                         <p className="booked-vendor-name">{bv.name}</p>
-                        <p className="booked-vendor-rate">GHS {bv.rate.toLocaleString()}</p>
-                        <p className="booked-vendor-status" data-status={bv.status}>
-                          {bv.status.charAt(0).toUpperCase() + bv.status.slice(1)}
+                        <p className="booked-vendor-rate">
+                          GHS {bv.rate.toLocaleString()}
                         </p>
                       </div>
                     </div>
@@ -742,19 +741,3 @@ function Details() {
 }
 
 export default Details;
-
-{
-  /*<button
-                                  type="button"
-                                  onClick={() => {
-                                    const updatedItems = items.filter(
-                                      (p) => p.itemId !== item.itemId,
-                                    );
-                                    setItem(updatedItems);
-                                    if (id)
-                                      handleSaveAllDetails(id, updatedItems);
-                                  }}
-                                >
-                                  Delete
-                                </button> */
-}
