@@ -625,7 +625,7 @@
     {
       "id": "022e",
       "userId": "ffd0",
-      "title": "Church",
+      "title": "Church service",
       "date": "2026-08-18T00:00:00.000Z",
       "location": {
         "name": "Kenyasi Hotel",
@@ -648,6 +648,16 @@
           "itemId": "1786361651220",
           "item": "Walk away",
           "isDone": false
+        },
+        {
+          "itemId": "1786537613608",
+          "item": "java",
+          "isDone": false
+        },
+        {
+          "itemId": "1786537641969",
+          "item": "python code",
+          "isDone": false
         }
       ],
       "program": [
@@ -656,6 +666,12 @@
           "time": "10:30",
           "title": "Sharing grace",
           "name": "Daniel Osei"
+        },
+        {
+          "itemId": "1786538300685",
+          "time": "11:01",
+          "title": "second prayer",
+          "name": "Gyimah Sampson"
         }
       ]
     },
