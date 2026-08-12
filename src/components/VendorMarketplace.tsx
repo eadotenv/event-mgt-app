@@ -101,9 +101,9 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
 
   const hasActiveFilters =
     activeCategory !== null ||
-    priceFilter.label !== "All Prices" ||
-    locationFilter !== "All Locations" ||
-    ratingFilter.label !== "Any Rating";
+    priceFilter.label !== "Prices" ||
+    locationFilter !== "Locations" ||
+    ratingFilter.label !== "Rating";
 
   const clearFilters = () => {
     setActiveCategory(null);

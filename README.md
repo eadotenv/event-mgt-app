@@ -34,9 +34,22 @@ files served by json-server.
   - Manage a **checklist** of to-do items (add, toggle done, rename, delete)
   - Manage a **program lineup** (time + title + responsible person; add,
     edit, delete)
+  - **Services tab** with a vendor marketplace to browse and book services
+  - Booked vendor services render in the **Services** section above the
+    checklist and program lineup (replacing the "No services booked yet"
+    empty state)
+- **Vendor services marketplace** (within the event details Services tab)
+  - Search bar + button
+  - Filter dropdowns for price range, location, category, and rating
+  - Shows all categories by default; selecting a category narrows results
+  - Category sections show vendor cards (photo, name, rate, location,
+    rating, description) with a **View More** button per category
+  - **Book Service** assigns a vendor to the current event (or prompts for an
+    event when browsed standalone)
 - **Replan**: re-open the planning wizard for a past event and update it
 
-> `Services` and `Notifications` pages are placeholder stubs at the moment.
+> `Services` (sidebar) and `Notifications` pages are placeholder stubs at the
+> moment. The vendor marketplace lives inside the **event details** page.
 
 ---
 
@@ -125,7 +138,8 @@ event-app/
     ├── css/                    # Plain-CSS stylesheets, one per feature
     ├── data/
     │   ├── data.json           # json-server seed: users
-    │   └── events.json         # json-server seed: events
+    │   ├── events.json         # json-server seed: events
+    │   └── vendors.ts          # static vendor catalog (categories + vendors)
     ├── entities/               # TypeScript interfaces (data models)
     ├── hooks/                  # Utilities (capitalize, location catalog)
     └── components/             # React components (pages + UI parts)
@@ -138,9 +152,10 @@ event-app/
         ├── Upcoming.tsx        #   upcoming events list + wizard host
         ├── PastEvents.tsx      #   past (expired) events list
         ├── Event.tsx           #   active events grid
-        ├── Details.tsx         #   /details/:id – checklist + program lineup
+        ├── Details.tsx         #   /details/:id – details, services tab, checklist, program
+        ├── VendorMarketplace.tsx # vendor marketplace (search + filters + booking)
         ├── Replan.tsx          #   /replan/:id – edit a past event
-        ├── Services.tsx        #   placeholder
+        ├── Services.tsx        #   placeholder (sidebar Services page)
         ├── Notifications.tsx   #   placeholder
         ├── NavBar.tsx          #   page header with tabs
         ├── SideBar.tsx         #   dashboard sidebar (responsive)
@@ -170,7 +185,7 @@ event-app/
 | `/page-layout`                 | `PageLayout`       | Authenticated dashboard shell        |
 | `/page-layout` (index)         | `HomeContent`      | Upcoming / Past events               |
 | `/page-layout/event`           | `Event`            | Upcoming events grid                 |
-| `/page-layout/details/:id`     | `Details`          | Event details + checklist + program  |
+| `/page-layout/details/:id`     | `Details`          | Event details + services + checklist + program |
 | `/page-layout/replan/:id`      | `Replan`           | Replan a past event                  |
 | `/page-layout/services`        | `Services`         | Placeholder                          |
 | `/page-layout/notifications`   | `Notifications`    | Placeholder                          |
@@ -198,6 +213,20 @@ sidebar and provides shared state (`step`, `showModal`, `setStep`,
 - Checklist items and program items are edited locally and persisted with
   `PATCH /events/:id` (payload `{ checklist }` or `{ program }`).
 - `CheckModal` and `ProgramModal` handle adding new items.
+
+### Vendor services marketplace
+
+- The **Services** tab in `Details` renders `VendorMarketplace`.
+- Vendors come from the static catalog in `src/data/vendors.ts` (30 vendors
+  across 8 categories), not from json-server.
+- Search and filters (price range, location, category, rating) are applied
+  client-side with `useMemo`.
+- Booking a vendor calls `PATCH /events/:id` and appends to the event's
+  `bookedVendors` array. With `autoBookEventId` set (the details page), the
+  vendor is booked directly to the current event; otherwise a modal prompts
+  the user to pick an event.
+- Booked vendors appear in the **Services** section on the Details tab
+  (photo, name, rate, and a pending/confirmed/cancelled status badge).
 
 ### Replan a past event
 
@@ -228,6 +257,7 @@ interface EventData {
   date: Date | [Date, Date] | null;   // single day or range
   location: AreaData | null;
   services: ServiceData | null;
+  bookedVendors?: BookedVendor[];
   checklist?: ChecklistItem[];
   program?: ProgramItem[];
 }
@@ -250,6 +280,28 @@ interface ServiceData {
   beautician: boolean;
 }
 
+interface Vendor {
+  id: string;
+  name: string;
+  category: string;   // matches a ServiceData key
+  rate: number;       // price in GHS
+  location: string;
+  rating: number;
+  image: string;
+  description: string;
+}
+
+interface BookedVendor {
+  vendorId: string;
+  name: string;
+  category: string;
+  rate: number;
+  location: string;
+  rating: number;
+  image: string;
+  status: "pending" | "confirmed" | "cancelled";
+}
+
 interface ChecklistItem { itemId: string; item: string; isDone: boolean; }
 interface ProgramItem    { itemId: string; time: string; title: string; name: string; }
 ```
@@ -264,7 +316,7 @@ interface ProgramItem    { itemId: string; time: string; title: string; name: st
 | `/events`           | GET    | List all events                        |
 | `/events`           | POST   | Create an event                        |
 | `/events/:id`       | GET    | Fetch a single event                   |
-| `/events/:id`       | PATCH  | Update checklist / program / replan    |
+| `/events/:id`       | PATCH  | Update checklist / program / bookedVendors / replan |
 
 ---
 
@@ -294,7 +346,11 @@ npm run preview    # serve the built app locally
   Consider centralizing them in an env/config module.
 - **Google sign-in is UI-only** (see `Button.tsx`) and is not connected to any
   provider.
-- **Services and Notifications** pages are placeholders.
+- **Services (sidebar) and Notifications** pages are placeholders. The vendor
+  marketplace is accessed through the **Services** tab on the event details
+  page.
+- Vendor data is static and lives in `src/data/vendors.ts` (placeholder
+  images served from picsum.photos), not in json-server.
 - `Reset.tsx` exists but is not registered in the router; it is reached from
   the verification flow and redirects to `/` after a successful reset.
 - The location catalog (`src/hooks/locations.ts`) uses sample hotel data and
