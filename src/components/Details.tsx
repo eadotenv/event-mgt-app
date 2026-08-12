@@ -11,6 +11,7 @@ import type { User } from "../entities/User";
 import NavBar from "./NavBar";
 import CheckModal from "./CheckModal";
 import ProgramModal from "./ProgramModal";
+import VendorMarketplace from "./VendorMarketplace";
 import "../css/details.css";
 import note from "../assets/note.png";
 import { FaLocationDot } from "react-icons/fa6";
@@ -698,8 +699,22 @@ function Details() {
         ) : (
           /* ====== service panel ======*/
           <div className="services-tab-panel">
-            <h3 className="detail-head">Booked Vendor Services</h3>
-            <p>Your active service vendor pipeline metrics will render here.</p>
+            <VendorMarketplace
+              user={user}
+              autoBookEventId={id}
+              onVendorBooked={() => {
+                if (id) {
+                  axios
+                    .get<EventData>(`http://localhost:9000/events/${id}`)
+                    .then((res) => {
+                      setEvent(res.data);
+                    })
+                    .catch((err) =>
+                      console.error("Failed to refresh event", err),
+                    );
+                }
+              }}
+            />
           </div>
         )}
       </div>

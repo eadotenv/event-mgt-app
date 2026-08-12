@@ -673,6 +673,58 @@
           "title": "second prayer",
           "name": "Gyimah Sampson"
         }
+      ],
+      "bookedVendors": [
+        {
+          "vendorId": "v1",
+          "name": "PixelPerfect Studios",
+          "category": "photography",
+          "rate": 2500,
+          "location": "Accra",
+          "rating": 4.8,
+          "image": "https://picsum.photos/seed/photo1/400/300",
+          "status": "pending"
+        },
+        {
+          "vendorId": "v3",
+          "name": "GoldenFrame Films",
+          "category": "photography",
+          "rate": 3200,
+          "location": "Accra",
+          "rating": 4.9,
+          "image": "https://picsum.photos/seed/photo3/400/300",
+          "status": "pending"
+        },
+        {
+          "vendorId": "v13",
+          "name": "TentMaster Ghana",
+          "category": "hiring",
+          "rate": 2000,
+          "location": "Tema",
+          "rating": 4.4,
+          "image": "https://picsum.photos/seed/hire2/400/300",
+          "status": "pending"
+        },
+        {
+          "vendorId": "v18",
+          "name": "PlanIt Ghana",
+          "category": "event",
+          "rate": 3000,
+          "location": "Kumasi",
+          "rating": 4.6,
+          "image": "https://picsum.photos/seed/plan2/400/300",
+          "status": "pending"
+        },
+        {
+          "vendorId": "v21",
+          "name": "Chef's Table GH",
+          "category": "foodServices",
+          "rate": 2800,
+          "location": "Kumasi",
+          "rating": 4.5,
+          "image": "https://picsum.photos/seed/food2/400/300",
+          "status": "pending"
+        }
       ]
     },
     {
