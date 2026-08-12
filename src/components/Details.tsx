@@ -354,18 +354,60 @@ function Details() {
             {/* services & checklist sections */}
             <div className="detail-service">
               <h3 className="detail-head">📅 Services</h3>
-              <div className="book-services">
-                <img src={note} className="note-icon" alt="Note icon" />
-                <div className="book-text">
-                  <p>No services booked yet.</p>
-                  <p>
-                    <a href="#">
-                      <b>Click here</b>
-                    </a>{" "}
-                    to browse services to book
-                  </p>
+              {event?.bookedVendors && event.bookedVendors.length > 0 ? (
+                <div className="booked-services-grid">
+                  {event.bookedVendors.map((bv) => (
+                    <div className="booked-vendor-card" key={bv.vendorId}>
+                      <img
+                        className="booked-vendor-img"
+                        src={bv.image}
+                        alt={bv.name}
+                        loading="lazy"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = "none";
+                          (
+                            (e.target as HTMLImageElement)
+                              .nextElementSibling as HTMLElement
+                          ).style.display = "flex";
+                        }}
+                      />
+                      <div
+                        className="vendor-image-placeholder booked-vendor-placeholder"
+                        style={{ display: "none" }}
+                      >
+                        {bv.name.charAt(0)}
+                      </div>
+                      <div className="booked-vendor-body">
+                        <p className="booked-vendor-name">{bv.name}</p>
+                        <p className="booked-vendor-rate">GHS {bv.rate.toLocaleString()}</p>
+                        <p className="booked-vendor-status" data-status={bv.status}>
+                          {bv.status.charAt(0).toUpperCase() + bv.status.slice(1)}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
+              ) : (
+                <div className="book-services">
+                  <img src={note} className="note-icon" alt="Note icon" />
+                  <div className="book-text">
+                    <p>No services booked yet.</p>
+                    <p>
+                      <span
+                        className="browse-services-link"
+                        onClick={() =>
+                          navigate("/page-layout/services", {
+                            state: { user },
+                          })
+                        }
+                      >
+                        <b>Click here</b>
+                      </span>{" "}
+                      to browse services to book
+                    </p>
+                  </div>
+                </div>
+              )}
 
               <div className="line-check">
                 <div className="check-list-box">

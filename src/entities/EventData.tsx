@@ -1,5 +1,6 @@
 import type { AreaData } from "./AreaData";
 import type { ServiceData } from "./ServiceData";
+import type { BookedVendor } from "./Vendor";
 import type { ValuePiece } from "../components/Upcoming";
 
 export interface ChecklistItem {
@@ -28,6 +29,7 @@ export interface EventData {
   date: ValuePiece;
   location: AreaData | null;
   services: ServiceData | null;
+  bookedVendors?: BookedVendor[];
   checklist?: ChecklistItem[];
   program?: ProgramItem[];
 }
