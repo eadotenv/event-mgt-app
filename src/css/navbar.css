@@ -1,13 +1,24 @@
 .navbar {
-  height: 100%;
+  height: 60px;
   border-bottom: 1px solid var(--border);
   display: grid;
-  grid-template-columns: auto auto 1fr;
-  grid-template-areas: "toggle home tabs";
+  grid-template-columns: auto auto 1fr auto;
+  grid-template-rows: auto;
+  grid-template-areas: "toggle home tabs actions";
   align-items: center;
   width: 100%;
   padding: 10px;
   background: var(--surface);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.navbar-actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
 }
 
 .navbar-toggle {
@@ -27,6 +38,25 @@
 }
 
 .navbar-toggle:hover {
+  background: var(--ink);
+  color: var(--card);
+}
+
+.navbar-hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navbar-hamburger:hover {
   background: var(--ink);
   color: var(--card);
 }
@@ -90,16 +120,58 @@
   bottom: -6px;
 }
 
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 15, 15, 0.3);
+  z-index: 90;
+}
+
+.mobile-menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 160px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.mobile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-paragraph);
+  font-size: var(--text-sm);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.mobile-menu-item:hover {
+  background: var(--surface);
+}
+
 .main-events-container {
   background: var(--ink3) !important;
 }
 
 @media (min-width: 992px) {
   .navbar {
-    grid-template-columns: auto 300px 1fr;
-    grid-template-areas: "toggle header tabs";
+    grid-template-columns: auto 300px 1fr auto;
+    grid-template-areas: "toggle header tabs actions";
     align-items: flex-end;
     gap: 20px;
+    height: 60px;
   }
 
   .navbar-toggle {
@@ -109,6 +181,10 @@
   }
 
   .navbar-home {
+    display: none;
+  }
+
+  .navbar-hamburger {
     display: none;
   }
 

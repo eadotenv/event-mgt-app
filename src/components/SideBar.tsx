@@ -42,7 +42,6 @@ function SideBar({
 
   const location = useLocation();
   const isDetails = location.pathname.includes("/details/");
-  const isHome = location.pathname === "/page-layout";
 
   const [mobileScreen, setMobileScreen] = useState(window.innerWidth <= 991);
 
@@ -67,18 +66,6 @@ function SideBar({
       return (
         <nav className="side-nav">
           <ul className="side-list">
-            {!isHome && (
-              <li className="menu">
-                <Link
-                  to="/page-layout"
-                  state={{ user }}
-                  className="side-list-nav-link"
-                >
-                  <FaHouse size={18} className="service-icon" />
-                  Home
-                </Link>
-              </li>
-            )}
             {menu.map((item, index) => (
               <li
                 key={index}
@@ -109,11 +96,11 @@ function SideBar({
             <div className="side-bar drawer-bar">
               <Link
                 to="/page-layout"
-                className="home-link"
+                className="home-link mobile-home-icon"
                 state={{ user }}
                 onClick={() => setActive(-1)}
               >
-                <h3 className="menu-header">Planlite</h3>
+                <FaHouse size={20} />
               </Link>
               {renderSideMenu()}
             </div>
@@ -133,18 +120,6 @@ function SideBar({
       <div className="side-bar">
         <nav className="side-nav">
           <ul className="side-list">
-            {!isHome && (
-              <li className="menu">
-                <Link
-                  to="/page-layout"
-                  state={{ user }}
-                  className="side-list-nav-link"
-                >
-                  <FaHouse size={18} className="service-icon" />
-                  <span className="menu-label">Home</span>
-                </Link>
-              </li>
-            )}
             {menu.map((item, index) => (
               <li
                 key={index}
@@ -171,11 +146,11 @@ function SideBar({
     <div className={collapsed ? "side-bar collapsed" : "side-bar"}>
       <Link
         to="/page-layout"
-        className="home-link"
+        className="home-link desktop-home-icon"
         state={{ user }}
         onClick={() => setActive(-1)}
       >
-        <h3 className="menu-header">Planlite</h3>
+        <FaHouse size={22} />
       </Link>
       {showModal ? <SideCircle step={step} /> : renderSideMenu()}
     </div>

@@ -14,19 +14,12 @@ interface Props {
   onSave: (value: Partial<EventData>) => void;
 }
 
-const regions: string[] = [
-  "Ashanti",
-  "Brong Ahafo",
-  "Central",
-  "Greater Accra",
-  "Western",
-  "Northern",
-];
-
 function EventLocation({ onBack, onSave, onNext, onClose }: Props) {
   const [area, setArea] = useState<string>("");
   const [selectedHotel, setSelectedHotel] = useState<HotelProps | null>(null);
+  const regions: string[] = locations.map((location) => location.region);
 
+ 
   const handleSubmit = () => {
     if (!selectedHotel) return;
 
@@ -39,6 +32,7 @@ function EventLocation({ onBack, onSave, onNext, onClose }: Props) {
       },
     });
     onNext();
+     
   };
 
   const filteredLocations = area

@@ -78,7 +78,45 @@
   height: 35vh;
 }
 
+.mobile-home-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+  color: var(--ink);
+  transition: color 0.2s ease;
+}
+
+.mobile-home-icon:hover {
+  color: var(--accent);
+}
+
+.desktop-home-icon {
+  display: none;
+}
+
 @media (min-width: 992px) {
+  .desktop-home-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 16px;
+    color: var(--ink);
+    transition: color 0.2s ease;
+  }
+
+  .desktop-home-icon:hover {
+    color: var(--accent);
+  }
+
+  .mobile-home-icon {
+    display: none;
+  }
+
   .side-drawer,
   .drawer-backdrop {
     display: none;
@@ -166,6 +204,7 @@
     position: static;
     bottom: unset;
     background: none;
+    border: none;
   }
 
   .menu {
@@ -233,10 +272,47 @@
     gap: 20px;
   }
 
+  .name-div-wrapper {
+    position: relative;
+  }
+
   .name-div {
     display: flex;
     gap: 20px;
     align-items: center;
+    cursor: pointer;
+  }
+
+  .logout-dropdown {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 140px;
+    z-index: 100;
+    overflow: hidden;
+  }
+
+  .logout-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-paragraph);
+    font-size: var(--text-sm);
+    color: var(--ink);
+    transition: background 0.2s ease;
+  }
+
+  .logout-dropdown-item:hover {
+    background: var(--surface);
   }
 
   .name-head {

@@ -353,5 +353,6 @@ npm run preview    # serve the built app locally
   images served from picsum.photos), not in json-server.
 - `Reset.tsx` exists but is not registered in the router; it is reached from
   the verification flow and redirects to `/` after a successful reset.
-- The location catalog (`src/hooks/locations.ts`) uses sample hotel data and
-  includes some duplicate placeholder entries across regions.
+- The location catalog (`src/hooks/locations.ts`) covers all 16 Ghanaian
+  regions with sample hotel/venue data for each. The region dropdown in the
+  event location wizard is dynamically generated from this catalog.

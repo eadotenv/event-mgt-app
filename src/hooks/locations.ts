@@ -13,7 +13,7 @@ export const locations = [
   },
   {
     id: 2,
-    region: "Brong Ahafo",
+    region: "Bono",
     city: "Sunyani",
     hotels: [
       { name: "Eusbett Hotel", address: "Sunyani" },

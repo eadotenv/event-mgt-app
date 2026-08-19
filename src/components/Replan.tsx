@@ -14,14 +14,7 @@ import { IoClose } from "react-icons/io5";
 import "../css/replan.css";
 import "../css/upcoming.css";
 
-const regions: string[] = [
-  "Ashanti",
-  "Brong Ahafo",
-  "Central",
-  "Greater Accra",
-  "Western",
-  "Northern",
-];
+const regions: string[] = locations.map((location) => location.region);
 
 const emptyServices: ServiceData = {
   photo: false,

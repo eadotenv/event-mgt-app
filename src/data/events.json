@@ -606,10 +606,10 @@
       "title": "Nyamekye's Wedding",
       "date": "2026-08-20T00:00:00.000Z",
       "location": {
-        "name": "True Vine Hotel",
-        "town": "Ahodwo",
-        "city": "Kumasi",
-        "region": "Ashanti"
+        "name": "Volta River Hotel",
+        "town": "Dambai",
+        "city": "Dambai",
+        "region": "Oti"
       },
       "services": {
         "photo": true,
@@ -836,6 +836,28 @@
         "transport": true,
         "event": false,
         "foodServices": false,
+        "beautician": false
+      }
+    },
+    {
+      "id": "e288",
+      "userId": "ffd0",
+      "title": "Excursion",
+      "date": "2026-09-18T00:00:00.000Z",
+      "location": {
+        "name": "Mole Motel",
+        "town": "Damongo",
+        "city": "Damongo",
+        "region": "Savannah"
+      },
+      "services": {
+        "photo": true,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": true,
+        "foodServices": true,
         "beautician": false
       }
     }

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { categories, vendors } from "../data/vendors";
@@ -120,10 +120,6 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
     setRatingFilter(ratings[0]);
     setSearchTerm("");
   };
-
-  useEffect(() => {
-    setActiveCategory(null);
-  }, [priceFilter, locationFilter, ratingFilter, setActiveCategory]);
 
   const handleBookClick = async (vendor: Vendor) => {
     if (autoBookEventId) {
@@ -274,6 +270,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
                     }
                     onClick={() => {
                       setPriceFilter(pr);
+                      setActiveCategory(null);
                       setOpenFilter(null);
                     }}
                   >
@@ -299,6 +296,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
                     className={locationFilter === loc ? "active-option" : ""}
                     onClick={() => {
                       setLocationFilter(loc);
+                      setActiveCategory(null);
                       setOpenFilter(null);
                     }}
                   >
@@ -326,6 +324,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
                     }
                     onClick={() => {
                       setRatingFilter(ro);
+                      setActiveCategory(null);
                       setOpenFilter(null);
                     }}
                   >

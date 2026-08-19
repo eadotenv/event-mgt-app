@@ -11,6 +11,9 @@ import map from "../assets/map.jpg";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdCalendarMonth } from "react-icons/md";
 
+// Components
+import NavBar from "./NavBar";
+
 // Style Assets
 import "../css/navbar.css";
 import "../css/event.css";
@@ -71,6 +74,7 @@ function Event() {
 
   return (
     <div className="past-event-container">
+      <NavBar header="Events" />
       {activeEvents.length === 0 ? (
         <p className="past-text">
           You don't have any upcoming events to your name

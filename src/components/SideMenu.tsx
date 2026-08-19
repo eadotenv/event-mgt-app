@@ -1,6 +1,7 @@
+import { useState } from "react";
 import type { IconType } from "react-icons";
-import { IoSettingsOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
 import type { User } from "../entities/User";
 
 interface Menu {
@@ -18,6 +19,14 @@ interface Props {
 }
 
 function SideMenu({ menu, active, setActive, user, onNavigate }: Props) {
+  const [showLogout, setShowLogout] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setShowLogout(false);
+    navigate("/");
+  };
+
   return (
     <aside className="side-menu">
       <nav className="side-nav">
@@ -48,20 +57,34 @@ function SideMenu({ menu, active, setActive, user, onNavigate }: Props) {
           <button className="login-btn">Start listing</button>
         </div>
         <div className="name-settings">
-          <div className="name-div">
-            <h2 className="name-head">
-              {user?.firstname.charAt(0).toUpperCase()}
-            </h2>
-            <span className="full-name">
-              {user?.firstname.charAt(0).toUpperCase() +
-                user?.firstname.slice(1)}{" "}
-              {user?.lastname.charAt(0).toUpperCase() + user?.lastname.slice(1)}
-            </span>
+          <div className="name-div-wrapper">
+            <div
+              className="name-div"
+              onClick={() => setShowLogout(!showLogout)}
+            >
+              <h2 className="name-head">
+                {user?.firstname.charAt(0).toUpperCase()}
+              </h2>
+              <span className="full-name">
+                {user?.firstname.charAt(0).toUpperCase() +
+                  user?.firstname.slice(1)}{" "}
+                {user?.lastname.charAt(0).toUpperCase() + user?.lastname.slice(1)}
+              </span>
+            </div>
+            {showLogout && (
+              <div className="logout-dropdown">
+                <button className="logout-dropdown-item" onClick={handleLogout}>
+                  <IoLogOutOutline size={18} />
+                  <span>Logout</span>
+                </button>
+              </div>
+            )}
           </div>
           <div className="settings">
             <IoSettingsOutline size={22} />
             <span className="settings-text">Settings</span>
-          </div>        </div>
+          </div>
+        </div>
       </div>
     </aside>
   );
