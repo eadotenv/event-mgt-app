@@ -2,9 +2,9 @@
   height: 60px;
   border-bottom: 1px solid var(--border);
   display: grid;
-  grid-template-columns: auto auto 1fr auto;
+  grid-template-columns: auto 1fr auto;
   grid-template-rows: auto;
-  grid-template-areas: "toggle home tabs actions";
+  grid-template-areas: "header tabs actions";
   align-items: center;
   width: 100%;
   padding: 10px;
@@ -167,8 +167,8 @@
 
 @media (min-width: 992px) {
   .navbar {
-    grid-template-columns: auto 300px 1fr auto;
-    grid-template-areas: "toggle header tabs actions";
+    grid-template-columns: 300px 1fr auto;
+    grid-template-areas: "header tabs actions";
     align-items: flex-end;
     gap: 20px;
     height: 60px;

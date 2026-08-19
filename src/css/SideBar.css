@@ -97,6 +97,10 @@
   display: none;
 }
 
+.planlite-brand {
+  display: none;
+}
+
 @media (min-width: 992px) {
   .desktop-home-icon {
     display: flex;
@@ -111,6 +115,17 @@
 
   .desktop-home-icon:hover {
     color: var(--accent);
+  }
+
+  .planlite-brand {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
   }
 
   .mobile-home-icon {

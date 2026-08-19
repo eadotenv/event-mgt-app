@@ -144,14 +144,25 @@ function SideBar({
 
   return (
     <div className={collapsed ? "side-bar collapsed" : "side-bar"}>
-      <Link
-        to="/page-layout"
-        className="home-link desktop-home-icon"
-        state={{ user }}
-        onClick={() => setActive(-1)}
-      >
-        <FaHouse size={22} />
-      </Link>
+      {isDetails ? (
+        <Link
+          to="/page-layout"
+          className="home-link desktop-home-icon"
+          state={{ user }}
+          onClick={() => setActive(-1)}
+        >
+          <FaHouse size={22} />
+        </Link>
+      ) : (
+        <Link
+          to="/page-layout"
+          className="home-link planlite-brand"
+          state={{ user }}
+          onClick={() => setActive(-1)}
+        >
+          PlanLite
+        </Link>
+      )}
       {showModal ? <SideCircle step={step} /> : renderSideMenu()}
     </div>
   );

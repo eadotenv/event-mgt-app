@@ -21,7 +21,6 @@ function NavBar({ tabs = [], active = 0, setActive, header, onToggleSidebar }: P
   const location = useLocation();
   const navigate = useNavigate();
   const user = location.state?.user;
-  const isHome = location.pathname === "/page-layout";
 
   const handleLogout = () => {
     setMobileMenuOpen(false);
@@ -30,17 +29,6 @@ function NavBar({ tabs = [], active = 0, setActive, header, onToggleSidebar }: P
 
   return (
     <nav className="navbar">
-      {!isHome && (
-        <Link
-          to="/page-layout"
-          state={{ user }}
-          className="navbar-home"
-          aria-label="Go to homepage"
-          title="Home"
-        >
-          <FaHouse size={16} />
-        </Link>
-      )}
       <h3 className="nav-header">{header}</h3>
       <ul className="nav-list">
         {tabs.map((tab, index) => (
