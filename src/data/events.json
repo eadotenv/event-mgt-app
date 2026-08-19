@@ -603,23 +603,23 @@
     {
       "id": "6a90",
       "userId": "ffd0",
-      "title": "Wedding",
+      "title": "Nyamekye's Wedding",
       "date": "2026-08-20T00:00:00.000Z",
       "location": {
-        "name": "Sunset Hotel",
-        "town": "Danyame",
+        "name": "True Vine Hotel",
+        "town": "Ahodwo",
         "city": "Kumasi",
         "region": "Ashanti"
       },
       "services": {
-        "photo": false,
-        "entertainment": false,
+        "photo": true,
+        "entertainment": true,
         "design": true,
-        "hiring": true,
-        "transport": true,
-        "event": false,
-        "foodServices": false,
-        "beautician": false
+        "hiring": false,
+        "transport": false,
+        "event": true,
+        "foodServices": true,
+        "beautician": true
       },
       "bookedVendors": [
         {
@@ -670,28 +670,46 @@
           "rating": 4.2,
           "image": "https://picsum.photos/seed/des3/400/300"
         }
+      ],
+      "checklist": [
+        {
+          "itemId": "1787145942371",
+          "item": "Share food",
+          "isDone": false
+        }
+      ],
+      "program": [
+        {
+          "itemId": "1787146076587",
+          "time": "09:30",
+          "title": "Worship",
+          "name": "Sarah Owusu"
+        }
       ]
     },
     {
       "id": "022e",
       "userId": "ffd0",
-      "title": "Church service",
-      "date": "2026-08-18T00:00:00.000Z",
+      "title": "Church Service at Adum",
+      "date": [
+        "2026-08-29T00:00:00.000Z",
+        "2026-08-29T23:59:59.999Z"
+      ],
       "location": {
-        "name": "Hotel de Jet",
+        "name": "Peacock Hotel",
         "town": "Sunyani",
         "city": "Sunyani",
         "region": "Brong Ahafo"
       },
       "services": {
-        "photo": false,
-        "entertainment": false,
+        "photo": true,
+        "entertainment": true,
         "design": false,
         "hiring": false,
-        "transport": false,
+        "transport": true,
         "event": false,
-        "foodServices": true,
-        "beautician": true
+        "foodServices": false,
+        "beautician": false
       },
       "checklist": [
         {
@@ -796,6 +814,28 @@
         "transport": false,
         "event": false,
         "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "6e04",
+      "userId": "ffd0",
+      "title": "Evening Run",
+      "date": "2026-08-22T00:00:00.000Z",
+      "location": {
+        "name": "Windy Lodge",
+        "town": "Takoradi",
+        "city": "Takoradi",
+        "region": "Western"
+      },
+      "services": {
+        "photo": true,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": false,
+        "foodServices": false,
         "beautician": false
       }
     }

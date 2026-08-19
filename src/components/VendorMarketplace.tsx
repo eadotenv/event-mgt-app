@@ -1,14 +1,14 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { categories, vendors } from "../data/vendors";
 import type { Vendor } from "../entities/Vendor";
 import type { EventData } from "../entities/EventData";
 import type { User } from "../entities/User";
-import { IoClose, IoChevronDown } from "react-icons/io5";
+import { IoClose, IoChevronDown, IoSearch } from "react-icons/io5";
 import "../css/services.css";
 
-const PRICE_RANGES = [
+const priceRange = [
   { label: "Prices", min: 0, max: Infinity },
   { label: "Under GHS 1,500", min: 0, max: 1500 },
   { label: "GHS 1,500 – 3,000", min: 1500, max: 3000 },
@@ -16,7 +16,7 @@ const PRICE_RANGES = [
   { label: "Above GHS 5,000", min: 5000, max: Infinity },
 ];
 
-const LOCATIONS = [
+const cityCapital = [
   "Locations",
   "Accra",
   "Kumasi",
@@ -26,14 +26,14 @@ const LOCATIONS = [
   "Tamale",
 ];
 
-const RATING_OPTIONS = [
+const ratings = [
   { label: "Rating", min: 0 },
   { label: "4.5 & up", min: 4.5 },
   { label: "4.0 & up", min: 4.0 },
   { label: "3.5 & up", min: 3.5 },
 ];
 
-type FilterKey = "price" | "location" | "rating";
+type FilterKey = "price" | "location" | "category" | "rating";
 
 interface Props {
   user: User;
@@ -45,10 +45,11 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [openFilter, setOpenFilter] = useState<FilterKey | null>(null);
-  const [priceFilter, setPriceFilter] = useState(PRICE_RANGES[0]);
-  const [locationFilter, setLocationFilter] = useState(LOCATIONS[0]);
-  const [ratingFilter, setRatingFilter] = useState(RATING_OPTIONS[0]);
+  const [priceFilter, setPriceFilter] = useState(priceRange[0]);
+  const [locationFilter, setLocationFilter] = useState(cityCapital[0]);
+  const [ratingFilter, setRatingFilter] = useState(ratings[0]);
   const [bookModal, setBookModal] = useState<{ vendor: Vendor } | null>(null);
   const [userEvents, setUserEvents] = useState<EventData[]>([]);
   const [selectedEventId, setSelectedEventId] = useState<string>("");
@@ -56,6 +57,11 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
 
   const toggleFilter = (key: FilterKey) => {
     setOpenFilter(openFilter === key ? null : key);
+  };
+
+  const handleCategoryClick = (key: string) => {
+    setActiveCategory(activeCategory === key ? null : key);
+    setOpenFilter(null);
   };
 
   const filteredVendors = useMemo(() => {
@@ -69,6 +75,10 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           v.description.toLowerCase().includes(term) ||
           v.category.toLowerCase().includes(term),
       );
+    }
+
+    if (activeCategory) {
+      result = result.filter((v) => v.category === activeCategory);
     }
 
     if (priceFilter.min > 0 || priceFilter.max < Infinity) {
@@ -86,19 +96,34 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
     }
 
     return result;
-  }, [searchTerm, priceFilter, locationFilter, ratingFilter]);
+  }, [searchTerm, activeCategory, priceFilter, locationFilter, ratingFilter]);
+
+  const groupedVendors = useMemo(() => {
+    const groups: Record<string, Vendor[]> = {};
+    for (const v of filteredVendors) {
+      if (!groups[v.category]) groups[v.category] = [];
+      groups[v.category].push(v);
+    }
+    return groups;
+  }, [filteredVendors]);
 
   const hasActiveFilters =
+    activeCategory !== null ||
     priceFilter.label !== "Prices" ||
     locationFilter !== "Locations" ||
     ratingFilter.label !== "Rating";
 
   const clearFilters = () => {
-    setPriceFilter(PRICE_RANGES[0]);
-    setLocationFilter(LOCATIONS[0]);
-    setRatingFilter(RATING_OPTIONS[0]);
+    setActiveCategory(null);
+    setPriceFilter(priceRange[0]);
+    setLocationFilter(cityCapital[0]);
+    setRatingFilter(ratings[0]);
     setSearchTerm("");
   };
+
+  useEffect(() => {
+    setActiveCategory(null);
+  }, [priceFilter, locationFilter, ratingFilter, setActiveCategory]);
 
   const handleBookClick = async (vendor: Vendor) => {
     if (autoBookEventId) {
@@ -203,106 +228,132 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
 
   return (
     <div className="services-page">
-      <h1 className="services-head">Find Vendor Services</h1>
+      <div className="search-filter-row">
+        <div className="filter-row">
+          <div className="filter-group">
+            <button
+              className={`filter-btn ${activeCategory ? "active" : ""}`}
+              onClick={() => toggleFilter("category")}
+            >
+              {activeCategory
+                ? categories.find((c) => c.key === activeCategory)?.label
+                : "Categories"}{" "}
+              <IoChevronDown size={14} />
+            </button>
+            {openFilter === "category" && (
+              <div className="filter-dropdown">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.key}
+                    className={
+                      activeCategory === cat.key ? "active-option" : ""
+                    }
+                    onClick={() => handleCategoryClick(cat.key)}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
-      <div className="search-row">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Search vendors by name, description..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button className="search-btn" onClick={() => {}}>
-          Search
-        </button>
-      </div>
+          <div className="filter-group">
+            <button
+              className={`filter-btn ${priceFilter.label !== "Prices" ? "active" : ""}`}
+              onClick={() => toggleFilter("price")}
+            >
+              {priceFilter.label} <IoChevronDown size={14} />
+            </button>
+            {openFilter === "price" && (
+              <div className="filter-dropdown">
+                {priceRange.map((pr) => (
+                  <button
+                    key={pr.label}
+                    className={
+                      priceFilter.label === pr.label ? "active-option" : ""
+                    }
+                    onClick={() => {
+                      setPriceFilter(pr);
+                      setOpenFilter(null);
+                    }}
+                  >
+                    {pr.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
-      <div className="filter-row">
-        <div className="filter-group">
-          <button
-            className={`filter-btn ${priceFilter.label !== "Prices" ? "active" : ""}`}
-            onClick={() => toggleFilter("price")}
-          >
-            {priceFilter.label} <IoChevronDown size={14} />
-          </button>
-          {openFilter === "price" && (
-            <div className="filter-dropdown">
-              {PRICE_RANGES.map((pr) => (
-                <button
-                  key={pr.label}
-                  className={
-                    priceFilter.label === pr.label ? "active-option" : ""
-                  }
-                  onClick={() => {
-                    setPriceFilter(pr);
-                    setOpenFilter(null);
-                  }}
-                >
-                  {pr.label}
-                </button>
-              ))}
-            </div>
+          <div className="filter-group">
+            <button
+              className={`filter-btn ${locationFilter !== "Locations" ? "active" : ""}`}
+              onClick={() => toggleFilter("location")}
+            >
+              {locationFilter} <IoChevronDown size={14} />
+            </button>
+            {openFilter === "location" && (
+              <div className="filter-dropdown">
+                {cityCapital.map((loc) => (
+                  <button
+                    key={loc}
+                    className={locationFilter === loc ? "active-option" : ""}
+                    onClick={() => {
+                      setLocationFilter(loc);
+                      setOpenFilter(null);
+                    }}
+                  >
+                    {loc}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="filter-group">
+            <button
+              className={`filter-btn ${ratingFilter.label !== "Rating" ? "active" : ""}`}
+              onClick={() => toggleFilter("rating")}
+            >
+              {ratingFilter.label} <IoChevronDown size={14} />
+            </button>
+            {openFilter === "rating" && (
+              <div className="filter-dropdown">
+                {ratings.map((ro) => (
+                  <button
+                    key={ro.label}
+                    className={
+                      ratingFilter.label === ro.label ? "active-option" : ""
+                    }
+                    onClick={() => {
+                      setRatingFilter(ro);
+                      setOpenFilter(null);
+                    }}
+                  >
+                    {ro.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {hasActiveFilters && (
+            <button className="clear-filters-btn" onClick={clearFilters}>
+              Clear filters
+            </button>
           )}
         </div>
-
-        <div className="filter-group">
-          <button
-            className={`filter-btn ${locationFilter !== "Locations" ? "active" : ""}`}
-            onClick={() => toggleFilter("location")}
-          >
-            {locationFilter} <IoChevronDown size={14} />
+        <div className="search-row-mobile">
+          <button className="search-icon-btn" onClick={() => {}}>
+            <IoSearch size={20} />
           </button>
-          {openFilter === "location" && (
-            <div className="filter-dropdown">
-              {LOCATIONS.map((loc) => (
-                <button
-                  key={loc}
-                  className={locationFilter === loc ? "active-option" : ""}
-                  onClick={() => {
-                    setLocationFilter(loc);
-                    setOpenFilter(null);
-                  }}
-                >
-                  {loc}
-                </button>
-              ))}
-            </div>
-          )}
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
-
-        <div className="filter-group">
-          <button
-            className={`filter-btn ${ratingFilter.label !== "Rating" ? "active" : ""}`}
-            onClick={() => toggleFilter("rating")}
-          >
-            {ratingFilter.label} <IoChevronDown size={14} />
-          </button>
-          {openFilter === "rating" && (
-            <div className="filter-dropdown">
-              {RATING_OPTIONS.map((ro) => (
-                <button
-                  key={ro.label}
-                  className={
-                    ratingFilter.label === ro.label ? "active-option" : ""
-                  }
-                  onClick={() => {
-                    setRatingFilter(ro);
-                    setOpenFilter(null);
-                  }}
-                >
-                  {ro.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {hasActiveFilters && (
-          <button className="clear-filters-btn" onClick={clearFilters}>
-            Clear filters
-          </button>
-        )}
       </div>
 
       {filteredVendors.length === 0 ? (
@@ -311,9 +362,33 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           <p>Try adjusting your search or filters.</p>
         </div>
       ) : (
-        <div className="vendor-grid">
-          {filteredVendors.map(renderVendorCard)}
-        </div>
+        Object.keys(groupedVendors).map((catKey) => {
+          const catVendors = groupedVendors[catKey];
+          const catLabel =
+            categories.find((c) => c.key === catKey)?.label || catKey;
+          const displayedVendors = activeCategory
+            ? catVendors
+            : catVendors.slice(0, 4);
+
+          return (
+            <div className="category-section" key={catKey}>
+              <div className="category-header">
+                <h2 className="category-title">{catLabel}</h2>
+                {!activeCategory && catVendors.length > 4 && (
+                  <button
+                    className="view-more-btn"
+                    onClick={() => setActiveCategory(catKey)}
+                  >
+                    View More ({catVendors.length})
+                  </button>
+                )}
+              </div>
+              <div className="vendor-grid">
+                {displayedVendors.map(renderVendorCard)}
+              </div>
+            </div>
+          );
+        })
       )}
 
       {bookModal && (

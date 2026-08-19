@@ -4,6 +4,7 @@ import {
   MdMiscellaneousServices,
   MdNotificationsActive,
 } from "react-icons/md";
+import { FaHouse } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 
 import "../css/SideBar.css";
@@ -41,6 +42,7 @@ function SideBar({
 
   const location = useLocation();
   const isDetails = location.pathname.includes("/details/");
+  const isHome = location.pathname === "/page-layout";
 
   const [mobileScreen, setMobileScreen] = useState(window.innerWidth <= 991);
 
@@ -65,6 +67,18 @@ function SideBar({
       return (
         <nav className="side-nav">
           <ul className="side-list">
+            {!isHome && (
+              <li className="menu">
+                <Link
+                  to="/page-layout"
+                  state={{ user }}
+                  className="side-list-nav-link"
+                >
+                  <FaHouse size={18} className="service-icon" />
+                  Home
+                </Link>
+              </li>
+            )}
             {menu.map((item, index) => (
               <li
                 key={index}
@@ -117,15 +131,38 @@ function SideBar({
     // non-details mobile pages keep the bottom nav
     return (
       <div className="side-bar">
-        <Link
-          to="/page-layout"
-          className="home-link"
-          state={{ user }}
-          onClick={() => setActive(-1)}
-        >
-          <h3 className="menu-header">Planlite</h3>
-        </Link>
-        {showModal ? <SideCircle step={step} /> : renderSideMenu()}
+        <nav className="side-nav">
+          <ul className="side-list">
+            {!isHome && (
+              <li className="menu">
+                <Link
+                  to="/page-layout"
+                  state={{ user }}
+                  className="side-list-nav-link"
+                >
+                  <FaHouse size={18} className="service-icon" />
+                  <span className="menu-label">Home</span>
+                </Link>
+              </li>
+            )}
+            {menu.map((item, index) => (
+              <li
+                key={index}
+                className={active === index ? "menu menu-active" : "menu"}
+                onClick={() => setActive(index)}
+              >
+                <Link
+                  to={`${item.path}`}
+                  state={{ user }}
+                  className="side-list-nav-link"
+                >
+                  <item.icon size={18} className="service-icon" />
+                  <span className="menu-label">{item.label}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     );
   }
