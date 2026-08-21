@@ -56,7 +56,6 @@ function Replan() {
   const navigate = useNavigate();
   const user = location.state?.user as User;
   const from = location.state?.from;
-
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<ValuePiece>(null);
   const [eventLocation, setEventLocation] = useState<AreaData | null>(null);
@@ -160,7 +159,9 @@ function Replan() {
 
           {step === 1 && (
             <section className="replan-section">
-              <label className="replan-label">When will this event happen?</label>
+              <label className="replan-label">
+                When will this event happen?
+              </label>
               <p className="replan-hint">
                 If the event takes place over multiple days, tap multiple days.
               </p>
@@ -174,18 +175,14 @@ function Replan() {
                 className="cal"
               />
               <p className="replan-hint">
-                {date ? (
-                  date instanceof Date ? (
-                    format(date, "do MMM yyyy")
-                  ) : (
-                    `${format(date[0], "do MMM yyyy")} – ${format(
-                      date[1],
-                      "do MMM yyyy",
-                    )}`
-                  )
-                ) : (
-                  "No date selected"
-                )}
+                {date
+                  ? date instanceof Date
+                    ? format(date, "do MMM yyyy")
+                    : `${format(date[0], "do MMM yyyy")} – ${format(
+                        date[1],
+                        "do MMM yyyy",
+                      )}`
+                  : "No date selected"}
               </p>
             </section>
           )}
@@ -254,7 +251,10 @@ function Replan() {
                       id={`svc-${opt.key}`}
                       checked={services[opt.key]}
                       onChange={(e) =>
-                        setServices({ ...services, [opt.key]: e.target.checked })
+                        setServices({
+                          ...services,
+                          [opt.key]: e.target.checked,
+                        })
                       }
                     />
                     <label htmlFor={`svc-${opt.key}`}>{opt.label}</label>
