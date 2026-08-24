@@ -815,7 +815,37 @@
         "event": false,
         "foodServices": true,
         "beautician": false
-      }
+      },
+      "checklist": [
+        {
+          "itemId": "1787558380043",
+          "item": "Buy paints",
+          "isDone": false
+        },
+        {
+          "itemId": "1787558414871",
+          "item": "Buy brush",
+          "isDone": true
+        },
+        {
+          "itemId": "1787558444751",
+          "item": "Buy gloves",
+          "isDone": false
+        },
+        {
+          "itemId": "1787558494975",
+          "item": "Buy roller",
+          "isDone": false
+        }
+      ],
+      "program": [
+        {
+          "itemId": "1787558551158",
+          "time": "09:30",
+          "title": "Painting",
+          "name": "Pato"
+        }
+      ]
     },
     {
       "id": "6e04",

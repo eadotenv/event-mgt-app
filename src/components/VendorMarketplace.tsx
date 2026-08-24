@@ -46,6 +46,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [openFilter, setOpenFilter] = useState<FilterKey | null>(null);
   const [priceFilter, setPriceFilter] = useState(priceRange[0]);
   const [locationFilter, setLocationFilter] = useState(cityCapital[0]);
@@ -115,6 +116,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
 
   const clearFilters = () => {
     setActiveCategory(null);
+    setExpandedCategory(null);
     setPriceFilter(priceRange[0]);
     setLocationFilter(cityCapital[0]);
     setRatingFilter(ratings[0]);
@@ -365,7 +367,8 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           const catVendors = groupedVendors[catKey];
           const catLabel =
             categories.find((c) => c.key === catKey)?.label || catKey;
-          const displayedVendors = activeCategory
+          const isExpanded = expandedCategory === catKey;
+          const displayedVendors = isExpanded
             ? catVendors
             : catVendors.slice(0, 4);
 
@@ -373,18 +376,20 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
             <div className="category-section" key={catKey}>
               <div className="category-header">
                 <h2 className="category-title">{catLabel}</h2>
-                {!activeCategory && catVendors.length > 4 && (
-                  <button
-                    className="view-more-btn"
-                    onClick={() => setActiveCategory(catKey)}
-                  >
-                    View More ({catVendors.length})
-                  </button>
-                )}
               </div>
               <div className="vendor-grid">
                 {displayedVendors.map(renderVendorCard)}
               </div>
+              <button
+                className="view-more-btn"
+                onClick={() =>
+                  setExpandedCategory(isExpanded ? null : catKey)
+                }
+              >
+                {isExpanded
+                  ? "View Less"
+                  : `View More (${catVendors.length - displayedVendors.length} more)`}
+              </button>
             </div>
           );
         })
