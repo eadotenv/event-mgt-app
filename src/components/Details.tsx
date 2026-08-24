@@ -154,8 +154,8 @@ function Details() {
 
   const userInitial = user?.firstname
     ? user.firstname.charAt(0).toUpperCase()
-    : "";
-  const firstNameCap = capitalize(user?.firstname);
+    : "G";
+  const firstNameCap = user?.firstname ? capitalize(user.firstname) : "Guest";
   const lastNameInitial = user?.lastname
     ? `${user.lastname.charAt(0).toUpperCase()}.`
     : "";

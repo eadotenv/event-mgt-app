@@ -484,7 +484,10 @@
       "id": "bff3",
       "userId": "19b3",
       "title": "School",
-      "date": "2026-07-17T00:00:00.000Z",
+      "date": [
+        "2026-09-25T00:00:00.000Z",
+        "2026-09-25T23:59:59.999Z"
+      ],
       "location": {
         "name": "Kenyasi Hotel",
         "town": "Kenyasi",

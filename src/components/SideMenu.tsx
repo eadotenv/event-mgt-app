@@ -63,12 +63,12 @@ function SideMenu({ menu, active, setActive, user, onNavigate }: Props) {
               onClick={() => setShowLogout(!showLogout)}
             >
               <h2 className="name-head">
-                {user?.firstname.charAt(0).toUpperCase()}
+                {user?.firstname ? user.firstname.charAt(0).toUpperCase() : "G"}
               </h2>
               <span className="full-name">
-                {user?.firstname.charAt(0).toUpperCase() +
-                  user?.firstname.slice(1)}{" "}
-                {user?.lastname.charAt(0).toUpperCase() + user?.lastname.slice(1)}
+                {user?.firstname
+                  ? `${user.firstname.charAt(0).toUpperCase() + user.firstname.slice(1)} ${user.lastname ? user.lastname.charAt(0).toUpperCase() + user.lastname.slice(1) : ""}`
+                  : "Guest"}
               </span>
             </div>
             {showLogout && (

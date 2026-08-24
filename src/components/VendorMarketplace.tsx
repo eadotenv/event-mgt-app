@@ -382,13 +382,9 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
               </div>
               <button
                 className="view-more-btn"
-                onClick={() =>
-                  setExpandedCategory(isExpanded ? null : catKey)
-                }
+                onClick={() => setExpandedCategory(isExpanded ? null : catKey)}
               >
-                {isExpanded
-                  ? "View Less"
-                  : `View More (${catVendors.length - displayedVendors.length} more)`}
+                {isExpanded ? "View Less" : `View More `}
               </button>
             </div>
           );
