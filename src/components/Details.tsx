@@ -350,8 +350,9 @@ function Details() {
                     />
                   </div>
                   <p className="check-list-text">
-                    Are you sure you want to cancel <b>"{event?.title}"</b>?
-                    This action cannot be undone.
+                    You're about to cancel this event <b>"{event?.title}"</b>.
+                    This action will delete all information regarding this
+                    event. Are you sure you want to continue?
                   </p>
                   <button
                     type="button"
@@ -385,7 +386,8 @@ function Details() {
                           alt={bv.name}
                           loading="lazy"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = "none";
+                            (e.target as HTMLImageElement).style.display =
+                              "none";
                             (
                               (e.target as HTMLImageElement)
                                 .nextElementSibling as HTMLElement
@@ -398,7 +400,9 @@ function Details() {
                         >
                           {bv.name.charAt(0)}
                         </div>
-                        <span className={`vendor-status-tag ${bv.contacted ? "vendor-status-contacted" : "vendor-status-booked"}`}>
+                        <span
+                          className={`vendor-status-tag ${bv.contacted ? "vendor-status-contacted" : "vendor-status-booked"}`}
+                        >
                           {bv.contacted ? "Contacted" : "Booked"}
                         </span>
                       </div>

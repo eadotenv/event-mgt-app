@@ -74,14 +74,14 @@
       "userId": "19b3",
       "title": "NSMQ",
       "date": [
-        "2026-01-22T00:00:00.000Z",
-        "2026-02-12T23:59:59.999Z"
+        "2026-08-29T00:00:00.000Z",
+        "2026-09-10T23:59:59.999Z"
       ],
       "location": {
-        "name": "Aborah Hotel",
-        "town": "Atonsu",
-        "city": "Kumasi",
-        "region": "Ashanti"
+        "name": "New Crystal Hotel",
+        "town": "Koforidua",
+        "city": "Koforidua",
+        "region": "Eastern"
       },
       "services": {
         "photo": true,
@@ -578,6 +578,17 @@
           "location": "Kumasi",
           "rating": 4.5,
           "image": "https://picsum.photos/seed/photo2/400/300"
+        },
+        {
+          "vendorId": "v26",
+          "name": "SnapFlick",
+          "owner": "Yaw Darko",
+          "category": "photography",
+          "rate": 2000,
+          "location": "Cape Coast",
+          "rating": 4.4,
+          "image": "https://picsum.photos/seed/photo5/400/300",
+          "contacted": true
         }
       ]
     },
