@@ -1,0 +1,122 @@
+.contact-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.contact-modal {
+  background: var(--card);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: scaleIn 0.2s ease;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.contact-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.contact-modal-header h3 {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.contact-modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink7);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.contact-modal-close:hover {
+  background: var(--ink3);
+}
+
+.contact-modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.contact-option:hover {
+  background: var(--ink3);
+}
+
+.contact-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-icon-call {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.contact-icon-email {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.contact-icon-whatsapp {
+  background: #e8f5e9;
+  color: #25d366;
+}
+
+.contact-info {
+  flex: 1;
+}
+
+.contact-label {
+  font-size: var(--text-sm);
+  font-family: var(--font-normal);
+  color: var(--ink7);
+  margin: 0 0 2px;
+}
+
+.contact-value {
+  font-size: var(--text-base);
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+}

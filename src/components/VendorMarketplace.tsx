@@ -5,8 +5,10 @@ import { categories, vendors } from "../data/vendors";
 import type { Vendor } from "../entities/Vendor";
 import type { EventData } from "../entities/EventData";
 import type { User } from "../entities/User";
-import { IoClose, IoChevronDown, IoSearch } from "react-icons/io5";
+import { IoChevronDown, IoSearch } from "react-icons/io5";
 import "../css/services.css";
+import VendorDetailModal from "./VendorDetailModal";
+import ContactModal from "./ContactModal";
 
 const priceRange = [
   { label: "Prices", min: 0, max: Infinity },
@@ -43,7 +45,6 @@ interface Props {
 
 function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const navigate = useNavigate();
-
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
@@ -51,9 +52,11 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const [priceFilter, setPriceFilter] = useState(priceRange[0]);
   const [locationFilter, setLocationFilter] = useState(cityCapital[0]);
   const [ratingFilter, setRatingFilter] = useState(ratings[0]);
-  const [bookModal, setBookModal] = useState<{ vendor: Vendor } | null>(null);
+  const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
+  const [contactVendor, setContactVendor] = useState<Vendor | null>(null);
   const [userEvents, setUserEvents] = useState<EventData[]>([]);
-  const [selectedEventId, setSelectedEventId] = useState<string>("");
+  const [showEventSelect, setShowEventSelect] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState("");
   const [eventsLoading, setEventsLoading] = useState(false);
 
   const toggleFilter = (key: FilterKey) => {
@@ -123,28 +126,6 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
     setSearchTerm("");
   };
 
-  const handleBookClick = async (vendor: Vendor) => {
-    if (autoBookEventId) {
-      await bookToEvent(autoBookEventId, vendor);
-      return;
-    }
-
-    setBookModal({ vendor });
-    setSelectedEventId("");
-    if (userEvents.length === 0) {
-      setEventsLoading(true);
-      try {
-        const res = await axios.get<EventData[]>(
-          `http://localhost:9000/events?userId=${user?.id}`,
-        );
-        setUserEvents(res.data);
-      } catch (err) {
-        console.error("Failed to fetch events", err);
-      }
-      setEventsLoading(false);
-    }
-  };
-
   const bookToEvent = async (eventId: string, vendor: Vendor) => {
     try {
       const eventRes = await axios.get<EventData>(
@@ -164,6 +145,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           {
             vendorId: vendor.id,
             name: vendor.name,
+            owner: vendor.owner,
             category: vendor.category,
             rate: vendor.rate,
             location: vendor.location,
@@ -178,19 +160,43 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
     }
   };
 
-  const handleConfirmBook = async () => {
-    if (!selectedEventId || !bookModal) return;
-    await bookToEvent(selectedEventId, bookModal.vendor);
-    setBookModal(null);
+  const handleAddToEvent = async (vendor: Vendor) => {
+    if (autoBookEventId) {
+      await bookToEvent(autoBookEventId, vendor);
+      setSelectedVendor(null);
+      return;
+    }
+
+    setSelectedEventId("");
+    if (userEvents.length === 0) {
+      setEventsLoading(true);
+      try {
+        const res = await axios.get<EventData[]>(
+          `http://localhost:9000/events?userId=${user?.id}`,
+        );
+        setUserEvents(res.data);
+      } catch (err) {
+        console.error("Failed to fetch events", err);
+      }
+      setEventsLoading(false);
+    }
+    setShowEventSelect(true);
+  };
+
+  const handleConfirmAddToEvent = async () => {
+    if (!selectedEventId || !selectedVendor) return;
+    await bookToEvent(selectedEventId, selectedVendor);
+    setShowEventSelect(false);
+    setSelectedVendor(null);
+  };
+
+  const handleContact = (vendor: Vendor) => {
+    setContactVendor(vendor);
   };
 
   const renderVendorCard = (vendor: Vendor) => {
-    const categoryLabel =
-      categories.find((c) => c.key === vendor.category)?.label ||
-      vendor.category;
-
     return (
-      <div className="vendor-card" key={vendor.id}>
+      <div className="vendor-card" key={vendor.id} onClick={() => setSelectedVendor(vendor)}>
         <img
           className="vendor-image"
           src={vendor.image}
@@ -209,16 +215,6 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
         <div className="vendor-body">
           <p className="vendor-name">{vendor.name}</p>
           <p className="vendor-rate">GHS {vendor.rate.toLocaleString()}</p>
-          <p className="vendor-location">
-            {vendor.location} &middot; {categoryLabel}
-          </p>
-          <p className="vendor-rating">
-            {"⭐".repeat(Math.floor(vendor.rating))} {vendor.rating}
-          </p>
-          <p className="vendor-desc">{vendor.description}</p>
-          <button className="book-btn" onClick={() => handleBookClick(vendor)}>
-            Book Service
-          </button>
         </div>
       </div>
     );
@@ -391,25 +387,28 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
         })
       )}
 
-      {bookModal && (
-        <div
-          className="book-modal-overlay"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setBookModal(null);
+      {selectedVendor && (
+        <VendorDetailModal
+          vendor={selectedVendor}
+          onClose={() => {
+            setSelectedVendor(null);
+            setShowEventSelect(false);
           }}
-        >
-          <div className="book-modal">
+          onAddToEvent={handleAddToEvent}
+          onContact={handleContact}
+        />
+      )}
+
+      {showEventSelect && selectedVendor && (
+        <div className="book-modal-overlay" onClick={() => setShowEventSelect(false)}>
+          <div className="book-modal" onClick={(e) => e.stopPropagation()}>
             <div className="book-modal-header">
-              <h3>Book {bookModal.vendor.name}</h3>
-              <button
-                className="book-modal-close"
-                onClick={() => setBookModal(null)}
-              >
-                <IoClose size={22} />
+              <h3>Add {selectedVendor.name} to Event</h3>
+              <button className="book-modal-close" onClick={() => setShowEventSelect(false)}>
+                ×
               </button>
             </div>
             <div className="book-modal-body">
-              <p>Select an event to add this service to:</p>
               {eventsLoading ? (
                 <p>Loading events...</p>
               ) : userEvents.length === 0 ? (
@@ -447,19 +446,26 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
               <button
                 className="book-confirm-btn"
                 disabled={!selectedEventId}
-                onClick={handleConfirmBook}
+                onClick={handleConfirmAddToEvent}
               >
-                Confirm Booking
+                Add to Event
               </button>
               <button
                 className="book-cancel-btn"
-                onClick={() => setBookModal(null)}
+                onClick={() => setShowEventSelect(false)}
               >
                 Cancel
               </button>
             </div>
           </div>
         </div>
+      )}
+
+      {contactVendor && (
+        <ContactModal
+          vendor={contactVendor}
+          onClose={() => setContactVendor(null)}
+        />
       )}
     </div>
   );

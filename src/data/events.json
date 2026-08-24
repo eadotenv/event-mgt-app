@@ -305,12 +305,15 @@
       "id": "838b",
       "userId": "19b3",
       "title": "Coding",
-      "date": "2026-06-25T00:00:00.000Z",
+      "date": [
+        "2026-06-25T00:00:00.000Z",
+        "2026-09-24T23:59:59.999Z"
+      ],
       "location": {
-        "name": "Hwidiem Hotel",
-        "town": "Hwidiem",
-        "city": "Sunyani",
-        "region": "Brong Ahafo"
+        "name": "Oasis Beach Resort",
+        "town": "Cape Coast",
+        "city": "Cape Coast",
+        "region": "Central"
       },
       "services": {
         "photo": false,
@@ -318,7 +321,7 @@
         "design": false,
         "hiring": false,
         "transport": false,
-        "event": false,
+        "event": true,
         "foodServices": true,
         "beautician": true
       }
@@ -503,7 +506,79 @@
         "event": true,
         "foodServices": true,
         "beautician": false
-      }
+      },
+      "checklist": [
+        {
+          "itemId": "1787573333851",
+          "item": "Inter-co",
+          "isDone": false
+        },
+        {
+          "itemId": "1787573345457",
+          "item": "Suzo",
+          "isDone": false
+        },
+        {
+          "itemId": "1787573350225",
+          "item": "NSMQ",
+          "isDone": false
+        },
+        {
+          "itemId": "1787573360957",
+          "item": "Milo games",
+          "isDone": false
+        }
+      ],
+      "program": [
+        {
+          "itemId": "1787573419111",
+          "time": "06:30",
+          "title": "Morning Prep",
+          "name": "Pluto"
+        },
+        {
+          "itemId": "1787573454847",
+          "time": "08:00",
+          "title": "Class session",
+          "name": "Teacher"
+        },
+        {
+          "itemId": "1787573491549",
+          "time": "09:30",
+          "title": "Dining",
+          "name": "Dining Hall Prefect"
+        }
+      ],
+      "bookedVendors": [
+        {
+          "vendorId": "v7",
+          "name": "SoundFusion",
+          "category": "entertainment",
+          "rate": 2200,
+          "location": "Accra",
+          "rating": 4.6,
+          "image": "https://picsum.photos/seed/ent3/400/300"
+        },
+        {
+          "vendorId": "v11",
+          "name": "Balloon Bliss",
+          "category": "design",
+          "rate": 1200,
+          "location": "Kumasi",
+          "rating": 4.2,
+          "image": "https://picsum.photos/seed/des3/400/300"
+        },
+        {
+          "vendorId": "v2",
+          "name": "LensCraft Media",
+          "owner": "Kwame Asante",
+          "category": "photography",
+          "rate": 1800,
+          "location": "Kumasi",
+          "rating": 4.5,
+          "image": "https://picsum.photos/seed/photo2/400/300"
+        }
+      ]
     },
     {
       "id": "2b28",
