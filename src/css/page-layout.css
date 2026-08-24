@@ -14,7 +14,7 @@
 }
 
 .page-outlet > * {
-  min-height: auto;
+  min-height: 100%;
 }
 
 /* Mobile: let the main content scroll behind the fixed bottom nav */
