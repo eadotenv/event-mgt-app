@@ -199,10 +199,10 @@
 }
 
 .vendor-modal-rate {
-  font-size: var(--text-lg);
+  font-size: var(--text-sm);
   font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--accent1);
+  font-weight: 600;
+  color: var(--ink7);
   margin: 0;
 }
 
@@ -233,6 +233,15 @@
 
 .vendor-modal-btn-primary:hover {
   opacity: 0.9;
+}
+
+.vendor-modal-btn-danger {
+  background: #fecdd3;
+  color: #dc2626;
+}
+
+.vendor-modal-btn-danger:hover {
+  background: #fda4af;
 }
 
 .vendor-modal-btn-secondary {
@@ -352,24 +361,27 @@
   font-size: var(--text-sm);
   font-family: var(--font-normal);
   color: var(--ink);
-  position: relative;
-  padding-left: 28px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 8px;
 }
 
-.vendor-modal-notes-item::before {
-  content: "•";
-  position: absolute;
-  left: 12px;
-  color: var(--ink7);
+.vendor-modal-note-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .vendor-modal-note-text {
-  flex: 1;
   word-break: break-word;
+}
+
+.vendor-modal-note-date {
+  font-size: var(--text-xs);
+  color: var(--ink7);
+  font-family: var(--font-mono);
 }
 
 .vendor-modal-note-actions {

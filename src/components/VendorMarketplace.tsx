@@ -213,6 +213,29 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
     setSelectedVendor(null);
   };
 
+  const handleRemoveFromEvent = async (vendor: Vendor) => {
+    if (!autoBookEventId) return;
+    try {
+      const eventRes = await axios.get<EventData>(
+        `http://localhost:9000/events/${autoBookEventId}`,
+      );
+      const event = eventRes.data;
+      const existingBooked = event.bookedVendors || [];
+      const updatedBooked = existingBooked.filter(
+        (bv) => bv.vendorId !== vendor.id,
+      );
+
+      await axios.patch(`http://localhost:9000/events/${autoBookEventId}`, {
+        bookedVendors: updatedBooked,
+      });
+      setBookedVendors(updatedBooked);
+      onVendorBooked?.();
+      setSelectedVendor(null);
+    } catch (err) {
+      console.error("Failed to remove vendor", err);
+    }
+  };
+
   const handleContact = async (vendor: Vendor) => {
     setContactVendor(vendor);
     if (autoBookEventId) {
@@ -233,9 +256,12 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
               ...updatedBooked[existingIndex],
               contacted: true,
             };
-            await axios.patch(`http://localhost:9000/events/${autoBookEventId}`, {
-              bookedVendors: updatedBooked,
-            });
+            await axios.patch(
+              `http://localhost:9000/events/${autoBookEventId}`,
+              {
+                bookedVendors: updatedBooked,
+              },
+            );
             setBookedVendors(updatedBooked);
             onVendorBooked?.();
           }
@@ -266,7 +292,11 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const renderVendorCard = (vendor: Vendor) => {
     const booked = bookedVendors.find((bv) => bv.vendorId === vendor.id);
     return (
-      <div className="vendor-card" key={vendor.id} onClick={() => setSelectedVendor(vendor)}>
+      <div
+        className="vendor-card"
+        key={vendor.id}
+        onClick={() => setSelectedVendor(vendor)}
+      >
         <div className="vendor-card-img-wrapper">
           <img
             className="vendor-image"
@@ -284,14 +314,16 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
             {vendor.name.charAt(0)}
           </div>
           {booked && (
-            <span className={`vendor-status-tag ${booked.contacted ? "vendor-status-contacted" : "vendor-status-booked"}`}>
+            <span
+              className={`vendor-status-tag ${booked.contacted ? "vendor-status-contacted" : "vendor-status-booked"}`}
+            >
               {booked.contacted ? "Contacted" : "Booked"}
             </span>
           )}
         </div>
         <div className="vendor-body">
           <p className="vendor-name">{vendor.name}</p>
-          <p className="vendor-rate">GHS {vendor.rate.toLocaleString()}</p>
+          <p className="vendor-rate">GHS {vendor.rate.toLocaleString()} / day</p>
         </div>
       </div>
     );
@@ -443,7 +475,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           const isExpanded = expandedCategory === catKey;
           const displayedVendors = isExpanded
             ? catVendors
-            : catVendors.slice(0, 4);
+            : catVendors.slice(0, 6);
 
           return (
             <div className="category-section" key={catKey}>
@@ -467,21 +499,29 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
       {selectedVendor && (
         <VendorDetailModal
           vendor={selectedVendor}
+          isBooked={bookedVendors.some((bv) => bv.vendorId === selectedVendor.id)}
           onClose={() => {
             setSelectedVendor(null);
             setShowEventSelect(false);
           }}
           onAddToEvent={handleAddToEvent}
+          onRemoveFromEvent={handleRemoveFromEvent}
           onContact={handleContact}
         />
       )}
 
       {showEventSelect && selectedVendor && (
-        <div className="book-modal-overlay" onClick={() => setShowEventSelect(false)}>
+        <div
+          className="book-modal-overlay"
+          onClick={() => setShowEventSelect(false)}
+        >
           <div className="book-modal" onClick={(e) => e.stopPropagation()}>
             <div className="book-modal-header">
               <h3>Add {selectedVendor.name} to Event</h3>
-              <button className="book-modal-close" onClick={() => setShowEventSelect(false)}>
+              <button
+                className="book-modal-close"
+                onClick={() => setShowEventSelect(false)}
+              >
                 ×
               </button>
             </div>

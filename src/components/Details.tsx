@@ -405,7 +405,7 @@ function Details() {
                       <div className="booked-vendor-body">
                         <p className="booked-vendor-name">{bv.name}</p>
                         <p className="booked-vendor-rate">
-                          GHS {bv.rate.toLocaleString()}
+                          GHS {bv.rate.toLocaleString()} / day
                         </p>
                       </div>
                     </div>

@@ -282,10 +282,10 @@
 }
 
 .booked-vendor-rate {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-family: var(--font-mono);
   font-weight: 600;
-  color: var(--accent1);
+  color: var(--ink7);
   margin: 0 0 4px;
 }
 
