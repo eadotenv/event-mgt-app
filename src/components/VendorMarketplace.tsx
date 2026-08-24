@@ -1,8 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { categories, vendors } from "../data/vendors";
-import type { Vendor } from "../entities/Vendor";
+import type { Vendor, BookedVendor } from "../entities/Vendor";
 import type { EventData } from "../entities/EventData";
 import type { User } from "../entities/User";
 import { IoChevronDown, IoSearch } from "react-icons/io5";
@@ -58,6 +58,16 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const [showEventSelect, setShowEventSelect] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState("");
   const [eventsLoading, setEventsLoading] = useState(false);
+  const [bookedVendors, setBookedVendors] = useState<BookedVendor[]>([]);
+
+  useEffect(() => {
+    if (autoBookEventId) {
+      axios
+        .get<EventData>(`http://localhost:9000/events/${autoBookEventId}`)
+        .then((res) => setBookedVendors(res.data.bookedVendors || []))
+        .catch((err) => console.error("Failed to fetch booked vendors", err));
+    }
+  }, [autoBookEventId]);
 
   const toggleFilter = (key: FilterKey) => {
     setOpenFilter(openFilter === key ? null : key);
@@ -154,6 +164,19 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           },
         ],
       });
+      setBookedVendors([
+        ...existingBooked,
+        {
+          vendorId: vendor.id,
+          name: vendor.name,
+          owner: vendor.owner,
+          category: vendor.category,
+          rate: vendor.rate,
+          location: vendor.location,
+          rating: vendor.rating,
+          image: vendor.image,
+        },
+      ]);
       onVendorBooked?.();
     } catch (err) {
       console.error("Failed to book vendor", err);
@@ -190,27 +213,81 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
     setSelectedVendor(null);
   };
 
-  const handleContact = (vendor: Vendor) => {
+  const handleContact = async (vendor: Vendor) => {
     setContactVendor(vendor);
+    if (autoBookEventId) {
+      try {
+        const eventRes = await axios.get<EventData>(
+          `http://localhost:9000/events/${autoBookEventId}`,
+        );
+        const event = eventRes.data;
+        const existingBooked = event.bookedVendors || [];
+        const existingIndex = existingBooked.findIndex(
+          (bv) => bv.vendorId === vendor.id,
+        );
+
+        if (existingIndex >= 0) {
+          if (!existingBooked[existingIndex].contacted) {
+            const updatedBooked = [...existingBooked];
+            updatedBooked[existingIndex] = {
+              ...updatedBooked[existingIndex],
+              contacted: true,
+            };
+            await axios.patch(`http://localhost:9000/events/${autoBookEventId}`, {
+              bookedVendors: updatedBooked,
+            });
+            setBookedVendors(updatedBooked);
+            onVendorBooked?.();
+          }
+        } else {
+          const newBookedVendor = {
+            vendorId: vendor.id,
+            name: vendor.name,
+            owner: vendor.owner,
+            category: vendor.category,
+            rate: vendor.rate,
+            location: vendor.location,
+            rating: vendor.rating,
+            image: vendor.image,
+            contacted: true,
+          };
+          await axios.patch(`http://localhost:9000/events/${autoBookEventId}`, {
+            bookedVendors: [...existingBooked, newBookedVendor],
+          });
+          setBookedVendors([...existingBooked, newBookedVendor]);
+          onVendorBooked?.();
+        }
+      } catch (err) {
+        console.error("Failed to mark vendor as contacted", err);
+      }
+    }
   };
 
   const renderVendorCard = (vendor: Vendor) => {
+    const booked = bookedVendors.find((bv) => bv.vendorId === vendor.id);
     return (
       <div className="vendor-card" key={vendor.id} onClick={() => setSelectedVendor(vendor)}>
-        <img
-          className="vendor-image"
-          src={vendor.image}
-          alt={vendor.name}
-          loading="lazy"
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = "none";
-            (
-              (e.target as HTMLImageElement).nextElementSibling as HTMLElement
-            ).style.display = "flex";
-          }}
-        />
-        <div className="vendor-image-placeholder" style={{ display: "none" }}>
-          {vendor.name.charAt(0)}
+        <div className="vendor-card-img-wrapper">
+          <img
+            className="vendor-image"
+            src={vendor.image}
+            alt={vendor.name}
+            loading="lazy"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = "none";
+              (
+                (e.target as HTMLImageElement).nextElementSibling as HTMLElement
+              ).style.display = "flex";
+            }}
+          />
+          <div className="vendor-image-placeholder" style={{ display: "none" }}>
+            {vendor.name.charAt(0)}
+          </div>
+          {booked && (
+            <span className={`vendor-status-tag ${booked.contacted ? "vendor-status-contacted" : "vendor-status-booked"}`}>
+              {booked.contacted ? "Contacted" : "Booked"}
+            </span>
+          )}
         </div>
         <div className="vendor-body">
           <p className="vendor-name">{vendor.name}</p>

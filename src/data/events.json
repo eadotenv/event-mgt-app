@@ -557,7 +557,8 @@
           "rate": 2200,
           "location": "Accra",
           "rating": 4.6,
-          "image": "https://picsum.photos/seed/ent3/400/300"
+          "image": "https://picsum.photos/seed/ent3/400/300",
+          "contacted": true
         },
         {
           "vendorId": "v11",

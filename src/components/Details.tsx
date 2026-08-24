@@ -378,24 +378,29 @@ function Details() {
                 <div className="booked-services-grid">
                   {event.bookedVendors.map((bv) => (
                     <div className="booked-vendor-card" key={bv.vendorId}>
-                      <img
-                        className="booked-vendor-img"
-                        src={bv.image}
-                        alt={bv.name}
-                        loading="lazy"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = "none";
-                          (
-                            (e.target as HTMLImageElement)
-                              .nextElementSibling as HTMLElement
-                          ).style.display = "flex";
-                        }}
-                      />
-                      <div
-                        className="vendor-image-placeholder booked-vendor-placeholder"
-                        style={{ display: "none" }}
-                      >
-                        {bv.name.charAt(0)}
+                      <div className="booked-vendor-img-wrapper">
+                        <img
+                          className="booked-vendor-img"
+                          src={bv.image}
+                          alt={bv.name}
+                          loading="lazy"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = "none";
+                            (
+                              (e.target as HTMLImageElement)
+                                .nextElementSibling as HTMLElement
+                            ).style.display = "flex";
+                          }}
+                        />
+                        <div
+                          className="vendor-image-placeholder booked-vendor-placeholder"
+                          style={{ display: "none" }}
+                        >
+                          {bv.name.charAt(0)}
+                        </div>
+                        <span className={`vendor-status-tag ${bv.contacted ? "vendor-status-contacted" : "vendor-status-booked"}`}>
+                          {bv.contacted ? "Contacted" : "Booked"}
+                        </span>
                       </div>
                       <div className="booked-vendor-body">
                         <p className="booked-vendor-name">{bv.name}</p>

@@ -238,6 +238,30 @@
   object-fit: cover;
 }
 
+.booked-vendor-img-wrapper {
+  position: relative;
+}
+
+.vendor-status-tag {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: var(--text-xs);
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: white;
+}
+
+.vendor-status-booked {
+  background: #22c55e;
+}
+
+.vendor-status-contacted {
+  background: #ef4444;
+}
+
 .booked-vendor-placeholder {
   background: linear-gradient(135deg, var(--ink3), var(--ink6));
   display: flex;

@@ -20,4 +20,5 @@ export interface BookedVendor {
   location: string;
   rating: number;
   image: string;
+  contacted?: boolean;
 }
