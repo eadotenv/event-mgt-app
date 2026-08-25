@@ -981,6 +981,50 @@
         "foodServices": true,
         "beautician": false
       }
+    },
+    {
+      "id": "3d78",
+      "userId": "19b3",
+      "title": "Learn Python",
+      "date": "2026-09-16T00:00:00.000Z",
+      "location": {
+        "name": "Accra City Hotel",
+        "town": "Accra",
+        "city": "Accra",
+        "region": "Greater Accra"
+      },
+      "services": {
+        "photo": true,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": false,
+        "foodServices": true,
+        "beautician": false
+      }
+    },
+    {
+      "id": "38aa",
+      "userId": "19b3",
+      "title": "Gym",
+      "date": "2026-08-28T00:00:00.000Z",
+      "location": {
+        "name": "Ridge Royal Hotel",
+        "town": "Cape Coast",
+        "city": "Cape Coast",
+        "region": "Central"
+      },
+      "services": {
+        "photo": true,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": false,
+        "foodServices": false,
+        "beautician": false
+      }
     }
   ]
 }

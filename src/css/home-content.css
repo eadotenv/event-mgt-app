@@ -47,6 +47,8 @@
   margin: 80px auto;
   border: 1px solid var(--accent2);
   cursor: pointer;
+  padding: 8px 12px;
+  box-sizing: border-box;
 }
 .plan-event-container {
   grid-area: plan;
@@ -62,11 +64,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .event-header {
   display: flex;
-  width: 85%;
+  width: 100%;
 }
 
 .map-image {
@@ -89,8 +92,6 @@
     grid-area: close;
     width: 80%;
     margin: 80px auto;
-    border: 1px solid red;
-    /* padding: 10px; */
   }
 
   .plan-event-container {

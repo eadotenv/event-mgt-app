@@ -6,15 +6,18 @@
   flex-direction: column;
   gap: 10px;
   border-radius: 8px;
-  align-items: center;
-  padding-block: 16px;
+  padding: 8px 12px;
   background: var(--surface);
   width: 250px;
-  /* transition:
-    background 0.2s ease-in-out,
-    border-color 0.2s ease-in-out,
-    color 0.2s ease-in-out; */
+  box-sizing: border-box;
   cursor: pointer;
+}
+
+.cur-events {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
 }
 
 /* .cur-events-container:hover {
