@@ -44,6 +44,10 @@ files served by json-server.
   - Shows all categories by default; selecting a category narrows results
   - Category sections show vendor cards (photo, name, rate, location,
     rating, description) with a **View More** button per category
+  - **Vendor Detail Modal** with image gallery (prev/next navigation),
+    details tab, and notes tab for adding/editing/deleting notes about the vendor
+  - **Contact Modal** with call, email, and WhatsApp options
+  - **Add to Event / Remove from Event** toggle button
   - **Book Service** assigns a vendor to the current event (or prompts for an
     event when browsed standalone)
 - **Replan**: re-open the planning wizard for a past event and update it
@@ -154,6 +158,8 @@ event-app/
         ├── Event.tsx           #   active events grid
         ├── Details.tsx         #   /details/:id – details, services tab, checklist, program
         ├── VendorMarketplace.tsx # vendor marketplace (search + filters + booking)
+        ├── VendorDetailModal.tsx # vendor detail modal (image gallery, details, notes)
+        ├── ContactModal.tsx    # contact modal (call, email, WhatsApp)
         ├── Replan.tsx          #   /replan/:id – edit a past event
         ├── Services.tsx        #   placeholder (sidebar Services page)
         ├── Notifications.tsx   #   placeholder
@@ -221,12 +227,16 @@ sidebar and provides shared state (`step`, `showModal`, `setStep`,
   across 8 categories), not from json-server.
 - Search and filters (price range, location, category, rating) are applied
   client-side with `useMemo`.
-- Booking a vendor calls `PATCH /events/:id` and appends to the event's
-  `bookedVendors` array. With `autoBookEventId` set (the details page), the
-  vendor is booked directly to the current event; otherwise a modal prompts
-  the user to pick an event.
+- Clicking a vendor card opens `VendorDetailModal` with an image gallery
+  (supports multiple images with prev/next navigation), a details tab showing
+  vendor info (name, rate, owner, location, description), and a notes tab
+  where users can add, edit, and delete personal notes about the vendor.
+- From the detail modal, users can **Add to Event** / **Remove from Event**
+  or open `ContactModal` which displays call, email, and WhatsApp options.
+- With `autoBookEventId` set (the details page), the vendor is booked directly
+  to the current event; otherwise a modal prompts the user to pick an event.
 - Booked vendors appear in the **Services** section on the Details tab
-  (photo, name, rate, and a pending/confirmed/cancelled status badge).
+  (photo, name, rate, and owner).
 
 ### Replan a past event
 
@@ -283,23 +293,26 @@ interface ServiceData {
 interface Vendor {
   id: string;
   name: string;
+  owner: string;
   category: string;   // matches a ServiceData key
   rate: number;       // price in GHS
   location: string;
   rating: number;
   image: string;
+  images?: string[];  // additional images for gallery
   description: string;
 }
 
 interface BookedVendor {
   vendorId: string;
   name: string;
+  owner: string;
   category: string;
   rate: number;
   location: string;
   rating: number;
   image: string;
-  status: "pending" | "confirmed" | "cancelled";
+  contacted?: boolean;
 }
 
 interface ChecklistItem { itemId: string; item: string; isDone: boolean; }
@@ -350,7 +363,9 @@ npm run preview    # serve the built app locally
   marketplace is accessed through the **Services** tab on the event details
   page.
 - Vendor data is static and lives in `src/data/vendors.ts` (placeholder
-  images served from picsum.photos), not in json-server.
+  images served from picsum.photos, Unsplash, and Wikimedia), not in json-server.
+- Vendor notes in `VendorDetailModal` are stored locally in component state
+  and are not persisted to the backend.
 - `Reset.tsx` exists but is not registered in the router; it is reached from
   the verification flow and redirects to `/` after a successful reset.
 - The location catalog (`src/hooks/locations.ts`) covers all 16 Ghanaian

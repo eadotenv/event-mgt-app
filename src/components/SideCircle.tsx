@@ -15,7 +15,7 @@ function SideCircle({ step }: Props) {
         </div>
       ) : step === 2 ? (
         <div>
-          <div className="radio-text">
+          <div className="radio-text step-line">
             <GoCheckCircle size={28} className="" />
             <p className="">Event Title</p>
           </div>
@@ -26,11 +26,11 @@ function SideCircle({ step }: Props) {
         </div>
       ) : step === 3 ? (
         <div>
-          <div className="radio-text">
+          <div className="radio-text step-line">
             <GoCheckCircle size={28} className="" />
             <p className="">EventTitle</p>
           </div>
-          <div className="radio-text">
+          <div className="radio-text step-line">
             <GoCheckCircle size={28} className="" />
             <p className="">Details</p>
           </div>
@@ -41,11 +41,11 @@ function SideCircle({ step }: Props) {
         </div>
       ) : step > 3 ? (
         <div>
-          <div className="radio-text">
+          <div className="radio-text step-line">
             <GoCheckCircle size={28} className="" />
             <p className="">EventTitle</p>
           </div>
-          <div className="radio-text">
+          <div className="radio-text step-line">
             <GoCheckCircle size={28} className="" />
             <p className="">Details</p>
           </div>

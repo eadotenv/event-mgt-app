@@ -196,9 +196,11 @@
   .side-menu {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: flex-start; */
     height: 100%;
-    /* padding: 20px; */
+    /* gap: 20px; */
+
+    padding-bottom: 20px;
   }
 
   .menu-header {
@@ -262,6 +264,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 35vh;
+    margin-top: auto;
   }
 
   .provider-box {
@@ -367,6 +370,17 @@
     color: var(--accent1);
     margin: 20px;
     font-family: var(--font-body);
+    position: relative;
+  }
+
+  .step-line::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 100%;
+    width: 2px;
+    height: 20px;
+    background: var(--accent1);
   }
   .home-link {
     text-decoration: none;

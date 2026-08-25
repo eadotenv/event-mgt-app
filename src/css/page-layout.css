@@ -2,7 +2,7 @@
   display: grid;
   grid-template-rows: 1fr;
   grid-template-areas: "page";
-  min-height: 100vh;
+  height: 100vh;
   /* border: 5px solid red; */
 }
 
@@ -41,7 +41,16 @@
   .page-sidebar {
     grid-area: side;
     border-right: 1px solid var(--border);
-    padding: 20px 10px;
+    padding: 20px 10px 20px 10px;
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .page-sidebar::-webkit-scrollbar {
+    display: none;
   }
 
   .page-outlet {

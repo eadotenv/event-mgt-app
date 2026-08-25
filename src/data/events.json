@@ -92,7 +92,8 @@
         "event": true,
         "foodServices": true,
         "beautician": false
-      }
+      },
+      "bookedVendors": []
     },
     {
       "id": "c2f7",
