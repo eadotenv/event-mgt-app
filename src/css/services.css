@@ -1,7 +1,8 @@
 .services-page {
   padding: 20px;
   background: var(--card);
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .services-head {
