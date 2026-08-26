@@ -664,6 +664,27 @@
   opacity: 0.75;
 }
 
+@media (max-width: 991px) {
+  .booked-services-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 12px;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .booked-services-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .booked-vendor-card {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+  }
+}
+
 /* media query for desktop */
 @media (min-width: 992px) {
   .details {

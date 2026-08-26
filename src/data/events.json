@@ -93,7 +93,29 @@
         "foodServices": true,
         "beautician": false
       },
-      "bookedVendors": []
+      "bookedVendors": [
+        {
+          "vendorId": "v1",
+          "name": "PixelPerfect Studios",
+          "owner": "Sampson Oduro",
+          "category": "photography",
+          "rate": 2500,
+          "location": "Accra",
+          "rating": 4.8,
+          "image": "https://picsum.photos/seed/photo1/400/300"
+        },
+        {
+          "vendorId": "v10",
+          "name": "EventCanvas Decor",
+          "owner": "Efua Nyarko",
+          "category": "design",
+          "rate": 3500,
+          "location": "Accra",
+          "rating": 4.7,
+          "image": "https://picsum.photos/seed/des2/400/300",
+          "contacted": true
+        }
+      ]
     },
     {
       "id": "c2f7",
