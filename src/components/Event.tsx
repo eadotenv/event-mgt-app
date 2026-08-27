@@ -2,19 +2,11 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { format, isBefore, parseISO } from "date-fns";
-
-// Types
 import type { EventData } from "../entities/EventData";
-
-// Assets & Icons
 import map from "../assets/map.jpg";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdCalendarMonth } from "react-icons/md";
-
-// Components
 import NavBar from "./NavBar";
-
-// Style Assets
 import "../css/navbar.css";
 import "../css/event.css";
 import "../css/past-event.css";
@@ -39,12 +31,12 @@ function Event() {
     });
   }
 
-  // Filter out events that do not belong to the logged-in user
+  // filter out events that do not belong to the logged-in user
   const userFilteredEvents = userId
     ? userData.filter((event) => event.userId === userId)
     : [];
 
-  // Expiration boundary check
+  // expiration check
   const isEventExpired = (date: EventData["date"]) => {
     if (!date) return false;
 
@@ -60,14 +52,14 @@ function Event() {
     return isBefore(checkDate, new Date());
   };
 
-  // Comparable start time for sorting (string date or date range)
+  // comparable start time for sorting (string date or date range)
   const eventStartTime = (date: EventData["date"]): number => {
     if (typeof date === "string") return parseISO(date).getTime();
     if (Array.isArray(date)) return new Date(date[0]).getTime();
     return 0;
   };
 
-  // Get active, upcoming events (sorted by date, soonest first)
+  // get active, upcoming events (sorted by date, soonest first)
   const activeEvents = userFilteredEvents
     .filter((event) => !isEventExpired(event.date))
     .sort((a, b) => eventStartTime(a.date) - eventStartTime(b.date));
@@ -83,7 +75,7 @@ function Event() {
         <div className="events-grid">
           {activeEvents.map((event: EventData) => (
             <div
-              key={event.id} /* Use event.id for stable rendering tracking */
+              key={event.id} /* use event.id for stable rendering tracking */
               className="cur-events-container"
               onClick={() => handleDetails(event)}
             >

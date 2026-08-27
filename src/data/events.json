@@ -1046,7 +1046,19 @@
         "event": false,
         "foodServices": false,
         "beautician": false
-      }
+      },
+      "bookedVendors": [
+        {
+          "vendorId": "v1",
+          "name": "PixelPerfect Studios",
+          "owner": "Sampson Oduro",
+          "category": "photography",
+          "rate": 2500,
+          "location": "Accra",
+          "rating": 4.8,
+          "image": "https://picsum.photos/seed/photo1/400/300"
+        }
+      ]
     }
   ]
 }

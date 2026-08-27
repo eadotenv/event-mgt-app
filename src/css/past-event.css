@@ -47,7 +47,7 @@
 }
 
 .old-events-container {
-  width: 180px;
+  width: calc(var(--longest-location, 180px) + 60px);
   cursor: pointer;
 }
 
@@ -82,6 +82,7 @@
   background: var(--surface);
   border: 1px solid red;
   width: 100%;
+  padding: 10px;
 }
 
 .cur-events {

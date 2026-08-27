@@ -57,19 +57,25 @@ function PastEvents() {
     });
   };
 
+  const expiredEvents = filteredEvent
+    .filter((user) => isEventExpired(user.date))
+    .sort((a, b) => eventStartTime(b.date) - eventStartTime(a.date));
+
+  const longestLocation = expiredEvents.reduce((max, ev) => {
+    const loc = `${ev.location?.name ?? ""}, ${ev.location?.town ?? ""}`;
+    return loc.length > max.length ? loc : max;
+  }, "");
+
   return (
     <>
       <div className="past-event-container">
-        <div className="events-grid">
+        <div className="events-grid" style={{ "--longest-location": `${longestLocation.length}ch` } as React.CSSProperties}>
           {filteredEvent.length === 0 ? (
             // <div>
             <p className="past-text">You don't have any event to your name</p>
           ) : (
             // </div>
-            filteredEvent
-              .filter((user) => isEventExpired(user.date))
-              .sort((a, b) => eventStartTime(b.date) - eventStartTime(a.date))
-              .map((user: EventData, index) => (
+            expiredEvents.map((user: EventData, index) => (
                 <div
                   key={index}
                   className="old-events-container"

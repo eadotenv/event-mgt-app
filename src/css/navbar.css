@@ -87,6 +87,11 @@
   display: flex;
   gap: 20px;
   justify-content: center;
+  height: 100%;
+}
+
+.nav-item {
+  height: 100%;
 }
 
 .nav-header {
@@ -98,6 +103,9 @@
   border: none;
   font-size: var(--text-sm);
   position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .nav-link:hover {
@@ -117,7 +125,7 @@
   color: var(--ink);
   left: 0;
   background: var(--ink);
-  bottom: -6px;
+  bottom: -10px;
 }
 
 .mobile-menu-backdrop {
