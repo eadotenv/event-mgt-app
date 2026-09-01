@@ -1024,7 +1024,44 @@
         "event": false,
         "foodServices": true,
         "beautician": false
-      }
+      },
+      "checklist": [
+        {
+          "itemId": "1788202744640",
+          "item": "Variables",
+          "isDone": false
+        },
+        {
+          "itemId": "1788202752409",
+          "item": "Functions",
+          "isDone": false
+        },
+        {
+          "itemId": "1788202767840",
+          "item": "Fast API",
+          "isDone": false
+        }
+      ],
+      "program": [
+        {
+          "itemId": "1788203861066",
+          "time": "08:00",
+          "title": "Twitter",
+          "name": "Jonas"
+        },
+        {
+          "itemId": "1788202873278",
+          "time": "08:25",
+          "title": "Telegram",
+          "name": "Amos Pikin"
+        },
+        {
+          "itemId": "1788202826831",
+          "time": "08:30",
+          "title": "Youtube",
+          "name": "Code With Mosh"
+        }
+      ]
     },
     {
       "id": "38aa",

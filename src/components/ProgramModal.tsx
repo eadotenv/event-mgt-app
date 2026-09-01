@@ -30,7 +30,9 @@ function ProgramModal({
       name,
     };
 
-    const updatedProgram = [...program, newItem];
+    const updatedProgram = [...program, newItem].sort((a, b) =>
+      a.time.localeCompare(b.time),
+    );
     setProgram(updatedProgram);
     saveProgram(updatedProgram);
     setShowProgramModal(false);

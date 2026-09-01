@@ -66,7 +66,11 @@ function Details() {
           setItem(res.data.checklist);
         }
         if (res.data.program) {
-          setProgram(res.data.program);
+          setProgram(
+            [...res.data.program].sort((a, b) =>
+              a.time.localeCompare(b.time),
+            ),
+          );
         }
       })
       .catch((err) =>
@@ -114,9 +118,9 @@ function Details() {
   };
 
   const handleProgramEdit = (updated: ProgramItem) => {
-    const updatedProgram = program.map((p) =>
-      p.itemId === updated.itemId ? { ...p, ...updated } : p,
-    );
+    const updatedProgram = program
+      .map((p) => (p.itemId === updated.itemId ? { ...p, ...updated } : p))
+      .sort((a, b) => a.time.localeCompare(b.time));
     setProgram(updatedProgram);
     if (id) handleSaveProgram(id, updatedProgram);
     setOpenProgramId(null);
