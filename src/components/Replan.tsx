@@ -120,11 +120,7 @@ function Replan() {
   return (
     <div className="replan-container">
       <div className="replan-header">
-        <h3 className="replan-head">
-          {from === "details"
-            ? `Edit "${title || "event"}"`
-            : `Replanning ${title ? `"${title}"` : "event"}`}
-        </h3>
+        <h3 className="replan-head">Edit Event</h3>
         <button
           type="button"
           className="replan-close"
