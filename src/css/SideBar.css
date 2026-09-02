@@ -197,10 +197,11 @@
     display: flex;
     flex-direction: column;
     /* justify-content: flex-start; */
-    height: 100%;
+    height: 90%;
     /* gap: 20px; */
 
     padding-bottom: 20px;
+    border: 1px solid red;
   }
 
   .menu-header {
@@ -408,7 +409,7 @@
 
 .side-bar.collapsed .menu-label,
 .side-bar.collapsed .full-name,
-.side-bar.collapsed .settings,
+.side-bar.collapsed .settings-text,
 .side-bar.collapsed .provider-box {
   display: none;
 }
