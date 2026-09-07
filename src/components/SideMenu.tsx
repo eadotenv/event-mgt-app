@@ -27,6 +27,11 @@ function SideMenu({ menu, active, setActive, user, onNavigate }: Props) {
     navigate("/");
   };
 
+  const handleStartListing = () => {
+    setActive(1);
+    navigate("services", { state: { user } });
+  };
+
   return (
     <aside className="side-menu">
       <nav className="side-nav">
@@ -45,6 +50,9 @@ function SideMenu({ menu, active, setActive, user, onNavigate }: Props) {
               >
                 <item.icon size={18} className="service-icon" />
                 <span className="menu-label">{item.label}</span>
+                {item.label === "Notifications" && (
+                  <span className="notification-badge">Some</span>
+                )}
               </Link>
             </li>
           ))}
@@ -54,7 +62,7 @@ function SideMenu({ menu, active, setActive, user, onNavigate }: Props) {
       <div className="bottom-menu-container">
         <div className="provider-box">
           <h3 className="provider-head">Are you a service provider?</h3>
-          <button className="login-btn">Start listing</button>
+          <button className="login-btn" onClick={handleStartListing}>Start listing</button>
         </div>
         <div className="name-settings">
           <div className="name-div-wrapper">

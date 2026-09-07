@@ -57,6 +57,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const [eventsLoading, setEventsLoading] = useState(false);
   const [bookedVendors, setBookedVendors] = useState<BookedVendor[]>([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const handleResize = useCallback(() => {
     setIsMobile(window.innerWidth < 992);
@@ -333,29 +334,116 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
     <div className="services-page">
       <div className="search-filter-row">
         <div className="filter-row">
-          <button className={`filter-btn ${activeCategory ? "active" : ""}`}>
-            {activeCategory
-              ? categories.find((c) => c.key === activeCategory)?.label
-              : "Categories"}
-          </button>
+          <div className="filter-dropdown-wrapper">
+            <button
+              className={`filter-btn ${activeCategory ? "active" : ""}`}
+              onClick={() => setOpenDropdown(openDropdown === "category" ? null : "category")}
+            >
+              {activeCategory
+                ? categories.find((c) => c.key === activeCategory)?.label
+                : "Categories"}
+            </button>
+            {openDropdown === "category" && (
+              <div className="filter-dropdown">
+                <button
+                  className="filter-dropdown-item"
+                  onClick={() => {
+                    setActiveCategory(null);
+                    setOpenDropdown(null);
+                  }}
+                >
+                  All Categories
+                </button>
+                {categories.map((cat) => (
+                  <button
+                    key={cat.key}
+                    className="filter-dropdown-item"
+                    onClick={() => {
+                      setActiveCategory(cat.key);
+                      setOpenDropdown(null);
+                    }}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
-          <button
-            className={`filter-btn ${locationFilter !== "Locations" ? "active" : ""}`}
-          >
-            Location
-          </button>
+          <div className="filter-dropdown-wrapper">
+            <button
+              className={`filter-btn ${locationFilter !== "Locations" ? "active" : ""}`}
+              onClick={() => setOpenDropdown(openDropdown === "location" ? null : "location")}
+            >
+              {locationFilter}
+            </button>
+            {openDropdown === "location" && (
+              <div className="filter-dropdown">
+                {cityCapital.map((city) => (
+                  <button
+                    key={city}
+                    className="filter-dropdown-item"
+                    onClick={() => {
+                      setLocationFilter(city);
+                      setOpenDropdown(null);
+                    }}
+                  >
+                    {city}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
-          <button
-            className={`filter-btn ${priceFilter.label !== "Prices" ? "active" : ""}`}
-          >
-            Rates
-          </button>
+          <div className="filter-dropdown-wrapper">
+            <button
+              className={`filter-btn ${priceFilter.label !== "Prices" ? "active" : ""}`}
+              onClick={() => setOpenDropdown(openDropdown === "price" ? null : "price")}
+            >
+              {priceFilter.label}
+            </button>
+            {openDropdown === "price" && (
+              <div className="filter-dropdown">
+                {priceRange.map((price) => (
+                  <button
+                    key={price.label}
+                    className="filter-dropdown-item"
+                    onClick={() => {
+                      setPriceFilter(price);
+                      setOpenDropdown(null);
+                    }}
+                  >
+                    {price.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
-          <button
-            className={`filter-btn ${ratingFilter.label !== "Rating" ? "active" : ""}`}
-          >
-            Ratings
-          </button>
+          <div className="filter-dropdown-wrapper">
+            <button
+              className={`filter-btn ${ratingFilter.label !== "Rating" ? "active" : ""}`}
+              onClick={() => setOpenDropdown(openDropdown === "rating" ? null : "rating")}
+            >
+              {ratingFilter.label}
+            </button>
+            {openDropdown === "rating" && (
+              <div className="filter-dropdown">
+                {ratings.map((rating) => (
+                  <button
+                    key={rating.label}
+                    className="filter-dropdown-item"
+                    onClick={() => {
+                      setRatingFilter(rating);
+                      setOpenDropdown(null);
+                    }}
+                  >
+                    {rating.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           {hasActiveFilters && (
             <button className="clear-filters-btn" onClick={clearFilters}>
@@ -390,7 +478,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           const isExpanded = expandedCategory === catKey;
           const displayedVendors = isExpanded
             ? catVendors
-            : catVendors.slice(0, isMobile ? 4 : 6);
+            : catVendors.slice(0, 4);
 
           return (
             <div className="category-section" key={catKey}>
