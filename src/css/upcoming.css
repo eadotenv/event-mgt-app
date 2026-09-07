@@ -118,72 +118,146 @@
 .title-box {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
   width: 100%;
   background: var(--ink3);
   position: relative;
   pointer-events: auto;
+  padding: 40px 20px;
+}
+
+.title-header,
+.date-header {
+  text-align: center;
+  margin-top: 20px;
 }
 
 .title-head {
-  font-family: var(--font-body);
-  font-size: var(--text-md);
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
   text-align: center;
+  margin: 0 0 12px 0;
+  color: var(--ink);
 }
 
 .example-text {
-  font-family: var(--font-normal);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
   text-align: center;
-  line-height: 1.4rem;
-  color: var(--ink);
+  line-height: 1.5;
+  color: var(--ink7);
+  margin: 0;
 }
 
 .title-input {
   border: none;
-  font-size: var(--text-md);
-  font-weight: 600;
+  font-size: 2.5rem;
+  font-weight: 300;
   background: none;
   text-align: center;
-  padding: 8px;
+  padding: 20px;
   outline: none;
+  width: 100%;
+  max-width: 600px;
+  color: var(--ink);
+}
+
+.title-input::placeholder {
+  color: var(--ink5);
 }
 
 .title-btn {
-  width: 18%;
-  padding: 6px 8px;
+  width: 100%;
+  max-width: 400px;
+  padding: 16px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   background: var(--ink);
-  font-family: var(--font-normal);
+  font-family: var(--font-paragraph);
   font-size: var(--text-base);
   font-weight: 500;
   color: var(--card);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.title-btn:hover {
+  opacity: 0.9;
 }
 
 .title-disable {
-  width: 18%;
-  padding: 6px;
+  width: 100%;
+  max-width: 400px;
+  padding: 16px 24px;
   border: none;
-  border-radius: 5px;
-  background: #bfc6c4;
-  font-family: var(--font-normal);
+  border-radius: 8px;
+  background: var(--ink5);
+  font-family: var(--font-paragraph);
   font-size: var(--text-base);
   font-weight: 500;
   color: var(--card);
+  cursor: not-allowed;
 }
 
 .title-close-btn {
   border: none;
-  background: none;
+  background: var(--ink);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   position: absolute;
-  top: 3%;
-  right: 2%;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
 }
 
-.close-btn-icon,
+.title-close-btn:hover {
+  opacity: 0.8;
+}
+
+.date-back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.date-back-btn:hover {
+  color: var(--accent);
+}
+
+.calendar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.selected-date-text {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--ink);
+  text-align: center;
+  margin: 10px 0 20px;
+}
+
+.close-btn-icon {
+  color: var(--card);
+}
+
 .left-btn-icon {
   color: var(--ink);
 }
@@ -202,17 +276,66 @@
   background: none;
   font-family: var(--font-body);
   color: var(--ink);
+  font-size: var(--text-sm);
+  width: 100%;
+  max-width: 400px;
+}
+
+.cal .react-calendar__navigation {
+  margin-bottom: 20px;
+}
+
+.cal .react-calendar__navigation button {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--ink);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cal .react-calendar__month-view__weekdays {
   font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink7);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.cal .react-calendar__month-view__days__day {
+  padding: 10px 0;
 }
 
 .cal-color {
   color: var(--ink);
-  /* border-radius: 25%; */
+  border-radius: 50%;
 }
 
 .cal .react-calendar__tile--active {
   background-color: var(--ink) !important;
   color: white !important;
+  border-radius: 50%;
+}
+
+.cal .react-calendar__tile--range {
+  background-color: var(--ink6) !important;
+  color: var(--ink);
+  border-radius: 0;
+}
+
+.cal .react-calendar__tile--rangeStart {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.cal .react-calendar__tile--rangeEnd {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
 .single-date-text {

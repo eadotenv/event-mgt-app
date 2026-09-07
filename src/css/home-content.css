@@ -3,6 +3,7 @@
   background: var(--ink3);
   padding: 24px 32px;
   overflow-y: auto;
+  position: relative;
 }
 
 .home-header-row {
@@ -125,7 +126,8 @@
 .home-plan-emoji {
   width: 64px;
   height: 64px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='8' y='12' width='48' height='44' rx='6' fill='%23fff' stroke='%23ddd' stroke-width='2'/%3E%3Crect x='8' y='12' width='48' height='14' rx='6' fill='%23ff6b6b'/%3E%3Crect x='20' y='6' width='4' height='12' rx='2' fill='%23ddd'/%3E%3Crect x='40' y='6' width='4' height='12' rx='2' fill='%23ddd'/%3E%3Crect x='16' y='34' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3Crect x='28' y='34' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3Crect x='40' y='34' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3Crect x='16' y='46' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3Crect x='28' y='46' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3Crect x='40' y='46' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3C/svg%3E") center/contain no-repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='8' y='12' width='48' height='44' rx='6' fill='%23fff' stroke='%23ddd' stroke-width='2'/%3E%3Crect x='8' y='12' width='48' height='14' rx='6' fill='%23ff6b6b'/%3E%3Crect x='20' y='6' width='4' height='12' rx='2' fill='%23ddd'/%3E%3Crect x='40' y='6' width='4' height='12' rx='2' fill='%23ddd'/%3E%3Crect x='16' y='34' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3Crect x='28' y='34' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3Crect x='40' y='34' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3Crect x='16' y='46' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3Crect x='28' y='46' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3Crect x='40' y='46' width='8' height='8' rx='2' fill='%23ffd700'/%3E%3C/svg%3E")
+    center/contain no-repeat;
 }
 
 .home-plan-text {

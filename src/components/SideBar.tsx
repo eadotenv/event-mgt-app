@@ -58,6 +58,7 @@ function SideBar({
       active={active}
       setActive={setActive}
       onNavigate={onCloseDrawer}
+      showNotificationBadge={!isDetails}
     />
   );
 

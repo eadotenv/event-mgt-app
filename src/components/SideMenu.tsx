@@ -16,9 +16,17 @@ interface Props {
   setActive: (num: number) => void;
   user: User;
   onNavigate?: () => void;
+  showNotificationBadge?: boolean;
 }
 
-function SideMenu({ menu, active, setActive, user, onNavigate }: Props) {
+function SideMenu({
+  menu,
+  active,
+  setActive,
+  user,
+  onNavigate,
+  showNotificationBadge = true,
+}: Props) {
   const [showLogout, setShowLogout] = useState(false);
   const navigate = useNavigate();
 
@@ -50,7 +58,7 @@ function SideMenu({ menu, active, setActive, user, onNavigate }: Props) {
               >
                 <item.icon size={18} className="service-icon" />
                 <span className="menu-label">{item.label}</span>
-                {item.label === "Notifications" && (
+                {item.label === "Notifications" && showNotificationBadge && (
                   <span className="notification-badge">Some</span>
                 )}
               </Link>
@@ -62,7 +70,9 @@ function SideMenu({ menu, active, setActive, user, onNavigate }: Props) {
       <div className="bottom-menu-container">
         <div className="provider-box">
           <h3 className="provider-head">Are you a service provider?</h3>
-          <button className="login-btn" onClick={handleStartListing}>Start listing</button>
+          <button className="login-btn" onClick={handleStartListing}>
+            Start listing
+          </button>
         </div>
         <div className="name-settings">
           <div className="name-div-wrapper">

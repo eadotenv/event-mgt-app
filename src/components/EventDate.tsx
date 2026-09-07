@@ -12,8 +12,8 @@ interface Props {
   onClose: () => void;
   onSave: (value: Partial<EventData>) => void;
 }
+
 function EventDate({ onNext, onBack, onSave, onClose }: Props) {
-  // const [date, setDate] = useState("");
   const [range, setRange] = useState<ValuePiece | undefined>(null);
 
   const handleDayClick = (date: Date) => {
@@ -30,16 +30,49 @@ function EventDate({ onNext, onBack, onSave, onClose }: Props) {
     onSave({ date: range });
     onNext();
   };
+
+  const formatSelectedDate = () => {
+    if (!range) return "No date selected";
+    if (range instanceof Date) {
+      return format(range, "do MMMM, yyyy");
+    }
+    if (range[0].getMonth() === range[1].getMonth()) {
+      return `${format(range[0], "do")} – ${format(range[1], "do MMMM, yyyy")}`;
+    }
+    return `${format(range[0], "do MMMM, yyyy")} – ${format(range[1], "do MMMM, yyyy")}`;
+  };
+
   return (
     <div className="title">
       <div className="title-box">
-        <div className="date-box">
-          <h4 className="title-head">When will this Event happen?</h4>
-          <p className="example-text">
-            If the event will take place in multiple days, <br />
-            you can tap on multiple days
-          </p>
+        <button
+          type="button"
+          onClick={onBack}
+          className="date-back-btn"
+          aria-label="Go back"
+        >
+          <FaChevronLeft size={20} />
+        </button>
 
+        <button
+          type="button"
+          className="title-close-btn"
+          aria-label="Close"
+          onClick={onClose}
+        >
+          <IoClose size={20} className="close-btn-icon" />
+        </button>
+
+        <div className="date-header">
+          <h2 className="title-head">When will this event happen?</h2>
+          <p className="example-text">
+            If the event will take place on multiple days,
+            <br />
+            you can tap on multiples dates
+          </p>
+        </div>
+
+        <div className="calendar-wrapper">
           <Calendar
             selectRange
             showNeighboringMonth={false}
@@ -51,53 +84,16 @@ function EventDate({ onNext, onBack, onSave, onClose }: Props) {
             onChange={(value) => setRange(value as [Date, Date])}
             className="cal"
           />
-
-          <div className="">
-            {range ? (
-              range instanceof Date ? (
-                <p className="example-text">{format(range, "do MMM yyyy")}</p>
-              ) : (
-                <p className="example-text">
-                  {range[0].getMonth() === range[1].getMonth()
-                    ? `${format(range[0], "do")} – ${format(
-                        range[1],
-                        "do MMM yyyy",
-                      )}`
-                    : `${format(range[0], "do MMM yyyy")} – ${format(
-                        range[1],
-                        "do MMM yyyy",
-                      )}`}
-                </p>
-              )
-            ) : (
-              <p className="example-text">No date selected</p>
-            )}
-          </div>
         </div>
 
-        <button
-          type="button"
-          onClick={onBack}
-          className="left-btn"
-          aria-label="Close"
-        >
-          <FaChevronLeft size={16} className="left-btn-icon" />
-        </button>
+        <p className="selected-date-text">{formatSelectedDate()}</p>
+
         <button
           className={`${!range ? "title-disable" : "title-btn"}`}
           onClick={handleSubmit}
           disabled={!range}
         >
           Next
-        </button>
-
-        <button
-          type="button"
-          className="title-close-btn"
-          aria-label="Close"
-          onClick={onClose}
-        >
-          <IoClose size={20} className="close-btn-icon" />
         </button>
       </div>
     </div>

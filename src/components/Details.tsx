@@ -13,7 +13,6 @@ import CheckModal from "./CheckModal";
 import ProgramModal from "./ProgramModal";
 import VendorMarketplace from "./VendorMarketplace";
 import "../css/details.css";
-import note from "../assets/note.png";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdCalendarMonth } from "react-icons/md";
 import { GoArrowUpRight } from "react-icons/go";
@@ -39,6 +38,7 @@ function Details() {
   // useOutletContext<OutletContext>();
 
   const [active, setActive] = useState<number>(0);
+  const [serviceTab, setServiceTab] = useState<number>(0);
   const [event, setEvent] = useState<EventData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showCancelModal, setShowCancelModal] = useState<boolean>(false);
@@ -54,6 +54,7 @@ function Details() {
   );
 
   const detailTabs = [{ name: "Details" }, { name: "Services" }];
+  const serviceTabs = [{ name: "Details" }, { name: "Notes" }];
 
   useEffect(() => {
     if (!id) return;
@@ -67,9 +68,7 @@ function Details() {
         }
         if (res.data.program) {
           setProgram(
-            [...res.data.program].sort((a, b) =>
-              a.time.localeCompare(b.time),
-            ),
+            [...res.data.program].sort((a, b) => a.time.localeCompare(b.time)),
           );
         }
       })
@@ -421,9 +420,75 @@ function Details() {
                 </div>
               ) : (
                 <div className="book-services">
-                  <img src={note} className="note-icon" alt="Note icon" />
+                  <svg
+                    className="clipboard-icon"
+                    width="64"
+                    height="72"
+                    viewBox="0 0 64 72"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="8"
+                      y="10"
+                      width="48"
+                      height="56"
+                      rx="6"
+                      fill="#7C6FE0"
+                    />
+                    <rect
+                      x="12"
+                      y="10"
+                      width="40"
+                      height="12"
+                      rx="4"
+                      fill="#9B8FE8"
+                    />
+                    <rect
+                      x="24"
+                      y="4"
+                      width="16"
+                      height="12"
+                      rx="3"
+                      fill="#6B5DD3"
+                    />
+                    <rect
+                      x="16"
+                      y="30"
+                      width="32"
+                      height="4"
+                      rx="2"
+                      fill="#A99EEF"
+                    />
+                    <rect
+                      x="16"
+                      y="40"
+                      width="24"
+                      height="4"
+                      rx="2"
+                      fill="#A99EEF"
+                    />
+                    <rect
+                      x="16"
+                      y="50"
+                      width="28"
+                      height="4"
+                      rx="2"
+                      fill="#A99EEF"
+                    />
+                    <rect
+                      x="38"
+                      y="20"
+                      width="18"
+                      height="28"
+                      rx="3"
+                      fill="#FFB347"
+                      transform="rotate(15 38 20)"
+                    />
+                    <polygon points="38,48 42,46 40,52" fill="#FF8C42" />
+                  </svg>
                   <div className="book-text">
-                    <p>No services booked yet.</p>
+                    <p>No services book yet.</p>
                     <p>
                       <span
                         className="browse-services-link"
@@ -730,22 +795,56 @@ function Details() {
         ) : (
           /* ====== service panel ======*/
           <div className="services-tab-panel">
-            <VendorMarketplace
-              user={user}
-              autoBookEventId={id}
-              onVendorBooked={() => {
-                if (id) {
-                  axios
-                    .get<EventData>(`http://localhost:9000/events/${id}`)
-                    .then((res) => {
-                      setEvent(res.data);
-                    })
-                    .catch((err) =>
-                      console.error("Failed to refresh event", err),
-                    );
-                }
-              }}
-            />
+            <div className="service-sub-tabs">
+              {serviceTabs.map((tab, index) => (
+                <button
+                  key={index}
+                  className={`service-sub-tab ${serviceTab === index ? "service-sub-tab-active" : ""}`}
+                  onClick={() => setServiceTab(index)}
+                >
+                  {tab.name}
+                </button>
+              ))}
+            </div>
+
+            {serviceTab === 0 ? (
+              <VendorMarketplace
+                user={user}
+                autoBookEventId={id}
+                onVendorBooked={() => {
+                  if (id) {
+                    axios
+                      .get<EventData>(`http://localhost:9000/events/${id}`)
+                      .then((res) => {
+                        setEvent(res.data);
+                      })
+                      .catch((err) =>
+                        console.error("Failed to refresh event", err),
+                      );
+                  }
+                }}
+              />
+            ) : (
+              <div className="notes-panel">
+                <h3 className="notes-title">Note</h3>
+                <p className="notes-description">
+                  You can add notes of how things to remember about this service
+                  notes of how things to remember about this service.
+                </p>
+                <button className="notes-add-btn">Add</button>
+
+                <div className="notes-empty-state">
+                  <div className="notes-sticky-icon"></div>
+                  <p className="notes-empty-title">
+                    No notes found for this service
+                  </p>
+                  <p className="notes-empty-text">
+                    You can add notes of how things to remember about this
+                    service.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
