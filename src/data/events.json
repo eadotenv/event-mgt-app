@@ -1061,6 +1061,29 @@
           "title": "Youtube",
           "name": "Code With Mosh"
         }
+      ],
+      "bookedVendors": [
+        {
+          "vendorId": "v3",
+          "name": "GoldenFrame Films",
+          "owner": "Akosua Mensah",
+          "category": "photography",
+          "rate": 3200,
+          "location": "Accra",
+          "rating": 4.9,
+          "image": "https://picsum.photos/seed/photo3/400/300"
+        },
+        {
+          "vendorId": "v2",
+          "name": "LensCraft Media",
+          "owner": "Kwame Asante",
+          "category": "photography",
+          "rate": 1800,
+          "location": "Kumasi",
+          "rating": 4.5,
+          "image": "https://picsum.photos/seed/photo2/400/300",
+          "contacted": true
+        }
       ]
     },
     {

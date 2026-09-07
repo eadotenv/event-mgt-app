@@ -435,6 +435,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  align-items: center;
 }
 
 .filter-btn {
@@ -505,6 +506,47 @@
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+.search-bar-desktop {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .search-row-mobile {
+    display: none;
+  }
+
+  .search-bar-desktop {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    gap: 8px;
+    min-width: 260px;
+  }
+
+  .search-bar-icon {
+    color: var(--ink7);
+    flex-shrink: 0;
+  }
+
+  .search-bar-input {
+    border: none;
+    background: none;
+    outline: none;
+    font-family: var(--font-paragraph);
+    font-size: var(--text-sm);
+    color: var(--ink);
+    width: 100%;
+  }
+
+  .search-bar-input::placeholder {
+    color: var(--ink7);
+  }
 }
 
 .search-icon-btn {
@@ -590,22 +632,22 @@
 
 .vendor-status-tag {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 500;
+  bottom: 8px;
+  left: 8px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: var(--text-xs);
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: white;
 }
 
 .vendor-status-booked {
-  background: var(--accent);
-  color: var(--card);
+  background: #22c55e;
 }
 
 .vendor-status-contacted {
-  background: #4caf50;
-  color: var(--card);
+  background: #ef4444;
 }
 
 .vendor-body {

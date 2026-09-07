@@ -38,7 +38,6 @@ function Details() {
   // useOutletContext<OutletContext>();
 
   const [active, setActive] = useState<number>(0);
-  const [serviceTab, setServiceTab] = useState<number>(0);
   const [event, setEvent] = useState<EventData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showCancelModal, setShowCancelModal] = useState<boolean>(false);
@@ -54,7 +53,6 @@ function Details() {
   );
 
   const detailTabs = [{ name: "Details" }, { name: "Services" }];
-  const serviceTabs = [{ name: "Details" }, { name: "Notes" }];
 
   useEffect(() => {
     if (!id) return;
@@ -795,56 +793,22 @@ function Details() {
         ) : (
           /* ====== service panel ======*/
           <div className="services-tab-panel">
-            <div className="service-sub-tabs">
-              {serviceTabs.map((tab, index) => (
-                <button
-                  key={index}
-                  className={`service-sub-tab ${serviceTab === index ? "service-sub-tab-active" : ""}`}
-                  onClick={() => setServiceTab(index)}
-                >
-                  {tab.name}
-                </button>
-              ))}
-            </div>
-
-            {serviceTab === 0 ? (
-              <VendorMarketplace
-                user={user}
-                autoBookEventId={id}
-                onVendorBooked={() => {
-                  if (id) {
-                    axios
-                      .get<EventData>(`http://localhost:9000/events/${id}`)
-                      .then((res) => {
-                        setEvent(res.data);
-                      })
-                      .catch((err) =>
-                        console.error("Failed to refresh event", err),
-                      );
-                  }
-                }}
-              />
-            ) : (
-              <div className="notes-panel">
-                <h3 className="notes-title">Note</h3>
-                <p className="notes-description">
-                  You can add notes of how things to remember about this service
-                  notes of how things to remember about this service.
-                </p>
-                <button className="notes-add-btn">Add</button>
-
-                <div className="notes-empty-state">
-                  <div className="notes-sticky-icon"></div>
-                  <p className="notes-empty-title">
-                    No notes found for this service
-                  </p>
-                  <p className="notes-empty-text">
-                    You can add notes of how things to remember about this
-                    service.
-                  </p>
-                </div>
-              </div>
-            )}
+            <VendorMarketplace
+              user={user}
+              autoBookEventId={id}
+              onVendorBooked={() => {
+                if (id) {
+                  axios
+                    .get<EventData>(`http://localhost:9000/events/${id}`)
+                    .then((res) => {
+                      setEvent(res.data);
+                    })
+                    .catch((err) =>
+                      console.error("Failed to refresh event", err),
+                    );
+                }
+              }}
+            />
           </div>
         )}
       </div>

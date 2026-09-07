@@ -261,12 +261,20 @@
   flex-direction: column;
 }
 
-.vendor-modal-notes-label {
-  font-size: var(--text-sm);
-  font-family: var(--font-body);
+.vendor-modal-notes-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--ink);
-  margin-bottom: 8px;
+  margin: 0 0 12px 0;
+}
+
+.vendor-modal-notes-description {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink7);
+  line-height: 1.5;
+  margin: 0 0 20px 0;
 }
 
 .vendor-modal-notes-textarea {
@@ -281,6 +289,7 @@
   outline: none;
   background: var(--ink3);
   color: var(--ink);
+  margin-bottom: 12px;
 }
 
 .vendor-modal-notes-textarea::placeholder {
@@ -288,18 +297,19 @@
 }
 
 .vendor-modal-notes-add-btn {
-  margin-top: 12px;
-  padding: 10px 24px;
+  margin-top: 0;
+  padding: 12px 24px;
   border: none;
-  border-radius: 6px;
-  font-size: var(--text-base);
-  font-family: var(--font-body);
-  font-weight: 600;
+  border-radius: 8px;
+  font-size: var(--text-sm);
+  font-family: var(--font-paragraph);
+  font-weight: 500;
   cursor: pointer;
   background: var(--ink4);
   color: var(--ink7);
   transition: all 0.2s ease;
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .vendor-modal-notes-add-btn:not(:disabled) {
@@ -325,14 +335,16 @@
   padding: 40px 20px;
 }
 
-.vendor-modal-notes-empty-icon {
-  color: var(--ink4);
+.vendor-modal-notes-sticky-icon {
+  width: 64px;
+  height: 64px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='8' y='8' width='48' height='48' rx='4' fill='%23FFD93D'/%3E%3Crect x='8' y='8' width='48' height='12' rx='4' fill='%23F4C430'/%3E%3Crect x='44' y='4' width='12' height='16' rx='2' fill='%236BCB77' transform='rotate(15 50 12)'/%3E%3C/svg%3E") center/contain no-repeat;
   margin-bottom: 16px;
 }
 
 .vendor-modal-notes-empty-title {
-  font-size: var(--text-lg);
-  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-family: var(--font-heading);
   font-weight: 600;
   color: var(--ink);
   margin: 0 0 8px;
@@ -340,7 +352,7 @@
 
 .vendor-modal-notes-empty-text {
   font-size: var(--text-sm);
-  font-family: var(--font-normal);
+  font-family: var(--font-body);
   color: var(--ink7);
   margin: 0;
   max-width: 280px;

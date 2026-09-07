@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { categories, vendors } from "../data/vendors";
@@ -56,7 +56,17 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const [selectedEventId, setSelectedEventId] = useState("");
   const [eventsLoading, setEventsLoading] = useState(false);
   const [bookedVendors, setBookedVendors] = useState<BookedVendor[]>([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  const handleResize = useCallback(() => {
+    setIsMobile(window.innerWidth < 992);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
 
   useEffect(() => {
     if (autoBookEventId) {
@@ -448,6 +458,17 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
               Clear filters
             </button>
           )}
+
+          <div className="search-bar-desktop">
+            <IoSearch size={18} className="search-bar-icon" />
+            <input
+              type="text"
+              className="search-bar-input"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
         <div className="search-row-mobile">
           <button className="search-icon-btn" onClick={() => {}}>
@@ -476,7 +497,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           const isExpanded = expandedCategory === catKey;
           const displayedVendors = isExpanded
             ? catVendors
-            : catVendors.slice(0, 4);
+            : catVendors.slice(0, isMobile ? 4 : 6);
 
           return (
             <div className="category-section" key={catKey}>

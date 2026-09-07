@@ -3,7 +3,6 @@ import {
   IoClose,
   IoChevronBack,
   IoChevronForward,
-  IoBookOutline,
   IoPencil,
   IoTrash,
 } from "react-icons/io5";
@@ -177,7 +176,10 @@ function VendorDetailModal({
         ) : (
           <div className="vendor-modal-content">
             <div className="vendor-modal-notes-section">
-              <label className="vendor-modal-notes-label">Note</label>
+              <h3 className="vendor-modal-notes-title">Note</h3>
+              <p className="vendor-modal-notes-description">
+                You can add notes of how things to remember about this service notes of how things to remember about this service.
+              </p>
               <textarea
                 className="vendor-modal-notes-textarea"
                 placeholder="type notes here"
@@ -194,16 +196,12 @@ function VendorDetailModal({
 
               {notes.length === 0 ? (
                 <div className="vendor-modal-notes-empty">
-                  <IoBookOutline
-                    size={48}
-                    className="vendor-modal-notes-empty-icon"
-                  />
+                  <div className="vendor-modal-notes-sticky-icon"></div>
                   <h3 className="vendor-modal-notes-empty-title">
                     No notes found for this service
                   </h3>
                   <p className="vendor-modal-notes-empty-text">
-                    You can add notes of how things, to remember about this
-                    service.
+                    You can add notes of how things to remember about this service.
                   </p>
                 </div>
               ) : (
