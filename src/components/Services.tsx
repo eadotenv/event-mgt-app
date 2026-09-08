@@ -15,6 +15,10 @@ function Services() {
   const [businessOverview, setBusinessOverview] = useState("");
   const [businessLocation, setBusinessLocation] = useState("");
   const [travelRadius, setTravelRadius] = useState("");
+  const [whatsappNumber, setWhatsappNumber] = useState("");
+  const [website, setWebsite] = useState("");
+  const [twitterLink, setTwitterLink] = useState("");
+  const [instagramLink, setInstagramLink] = useState("");
   const [ninNumber, setNinNumber] = useState("");
   const [passportImage, setPassportImage] = useState<File | null>(null);
   const [imageError, setImageError] = useState("");
@@ -25,7 +29,8 @@ function Services() {
 
   const isStep1Valid =
     businessName && businessOverview && businessLocation && travelRadius;
-  const isStep2Valid = ninNumber && passportImage;
+  const isStep2Valid = whatsappNumber;
+  const isStep3Valid = ninNumber && passportImage;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -54,11 +59,21 @@ function Services() {
   const handleContinue = () => {
     if (currentStep === 1 && isStep1Valid) {
       setCurrentStep(2);
+    } else if (currentStep === 2 && isStep2Valid) {
+      setCurrentStep(3);
+    } else if (currentStep === 3 && isStep3Valid) {
+      setCurrentStep(4);
     }
   };
 
   const handleBack = () => {
-    setCurrentStep(1);
+    if (currentStep === 2) {
+      setCurrentStep(1);
+    } else if (currentStep === 3) {
+      setCurrentStep(2);
+    } else if (currentStep === 4) {
+      setCurrentStep(3);
+    }
   };
 
   const handleCloseModal = () => {
@@ -68,6 +83,10 @@ function Services() {
     setBusinessOverview("");
     setBusinessLocation("");
     setTravelRadius("");
+    setWhatsappNumber("");
+    setWebsite("");
+    setTwitterLink("");
+    setInstagramLink("");
     setNinNumber("");
     setPassportImage(null);
     setImageError("");
@@ -126,7 +145,7 @@ function Services() {
         <div className="services-modal-overlay" onClick={handleCloseModal}>
           <div className="services-modal" onClick={(e) => e.stopPropagation()}>
             <div className="services-modal-header">
-              {currentStep === 2 && (
+              {(currentStep === 2 || currentStep === 3 || currentStep === 4) && (
                 <button className="services-modal-back" onClick={handleBack}>
                   <MdArrowBack size={24} />
                 </button>
@@ -205,6 +224,71 @@ function Services() {
             {currentStep === 2 && (
               <>
                 <div className="services-form-group">
+                  <label className="services-label">WhatsApp number</label>
+                  <input
+                    type="text"
+                    className="services-input"
+                    placeholder="E.g. 233244000000"
+                    value={whatsappNumber}
+                    onChange={(e) => setWhatsappNumber(e.target.value)}
+                  />
+                </div>
+                <div className="services-form-group">
+                  <label className="services-label">
+                    Website (optional)
+                  </label>
+                  <input
+                    type="text"
+                    className="services-input"
+                    placeholder="E.g. site.com"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                  />
+                </div>
+                <div className="services-form-group">
+                  <label className="services-label">
+                    Twitter link (optional)
+                  </label>
+                  <input
+                    type="text"
+                    className="services-input"
+                    placeholder="E.g. twitter.com/kofi"
+                    value={twitterLink}
+                    onChange={(e) => setTwitterLink(e.target.value)}
+                  />
+                </div>
+                <div className="services-form-group">
+                  <label className="services-label">
+                    Instagram link (optional)
+                  </label>
+                  <input
+                    type="text"
+                    className="services-input"
+                    placeholder="E.g. twitter.com/kofi"
+                    value={instagramLink}
+                    onChange={(e) => setInstagramLink(e.target.value)}
+                  />
+                </div>
+                <div className="services-modal-buttons">
+                  <button
+                    className="services-modal-btn services-modal-btn-cancel"
+                    onClick={handleCloseModal}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="services-modal-btn services-modal-btn-continue"
+                    disabled={!isStep2Valid}
+                    onClick={handleContinue}
+                  >
+                    Continue
+                  </button>
+                </div>
+              </>
+            )}
+            {currentStep === 3 && (
+              <>
+                <div className="services-form-group">
                   <label className="services-label">
                     National Insurance Number/TIN
                   </label>
@@ -251,7 +335,82 @@ function Services() {
                   </button>
                   <button
                     className="services-modal-btn services-modal-btn-continue"
-                    disabled={!isStep2Valid}
+                    disabled={!isStep3Valid}
+                    onClick={handleContinue}
+                  >
+                    Continue
+                  </button>
+                </div>
+              </>
+            )}
+            {currentStep === 4 && (
+              <>
+                <div className="services-preview-section">
+                  <h3 className="services-preview-title">Business Information</h3>
+                  <div className="services-preview-item">
+                    <span className="services-preview-label">Business Name:</span>
+                    <span className="services-preview-value">{businessName}</span>
+                  </div>
+                  <div className="services-preview-item">
+                    <span className="services-preview-label">Overview:</span>
+                    <span className="services-preview-value">{businessOverview}</span>
+                  </div>
+                  <div className="services-preview-item">
+                    <span className="services-preview-label">Location:</span>
+                    <span className="services-preview-value">{businessLocation}</span>
+                  </div>
+                  <div className="services-preview-item">
+                    <span className="services-preview-label">Travel Radius:</span>
+                    <span className="services-preview-value">{travelRadius} km</span>
+                  </div>
+                </div>
+                <div className="services-preview-section">
+                  <h3 className="services-preview-title">Contact & Social</h3>
+                  <div className="services-preview-item">
+                    <span className="services-preview-label">WhatsApp:</span>
+                    <span className="services-preview-value">{whatsappNumber}</span>
+                  </div>
+                  {website && (
+                    <div className="services-preview-item">
+                      <span className="services-preview-label">Website:</span>
+                      <span className="services-preview-value">{website}</span>
+                    </div>
+                  )}
+                  {twitterLink && (
+                    <div className="services-preview-item">
+                      <span className="services-preview-label">Twitter:</span>
+                      <span className="services-preview-value">{twitterLink}</span>
+                    </div>
+                  )}
+                  {instagramLink && (
+                    <div className="services-preview-item">
+                      <span className="services-preview-label">Instagram:</span>
+                      <span className="services-preview-value">{instagramLink}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="services-preview-section">
+                  <h3 className="services-preview-title">Verification</h3>
+                  <div className="services-preview-item">
+                    <span className="services-preview-label">NIN/TIN:</span>
+                    <span className="services-preview-value">{ninNumber}</span>
+                  </div>
+                  {passportImage && (
+                    <div className="services-preview-item">
+                      <span className="services-preview-label">Passport:</span>
+                      <span className="services-preview-value">{passportImage.name}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="services-modal-buttons">
+                  <button
+                    className="services-modal-btn services-modal-btn-cancel"
+                    onClick={handleCloseModal}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="services-modal-btn services-modal-btn-continue"
                   >
                     Submit
                   </button>

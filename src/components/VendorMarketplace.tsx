@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { categories, vendors } from "../data/vendors";
@@ -44,6 +44,7 @@ interface Props {
 function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [priceFilter, setPriceFilter] = useState(priceRange[0]);
@@ -58,6 +59,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const [bookedVendors, setBookedVendors] = useState<BookedVendor[]>([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const mobileSearchRef = useRef<HTMLInputElement>(null);
 
   const handleResize = useCallback(() => {
     setIsMobile(window.innerWidth < 992);
@@ -126,6 +128,10 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
     locationFilter !== "Locations" ||
     ratingFilter.label !== "Rating";
 
+  const doSearch = () => {
+    setSearchTerm(searchInput);
+  };
+
   const clearFilters = () => {
     setActiveCategory(null);
     setExpandedCategory(null);
@@ -133,6 +139,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
     setLocationFilter(cityCapital[0]);
     setRatingFilter(ratings[0]);
     setSearchTerm("");
+    setSearchInput("");
   };
 
   const bookToEvent = async (eventId: string, vendor: Vendor) => {
@@ -460,26 +467,37 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           )}
 
           <div className="search-bar-desktop">
-            <IoSearch size={18} className="search-bar-icon" />
+            <button className="search-bar-icon-btn" onClick={doSearch} type="button">
+              <IoSearch size={18} className="search-bar-icon" />
+            </button>
             <input
               type="text"
               className="search-bar-input"
               placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchInput}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+                if (!e.target.value.trim()) setSearchTerm("");
+              }}
+              onKeyDown={(e) => e.key === "Enter" && doSearch()}
             />
           </div>
         </div>
         <div className="search-row-mobile">
-          <button className="search-icon-btn" onClick={() => {}}>
+          <button className="search-icon-btn" onClick={doSearch} type="button">
             <IoSearch size={20} />
           </button>
           <input
+            ref={mobileSearchRef}
             type="text"
             className="search-input"
             placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={searchInput}
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+              if (!e.target.value.trim()) setSearchTerm("");
+            }}
+            onKeyDown={(e) => e.key === "Enter" && doSearch()}
           />
         </div>
       </div>
