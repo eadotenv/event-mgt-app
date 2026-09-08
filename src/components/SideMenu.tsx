@@ -59,7 +59,7 @@ function SideMenu({
                 <item.icon size={18} className="service-icon" />
                 <span className="menu-label">{item.label}</span>
                 {item.label === "Notifications" && showNotificationBadge && (
-                  <span className="notification-badge">Some</span>
+                  <span className="notification-badge">Soon</span>
                 )}
               </Link>
             </li>

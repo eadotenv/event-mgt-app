@@ -1,9 +1,10 @@
+import NavBar from "./NavBar";
 import { useLocation } from "react-router-dom";
 import { useState, useRef } from "react";
 import { MdLocationOn, MdCloudUpload, MdArrowBack } from "react-icons/md";
 import type { User } from "../entities/User";
 import "../css/past-event.css";
-import "../css/services.css";
+import "../css/Services.css";
 
 function Services() {
   const location = useLocation();
@@ -73,39 +74,26 @@ function Services() {
   };
 
   return (
-    <div className="services-page-wrapper">
-      <h1 className="services-page-title">Services</h1>
+    <div className="page-bg">
+      <NavBar header="Services" />
       <div className="services-content">
         <div className="services-provider-card">
-          <div className="services-illustration">
-            <div className="services-phone-mockup">
-              <div className="phone-screen">
-                <div className="phone-header-bar"></div>
-                <div className="phone-list-item"></div>
-                <div className="phone-list-item"></div>
-                <div className="phone-list-item short"></div>
-                <div className="phone-check-badge">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="coin coin-1"></div>
-            <div className="coin coin-2"></div>
-            <div className="coin coin-3"></div>
-          </div>
+          <img
+            src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&h=300&fit=crop"
+            alt="Phone"
+            className="services-provider-image"
+          />
           <div className="services-provider-text">
-            <h2 className="services-provider-head">Become a</h2>
-            <h2 className="services-provider-head">service provider</h2>
+            <h3 className="services-provider-head">Become a</h3>
+            <h3 className="services-provider-head">service provider</h3>
             <p className="services-provider-desc">
-              Hi {firstName}, tap the button below to activate
+              Hi {firstName} tap the button to activate
             </p>
             <p className="services-provider-desc">
               your service provider profile to start
             </p>
             <p className="services-provider-desc">
-              offering your services and products to
+              offering your own services and products
             </p>
             <p className="services-provider-desc">customers</p>
             <button
@@ -175,7 +163,7 @@ function Services() {
                     value={travelRadius}
                     onChange={(e) => setTravelRadius(e.target.value)}
                   >
-                    <option value="">Select radius</option>
+                    <option value="">Select an option</option>
                     <option value="5">5 km</option>
                     <option value="10">10 km</option>
                     <option value="25">25 km</option>
@@ -209,7 +197,7 @@ function Services() {
                   <input
                     type="text"
                     className="services-input"
-                    placeholder="Enter your NIN or TIN"
+                    placeholder="Enter your PIN or TIN"
                     value={ninNumber}
                     onChange={(e) => setNinNumber(e.target.value)}
                   />

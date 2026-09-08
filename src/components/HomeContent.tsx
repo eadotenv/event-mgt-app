@@ -2,6 +2,7 @@ import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import "../css/home-content.css";
+import NavBar from "./NavBar";
 import Upcoming from "./Upcoming";
 import PastEvents from "./PastEvents";
 import type { EventData } from "../entities/EventData";
@@ -10,6 +11,7 @@ import axios from "axios";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdCalendarMonth } from "react-icons/md";
 import map from "../assets/map.jpg";
+import schedule from "../assets/schedule.png";
 import type { User } from "../entities/User";
 
 interface OutletContext {
@@ -101,82 +103,103 @@ function HomeContent() {
   }
 
   const closestEvent = getClosestUpcomingEvent();
+  const hasUpcomingEvents = filteredEvent.some((event) => !isEventExpired(event.date));
 
   return (
     <div className="home-page">
-      <div className="home-header-row">
-        <h1 className="home-page-title">Events</h1>
-        <div className="home-tabs">
-          <button
-            className={`home-tab ${active === 0 ? "home-tab-active" : ""}`}
-            onClick={() => setActive(0)}
-          >
-            Upcoming events
-          </button>
-          <button
-            className={`home-tab ${active === 1 ? "home-tab-active" : ""}`}
-            onClick={() => setActive(1)}
-          >
-            Past events
-          </button>
-        </div>
-      </div>
+      <NavBar
+        header="Events"
+        tabs={[{ name: "Upcoming events" }, { name: "Past events" }]}
+        active={active}
+        setActive={setActive}
+      />
+      <div className="home-page-content">
+        {active === 0 ? (
+          hasUpcomingEvents ? (
+            <div className="home-cards-row">
+              {closestEvent ? (
+                <div
+                  className="home-event-card"
+                  onClick={() => handleDetails(closestEvent)}
+                >
+                  <h2 className="home-event-title">{closestEvent.title}</h2>
+                  <div className="home-event-detail">
+                    <MdCalendarMonth size={20} className="home-detail-icon" />
+                    <span>
+                      {typeof closestEvent.date === "string"
+                        ? format(parseISO(closestEvent.date), "do MMMM, yyyy")
+                        : Array.isArray(closestEvent.date)
+                          ? format(
+                              new Date(closestEvent.date[0]),
+                              "do MMMM, yyyy",
+                            )
+                          : null}
+                    </span>
+                  </div>
+                  <div className="home-event-detail">
+                    <FaLocationDot size={18} className="home-detail-icon" />
+                    <span>
+                      {closestEvent.location?.name},{" "}
+                      {closestEvent.location?.town}
+                    </span>
+                  </div>
+                  <img src={map} className="home-event-map" alt="Event location" />
+                </div>
+              ) : (
+                <div className="home-event-card home-event-card--placeholder">
+                  <h2 className="home-event-title">&nbsp;</h2>
+                  <div className="home-event-detail">
+                    <MdCalendarMonth size={20} className="home-detail-icon" />
+                    <span>&nbsp;</span>
+                  </div>
+                  <div className="home-event-detail">
+                    <FaLocationDot size={18} className="home-detail-icon" />
+                    <span>&nbsp;</span>
+                  </div>
+                  <div className="home-event-map" />
+                </div>
+              )}
 
-      {active === 0 ? (
-        <div className="home-cards-row">
-          {closestEvent && (
-            <div
-              className="home-event-card"
-              onClick={() => handleDetails(closestEvent)}
-            >
-              <h2 className="home-event-title">{closestEvent.title}</h2>
-              <div className="home-event-detail">
-                <MdCalendarMonth size={20} className="home-detail-icon" />
-                <span>
-                  {typeof closestEvent.date === "string"
-                    ? format(parseISO(closestEvent.date), "do MMMM, yyyy")
-                    : Array.isArray(closestEvent.date)
-                      ? format(
-                          new Date(closestEvent.date[0]),
-                          "do MMMM, yyyy",
-                        )
-                      : null}
-                </span>
+              <div className="home-plan-card">
+                <div className="home-plan-emoji"></div>
+                <p className="home-plan-text">
+                  Got other events to plan?
+                  <br />
+                  Get started now
+                </p>
+                <button
+                  className="home-plan-btn"
+                  onClick={() => {
+                    setShowModal(true);
+                    setStep(1);
+                  }}
+                >
+                  Plan a new event
+                </button>
               </div>
-              <div className="home-event-detail">
-                <FaLocationDot size={18} className="home-detail-icon" />
-                <span>
-                  {closestEvent.location?.name},{" "}
-                  {closestEvent.location?.town}
-                </span>
-              </div>
-              <img src={map} className="home-event-map" alt="Event location" />
             </div>
-          )}
-
-          <div className="home-plan-card">
-            <div className="home-plan-emoji"></div>
-            <p className="home-plan-text">
-              Got other events to plan?
-              <br />
-              Get started now
-            </p>
-            <button
-              className="home-plan-btn"
-              onClick={() => {
-                setShowModal(true);
-                setStep(1);
-              }}
-            >
-              Plan a new event
-            </button>
+          ) : (
+            <div className="home-empty-state">
+              <img src={schedule} className="home-empty-image" alt="Calendar illustration" />
+              <h3 className="home-empty-head">Uh... oh</h3>
+              <p className="home-empty-text">You don't have any upcoming event yet.</p>
+              <button
+                className="home-empty-btn"
+                onClick={() => {
+                  setShowModal(true);
+                  setStep(1);
+                }}
+              >
+                Start planning
+              </button>
+            </div>
+          )
+        ) : (
+          <div className="home-past-wrapper">
+            <PastEvents />
           </div>
-        </div>
-      ) : (
-        <div className="home-past-wrapper">
-          <PastEvents />
-        </div>
-      )}
+        )}
+      </div>
 
       {showModal && (
         <Upcoming

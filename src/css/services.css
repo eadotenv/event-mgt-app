@@ -674,13 +674,13 @@
   display: block;
   margin: 12px auto 0;
   padding: 8px 16px;
-  border: 1px solid var(--border);
+  border: none;
   border-radius: 8px;
-  background: transparent;
+  background: var(--ink);
   font-family: var(--font-paragraph);
   font-size: var(--text-sm);
   cursor: pointer;
-  color: var(--accent);
+  color: var(--card);
 }
 
 .no-results {

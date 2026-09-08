@@ -497,7 +497,7 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
           const isExpanded = expandedCategory === catKey;
           const displayedVendors = isExpanded
             ? catVendors
-            : catVendors.slice(0, isMobile ? 4 : 6);
+            : catVendors.slice(0, 4);
 
           return (
             <div className="category-section" key={catKey}>
