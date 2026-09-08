@@ -54,6 +54,7 @@
   color: var(--ink);
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
+  margin-right: 8px;
 }
 
 .navbar-hamburger:hover {

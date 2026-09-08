@@ -412,7 +412,6 @@
     width: 100%;
     max-width: 100%;
   }
-
 }
 
 .services-page {
@@ -437,6 +436,8 @@
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
+  position: relative;
+  z-index: 10;
 }
 
 .filter-btn {
@@ -469,7 +470,7 @@
   border: 1px solid var(--border);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  z-index: 200;
   min-width: 160px;
   overflow: hidden;
 }
@@ -516,15 +517,25 @@
 @media (max-width: 991px) {
   .filter-row {
     flex-wrap: nowrap;
+    overflow: visible;
+    padding-bottom: 4px;
+    width: 100%;
+    position: relative;
+    z-index: 50;
+  }
+
+  .filter-row-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding-bottom: 4px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
     width: 100%;
   }
 
-  .filter-row::-webkit-scrollbar {
+  .filter-row-scroll::-webkit-scrollbar {
     display: none;
   }
 
@@ -540,6 +551,24 @@
 
   .search-bar-desktop {
     flex-shrink: 0;
+  }
+
+  .filter-dropdown-wrapper {
+    position: relative;
+    z-index: 60;
+  }
+
+  .filter-dropdown {
+    position: absolute;
+    top: 100%;
+    margin-top: 4px;
+    z-index: 300;
+    min-width: 160px;
+  }
+
+  .filter-dropdown--fixed {
+    position: fixed;
+    margin-top: 4px;
   }
 }
 
@@ -643,7 +672,9 @@
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .vendor-card:hover {
@@ -689,11 +720,11 @@
 }
 
 .vendor-status-booked {
-  background: #22c55e;
+  background: var(--booked-status);
 }
 
 .vendor-status-contacted {
-  background: #ef4444;
+  background: var(--contact-status);
 }
 
 .vendor-body {
@@ -701,7 +732,7 @@
 }
 
 .vendor-name {
-  font-family: var(--font-paragraph);
+  font-family: var(--font-inter);
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--ink);
@@ -709,7 +740,7 @@
 }
 
 .vendor-rate {
-  font-family: var(--font-paragraph);
+  font-family: var(--font-inter);
   font-size: var(--text-sm);
   color: var(--ink);
   opacity: 0.7;
@@ -723,7 +754,7 @@
   border: 1px solid var(--border);
   border-radius: 8px;
   background: #fff;
-  font-family: var(--font-paragraph);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
   cursor: pointer;
   color: #000;

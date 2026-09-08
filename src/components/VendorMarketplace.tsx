@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback, useRef } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { categories, vendors } from "../data/vendors";
@@ -57,18 +57,44 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   const [selectedEventId, setSelectedEventId] = useState("");
   const [eventsLoading, setEventsLoading] = useState(false);
   const [bookedVendors, setBookedVendors] = useState<BookedVendor[]>([]);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [dropdownPositions, setDropdownPositions] = useState<Record<string, number>>({});
   const mobileSearchRef = useRef<HTMLInputElement>(null);
+  const categoryRef = useRef<HTMLDivElement>(null);
+  const locationRef = useRef<HTMLDivElement>(null);
+  const priceRef = useRef<HTMLDivElement>(null);
+  const ratingRef = useRef<HTMLDivElement>(null);
+  const filterRowRef = useRef<HTMLDivElement>(null);
 
-  const handleResize = useCallback(() => {
-    setIsMobile(window.innerWidth < 992);
-  }, []);
+  const getDropdownPos = (ref: React.RefObject<HTMLDivElement | null>) => {
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      const dropdownWidth = 160;
+      const screenWidth = window.innerWidth;
+      const padding = 16;
+      
+      let left = rect.left;
+      
+      // Prevent dropdown from going off the right edge
+      if (left + dropdownWidth > screenWidth - padding) {
+        left = screenWidth - dropdownWidth - padding;
+      }
+      
+      // Prevent dropdown from going off the left edge
+      if (left < padding) {
+        left = padding;
+      }
+      
+      return { left, top: rect.bottom };
+    }
+    return { left: 16, top: 0 };
+  };
 
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+  const handleDropdownOpen = (name: string, ref: React.RefObject<HTMLDivElement | null>) => {
+    const pos = getDropdownPos(ref);
+    setDropdownPositions((prev) => ({ ...prev, [name + "_left"]: pos.left, [name + "_top"]: pos.top }));
+    setOpenDropdown(openDropdown === name ? null : name);
+  };
 
   useEffect(() => {
     if (autoBookEventId) {
@@ -340,134 +366,133 @@ function VendorMarketplace({ user, autoBookEventId, onVendorBooked }: Props) {
   return (
     <div className="services-page">
       <div className="search-filter-row">
-        <div className="filter-row">
-          <div className="filter-dropdown-wrapper">
-            <button
-              className={`filter-btn ${activeCategory ? "active" : ""}`}
-              onClick={() =>
-                setOpenDropdown(openDropdown === "category" ? null : "category")
-              }
-            >
-              {activeCategory
-                ? categories.find((c) => c.key === activeCategory)?.label
-                : "Categories"}
-            </button>
-            {openDropdown === "category" && (
-              <div className="filter-dropdown">
+        <div className="filter-row" ref={filterRowRef}>
+          <div className="filter-row-scroll">
+            <div className="filter-dropdown-wrapper" id="filter-category" ref={categoryRef}>
+              <button
+                className={`filter-btn ${activeCategory ? "active" : ""}`}
+                onClick={() => handleDropdownOpen("category", categoryRef)}
+              >
+                {activeCategory
+                  ? categories.find((c) => c.key === activeCategory)?.label
+                  : "Categories"}
+              </button>
+            </div>
+
+            <div className="filter-dropdown-wrapper" id="filter-location" ref={locationRef}>
+              <button
+                className={`filter-btn ${locationFilter !== "Locations" ? "active" : ""}`}
+                onClick={() => handleDropdownOpen("location", locationRef)}
+              >
+                {locationFilter}
+              </button>
+            </div>
+
+            <div className="filter-dropdown-wrapper" id="filter-price" ref={priceRef}>
+              <button
+                className={`filter-btn ${priceFilter.label !== "Prices" ? "active" : ""}`}
+                onClick={() => handleDropdownOpen("price", priceRef)}
+              >
+                {priceFilter.label}
+              </button>
+            </div>
+
+            <div className="filter-dropdown-wrapper" id="filter-rating" ref={ratingRef}>
+              <button
+                className={`filter-btn ${ratingFilter.label !== "Rating" ? "active" : ""}`}
+                onClick={() => handleDropdownOpen("rating", ratingRef)}
+              >
+                {ratingFilter.label}
+              </button>
+            </div>
+
+            {hasActiveFilters && (
+              <button className="clear-filters-btn" onClick={clearFilters}>
+                Clear filters
+              </button>
+            )}
+          </div>
+
+          {openDropdown === "category" && (
+            <div className="filter-dropdown filter-dropdown--fixed" style={{ left: dropdownPositions.category_left || 0, top: dropdownPositions.category_top || 0 }}>
+              <button
+                className="filter-dropdown-item"
+                onClick={() => {
+                  setActiveCategory(null);
+                  setOpenDropdown(null);
+                }}
+              >
+                All Categories
+              </button>
+              {categories.map((cat) => (
                 <button
+                  key={cat.key}
                   className="filter-dropdown-item"
                   onClick={() => {
-                    setActiveCategory(null);
+                    setActiveCategory(cat.key);
                     setOpenDropdown(null);
                   }}
                 >
-                  All Categories
+                  {cat.label}
                 </button>
-                {categories.map((cat) => (
-                  <button
-                    key={cat.key}
-                    className="filter-dropdown-item"
-                    onClick={() => {
-                      setActiveCategory(cat.key);
-                      setOpenDropdown(null);
-                    }}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="filter-dropdown-wrapper">
-            <button
-              className={`filter-btn ${locationFilter !== "Locations" ? "active" : ""}`}
-              onClick={() =>
-                setOpenDropdown(openDropdown === "location" ? null : "location")
-              }
-            >
-              {locationFilter}
-            </button>
-            {openDropdown === "location" && (
-              <div className="filter-dropdown">
-                {cityCapital.map((city) => (
-                  <button
-                    key={city}
-                    className="filter-dropdown-item"
-                    onClick={() => {
-                      setLocationFilter(city);
-                      setOpenDropdown(null);
-                    }}
-                  >
-                    {city}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="filter-dropdown-wrapper">
-            <button
-              className={`filter-btn ${priceFilter.label !== "Prices" ? "active" : ""}`}
-              onClick={() =>
-                setOpenDropdown(openDropdown === "price" ? null : "price")
-              }
-            >
-              {priceFilter.label}
-            </button>
-            {openDropdown === "price" && (
-              <div className="filter-dropdown">
-                {priceRange.map((price) => (
-                  <button
-                    key={price.label}
-                    className="filter-dropdown-item"
-                    onClick={() => {
-                      setPriceFilter(price);
-                      setOpenDropdown(null);
-                    }}
-                  >
-                    {price.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="filter-dropdown-wrapper">
-            <button
-              className={`filter-btn ${ratingFilter.label !== "Rating" ? "active" : ""}`}
-              onClick={() =>
-                setOpenDropdown(openDropdown === "rating" ? null : "rating")
-              }
-            >
-              {ratingFilter.label}
-            </button>
-            {openDropdown === "rating" && (
-              <div className="filter-dropdown">
-                {ratings.map((rating) => (
-                  <button
-                    key={rating.label}
-                    className="filter-dropdown-item"
-                    onClick={() => {
-                      setRatingFilter(rating);
-                      setOpenDropdown(null);
-                    }}
-                  >
-                    {rating.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {hasActiveFilters && (
-            <button className="clear-filters-btn" onClick={clearFilters}>
-              Clear filters
-            </button>
+              ))}
+            </div>
+          )}
+          {openDropdown === "location" && (
+            <div className="filter-dropdown filter-dropdown--fixed" style={{ left: dropdownPositions.location_left || 0, top: dropdownPositions.location_top || 0 }}>
+              {cityCapital.map((city) => (
+                <button
+                  key={city}
+                  className="filter-dropdown-item"
+                  onClick={() => {
+                    setLocationFilter(city);
+                    setOpenDropdown(null);
+                  }}
+                >
+                  {city}
+                </button>
+              ))}
+            </div>
+          )}
+          {openDropdown === "price" && (
+            <div className="filter-dropdown filter-dropdown--fixed" style={{ left: dropdownPositions.price_left || 0, top: dropdownPositions.price_top || 0 }}>
+              {priceRange.map((price) => (
+                <button
+                  key={price.label}
+                  className="filter-dropdown-item"
+                  onClick={() => {
+                    setPriceFilter(price);
+                    setOpenDropdown(null);
+                  }}
+                >
+                  {price.label}
+                </button>
+              ))}
+            </div>
+          )}
+          {openDropdown === "rating" && (
+            <div className="filter-dropdown filter-dropdown--fixed" style={{ left: dropdownPositions.rating_left || 0, top: dropdownPositions.rating_top || 0 }}>
+              {ratings.map((rating) => (
+                <button
+                  key={rating.label}
+                  className="filter-dropdown-item"
+                  onClick={() => {
+                    setRatingFilter(rating);
+                    setOpenDropdown(null);
+                  }}
+                >
+                  {rating.label}
+                </button>
+              ))}
+            </div>
           )}
 
           <div className="search-bar-desktop">
-            <button className="search-bar-icon-btn" onClick={doSearch} type="button">
+            <button
+              className="search-bar-icon-btn"
+              onClick={doSearch}
+              type="button"
+            >
               <IoSearch size={18} className="search-bar-icon" />
             </button>
             <input

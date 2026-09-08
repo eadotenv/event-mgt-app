@@ -20,9 +20,9 @@
   width: 100%;
 }
 
-/* .cur-events-container:hover {
-  background: var(--ink);
-  color: var(--card);
-  border-color: var(--ink);
-  cursor: pointer;
-} */
+.map-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+}

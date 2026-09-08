@@ -91,7 +91,7 @@
 
 .past-head {
   font-size: var(--text-md);
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
 }
 
 .cal-icon-text {
