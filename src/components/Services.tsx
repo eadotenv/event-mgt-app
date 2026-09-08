@@ -78,11 +78,25 @@ function Services() {
       <NavBar header="Services" />
       <div className="services-content">
         <div className="services-provider-card">
-          <img
-            src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&h=300&fit=crop"
-            alt="Phone"
-            className="services-provider-image"
-          />
+          <div className="services-illustration">
+            <div className="services-phone-mockup">
+              <div className="phone-screen">
+                <div className="phone-header-bar" />
+                <div className="phone-list-item" />
+                <div className="phone-list-item short" />
+                <div className="phone-list-item" />
+                <div className="phone-list-item short" />
+              </div>
+              <div className="phone-check-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+            </div>
+            <div className="coin coin-1" />
+            <div className="coin coin-2" />
+            <div className="coin coin-3" />
+          </div>
           <div className="services-provider-text">
             <h3 className="services-provider-head">Become a</h3>
             <h3 className="services-provider-head">service provider</h3>

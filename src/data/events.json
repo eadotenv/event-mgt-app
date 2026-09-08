@@ -1119,6 +1119,72 @@
           "image": "https://picsum.photos/seed/photo1/400/300"
         }
       ]
+    },
+    {
+      "id": "9ffc",
+      "userId": "ffd0",
+      "title": "Go to the beach",
+      "date": "2026-09-26T00:00:00.000Z",
+      "location": {
+        "name": "Atlantic Hotel",
+        "town": "Cape Coast",
+        "city": "Cape Coast",
+        "region": "Central"
+      },
+      "services": {
+        "photo": true,
+        "entertainment": false,
+        "design": false,
+        "hiring": false,
+        "transport": true,
+        "event": false,
+        "foodServices": true,
+        "beautician": false
+      },
+      "bookedVendors": [
+        {
+          "vendorId": "v2",
+          "name": "LensCraft Media",
+          "owner": "Kwame Asante",
+          "category": "photography",
+          "rate": 1800,
+          "location": "Kumasi",
+          "rating": 4.5,
+          "image": "https://picsum.photos/seed/photo2/400/300"
+        },
+        {
+          "vendorId": "v3",
+          "name": "GoldenFrame Films",
+          "owner": "Akosua Mensah",
+          "category": "photography",
+          "rate": 3200,
+          "location": "Accra",
+          "rating": 4.9,
+          "image": "https://picsum.photos/seed/photo3/400/300",
+          "contacted": true
+        },
+        {
+          "vendorId": "v14",
+          "name": "PartyRent Hub",
+          "owner": "Akua Boateng",
+          "category": "hiring",
+          "rate": 1500,
+          "location": "Kumasi",
+          "rating": 4.1,
+          "image": "https://picsum.photos/seed/hire3/400/300"
+        },
+        {
+          "vendorId": "v16",
+          "name": "ShuttlePro",
+          "owner": "Nana Kwame",
+          "category": "transport",
+          "rate": 1800,
+          "location": "Kumasi",
+          "rating": 4.2,
+          "image": "https://picsum.photos/seed/trans2/400/300",
+          "contacted": true
+        }
+      ]
     }
   ]
 }
