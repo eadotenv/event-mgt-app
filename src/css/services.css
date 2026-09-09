@@ -440,6 +440,13 @@
   z-index: 10;
 }
 
+.filter-row-scroll {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
 .filter-btn {
   padding: 8px 16px;
   border: 1px solid var(--border);
@@ -474,6 +481,7 @@
   min-width: 160px;
   overflow: hidden;
 }
+
 
 .filter-dropdown-item {
   display: block;
@@ -566,13 +574,18 @@
     min-width: 160px;
   }
 
-  .filter-dropdown--fixed {
-    position: fixed;
-    margin-top: 4px;
-  }
+}
+
+.filter-dropdown--fixed {
+  position: fixed !important;
+  margin-top: 4px;
 }
 
 @media (min-width: 992px) {
+  .filter-row {
+    flex-wrap: nowrap;
+  }
+
   .search-row-mobile {
     display: none;
   }
